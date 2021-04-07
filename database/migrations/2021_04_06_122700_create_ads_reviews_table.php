@@ -15,6 +15,10 @@ class CreateAdsReviewsTable extends Migration
     {
         Schema::create('ads_reviews', function (Blueprint $table) {
             $table->id();
+            $table->string('comment')->nullable();
+            $table->float('rating')->default(0);
+            $table->foreignId('ads_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
         });

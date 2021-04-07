@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionSetsTable extends Migration
+class CreateAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateOptionSetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('option_sets', function (Blueprint $table) {
+        Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->enum('type', ['Flied', 'Dropdown', 'Checkbox', 'Date', 'Time', 'Datetime']);
+            $table->string('name')->comment('Location name');
+            $table->string('address')->nullable();
+            $table->point('position')->nullable()->comment('longitude, latitude');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateOptionSetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_sets');
+        Schema::dropIfExists('areas');
     }
 }

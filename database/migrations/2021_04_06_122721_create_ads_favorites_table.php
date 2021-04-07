@@ -15,6 +15,8 @@ class CreateAdsFavoritesTable extends Migration
     {
         Schema::create('ads_favorites', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ads_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
         });
