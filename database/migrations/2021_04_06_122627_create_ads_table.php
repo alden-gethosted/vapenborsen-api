@@ -22,6 +22,8 @@ class CreateAdsTable extends Migration
             $table->string('phone',15)->nullable();
             $table->string('contact_time')->nullable();
             $table->string('brand')->nullable();
+            $table->string('category')->nullable();
+            $table->string('product_types')->nullable();
             $table->string('photo')->nullable()->comment('Primary Photo');
             $table->double('price')->default(0);
             $table->text('descriptions', 500)->nullable();
@@ -30,6 +32,8 @@ class CreateAdsTable extends Migration
             $table->enum('status', ['Publish', 'Pending', 'Canceled', 'Expire'])->default('Publish');
             $table->date('expire')->comment('Auto Set on after 60 days from created date by default');
             $table->foreignId('product_brands_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
+            $table->foreignId('product_categories_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
+            $table->foreignId('product_types_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('companies_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('ads_packages_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('products_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');

@@ -20,14 +20,14 @@ class CreateProductsTable extends Migration
             $table->text('descriptions', 500)->nullable();
             $table->boolean('is_disable')->default(0);
             $table->string('photo')->nullable();
-            $table->double('price')->default(0)->default('Default Price not mandatory');
+            $table->double('price')->default(0)->comment('Default Price not mandatory');
             $table->foreignId('product_categories_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('product_types_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('product_brands_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->unique(['name', 'product_categories_id', 'product_types_id', 'product_brands_id']);
+            $table->unique(['name', 'product_categories_id', 'product_brands_id']);
         });
     }
 
