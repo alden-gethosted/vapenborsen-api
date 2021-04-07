@@ -15,6 +15,7 @@ class CreateSearchSavesTable extends Migration
     {
         Schema::create('search_saves', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductBrandsTable extends Migration
+class CreateAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateProductBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_brands', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('origin')->nullable();
-            $table->string('description')->nullable();
-            $table->string('logo')->nullable();
+            $table->boolean('is_filterable')->default(0)->comment('0 is not filterable');
+            $table->foreignId('attribute_sets_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['name', 'attribute_sets_id']);
         });
     }
 
@@ -31,6 +32,6 @@ class CreateProductBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_brands');
+        Schema::dropIfExists('attributes');
     }
 }

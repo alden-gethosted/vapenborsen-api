@@ -15,6 +15,7 @@ class CreateAdsFavoritesTable extends Migration
     {
         Schema::create('ads_favorites', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

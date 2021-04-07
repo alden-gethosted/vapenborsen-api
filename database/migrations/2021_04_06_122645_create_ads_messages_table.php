@@ -15,6 +15,7 @@ class CreateAdsMessagesTable extends Migration
     {
         Schema::create('ads_messages', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

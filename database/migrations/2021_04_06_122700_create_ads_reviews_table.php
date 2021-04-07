@@ -15,6 +15,7 @@ class CreateAdsReviewsTable extends Migration
     {
         Schema::create('ads_reviews', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

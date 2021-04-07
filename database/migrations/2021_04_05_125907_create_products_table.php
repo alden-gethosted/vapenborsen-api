@@ -13,8 +13,12 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {//This is the main ads as products
             $table->id();
+            $table->string('name');
+            $table->foreignId('product_categories_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
+            $table->foreignId('product_types_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

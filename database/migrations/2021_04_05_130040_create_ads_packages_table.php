@@ -15,6 +15,7 @@ class CreateAdsPackagesTable extends Migration
     {
         Schema::create('ads_packages', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ class CreatePurchasePackagesTable extends Migration
     {
         Schema::create('purchase_packages', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
