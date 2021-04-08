@@ -17,7 +17,8 @@ class CreateAreasTable extends Migration
             $table->id();
             $table->string('name')->comment('Location name');
             $table->string('address')->nullable();
-            $table->point('position')->nullable()->comment('longitude, latitude');
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -20,8 +20,72 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'status',
+        'types',
+        'contact',
+        'website',
         'password',
     ];
+
+
+    public function ads()
+    {
+        return $this->hasMany('App\Models\Ad', 'users_id');
+    }
+
+    public function adsFavorites()
+    {
+        return $this->hasMany('App\Models\AdsFavorite', 'users_id');
+    }
+
+
+    public function adsMessages()
+    {
+        return $this->hasMany('App\Models\AdsMessage', 'users_id');
+    }
+
+
+    public function adsReviews()
+    {
+        return $this->hasMany('App\Models\AdsReview', 'users_id');
+    }
+
+
+    public function companies()
+    {
+        return $this->hasMany('App\Models\Company', 'users_id');
+    }
+
+
+    public function coupons()
+    {
+        return $this->hasMany('App\Models\Coupon', 'users_id');
+    }
+
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification', 'users_id');
+    }
+
+
+    public function purchasePackages()
+    {
+        return $this->hasMany('App\Models\PurchasePackage', 'users_id');
+    }
+
+
+    public function searchSaves()
+    {
+        return $this->hasMany('App\Models\SearchSafe', 'users_id');
+    }
+
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Models\Subscription', 'seller_id');
+    }
+
 
     /**
      * The attributes that should be hidden for arrays.
