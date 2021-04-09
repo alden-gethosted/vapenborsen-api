@@ -82,7 +82,9 @@ class AuthController extends Controller
 
     public function me()
     {
-        return response()->json(Auth::user());
+        $table = Auth::user();
+        $table->makeHidden(['created_at','updated_at', 'deleted_at']);
+        return response()->json($table);
     }
 
     public function logout()
