@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Product\CategoryController;
+use App\Http\Controllers\Product\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/category', CategoryController::class);
+    Route::resource('/product/tag', TagController::class);
 });
 
 /**
