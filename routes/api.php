@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 
 Route::middleware(['auth:api'])->group(function () {
+    Route::get('/product/category/tree', [CategoryController::class, 'category_tree']);
     Route::resource('/product/category', CategoryController::class);
 });
 

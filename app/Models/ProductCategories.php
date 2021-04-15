@@ -21,7 +21,7 @@ class ProductCategories extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -61,5 +61,15 @@ class ProductCategories extends Model
     public function products()
     {
         return $this->hasMany('App\Models\Product', 'product_categories_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\ProductCategories','parents_id')->where('parents_id', null)->with('parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\ProductCategories','parents_id')->with('children');
     }
 }

@@ -167,4 +167,18 @@ class CategoryController extends Controller
 
         return response()->json(config('naz.del'));
     }
+
+    public function category_tree(){
+
+        try{
+            $table = ProductCategories::with('parent', 'children')->where('id', 2)->get();
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return response()->json($table);
+
+
+    }
 }
