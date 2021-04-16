@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\TypesController;
+use App\Http\Controllers\Product\BrandController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:api'])->group(function () {
 
+    Route::resource('/product/brand', BrandController::class);
     Route::resource('/product/types', TypesController::class);
 
     Route::get('/product/category/tree', [CategoryController::class, 'category_tree']);
