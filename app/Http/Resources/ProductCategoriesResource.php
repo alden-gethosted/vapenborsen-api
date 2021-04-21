@@ -18,8 +18,8 @@ class ProductCategoriesResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parents_id' => $this->parents_id,
-            'parent' => $this->parent->name ?? null,
-            'icon' => isset($this->icon) ? asset($this->icon) : null
+            'parent' => $this->parent->name ?? '',
+            'icon' => isset($this->icon) ? asset($this->icon) : ''
         ];
     }
 }

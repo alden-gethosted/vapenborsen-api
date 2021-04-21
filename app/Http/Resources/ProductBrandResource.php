@@ -19,7 +19,7 @@ class ProductBrandResource extends JsonResource
             'name' => $this->name,
             'origin' => $this->origin,
             'description' => $this->description,
-            'logo' => isset($this->logo) ? asset($this->logo) : null
+            'logo' => isset($this->logo) ? asset($this->logo) : ''
         ];
     }
 }
