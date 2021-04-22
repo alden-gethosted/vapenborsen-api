@@ -58,4 +58,12 @@ class AdsPackage extends Model
     {
         return $this->hasMany('App\Models\PurchasePackage', 'ads_packages_id');
     }
+
+    public function scopeActive( $query, $value ) {
+        return $query->where( 'active', $value );
+    }
+
+    public function scopeType( $query, $value ) {
+        return $query->where( 'types', $value );
+    }
 }
