@@ -3,83 +3,107 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttributeSetResource;
+use App\Models\AttributeSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AttributeSetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        try{
+            $table = AttributeSet::orderBy('id', 'DESC')->get();
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return AttributeSetResource::collection($table);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:191'
+        ]);
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
+        try{
+
+            $table = new AttributeSet();
+            $table->name = $request->name;
+            $table->save();
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return new AttributeSetResource($table);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        try{
+
+            $table = AttributeSet::find($id);
+
+            if(!$table)
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return new AttributeSetResource($table);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:191'
+        ]);
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
+        try{
+
+            $table = AttributeSet::find($id);
+            $table->name = $request->name;
+            $table->save();
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return new AttributeSetResource($table);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
+        try{
+
+            AttributeSet::destroy($id);
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return response()->json(config('naz.del'));
     }
 }

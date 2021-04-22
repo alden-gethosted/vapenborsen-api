@@ -11,6 +11,9 @@ use App\Http\Controllers\Advertisement\AdPackageController;
 // use App\Http\Controllers\Advertisement\AdReviewController;
 // use App\Http\Controllers\Advertisement\AdFavouriteController;
 // use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Product\AttributeController;
+use App\Http\Controllers\Product\AttributeSetController;
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,10 +33,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 
 Route::middleware(['auth:api'])->group(function () {
-
+    Route::resource('/product/attribute', AttributeController::class);
+    Route::resource('/product/attribute-set', AttributeSetController::class);
     Route::resource('/product/brand', BrandController::class);
     Route::resource('/product/types', TypesController::class);
-
     Route::get('/product/category/tree', [CategoryController::class, 'category_tree']);
     Route::resource('/product/category', CategoryController::class);
     Route::resource('/product/tag', TagController::class);
@@ -43,6 +46,7 @@ Route::middleware(['auth:api'])->group(function () {
     // Route::resource('/ads.reviews', AdReviewController::class);
     // Route::resource('/ads.favourite', AdFavouriteController::class);
     // Route::resource('/users.companies', CompanyController::class);
+    Route::resource('/product', ProductController::class);
 });
 
 /**
