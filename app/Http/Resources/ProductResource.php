@@ -28,8 +28,8 @@ class ProductResource extends JsonResource
             'types' => $this->productType->name ?? '',
             'product_brands_id' => $this->product_brands_id,
             'brand' => $this->productBrand->name ?? '',
-            'product_attribute' => ProductAttributeResource::collection($this->productAttributes()->get())
-            //'product_tags' => AttributeLinkResource::collection($this->productTags()->get()),
+            'product_attribute' => ProductAttributeResource::collection($this->productAttributes()->get()),
+            'product_tags' => ProductTagResource::collection($this->productTags()->get())
         ];
     }
 }
