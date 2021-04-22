@@ -19,7 +19,8 @@ class ProductCategoriesResource extends JsonResource
             'name' => $this->name,
             'parents_id' => $this->parents_id,
             'parent' => $this->parent->name ?? '',
-            'icon' => isset($this->icon) ? asset($this->icon) : ''
+            'icon' => isset($this->icon) ? asset($this->icon) : '',
+            'link_attribute' => AttributeLinkResource::collection($this->attributeLinks()->get())
         ];
     }
 }

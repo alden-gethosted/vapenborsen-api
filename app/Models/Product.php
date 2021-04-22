@@ -30,7 +30,7 @@ class Product extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -53,7 +53,7 @@ class Product extends Model
      */
     public function productCategory()
     {
-        return $this->belongsTo('App\Models\ProductCategory', 'product_categories_id');
+        return $this->belongsTo('App\Models\ProductCategories', 'product_categories_id');
     }
 
     /**
