@@ -14,6 +14,7 @@ use App\Http\Controllers\Advertisement\AdPackageController;
 use App\Http\Controllers\Product\AttributeController;
 use App\Http\Controllers\Product\AttributeSetController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\CouponController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,6 +48,7 @@ Route::middleware(['auth:api'])->group(function () {
     // Route::resource('/ads.favourite', AdFavouriteController::class);
     // Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
+    Route::resource('/coupons', CouponController::class);
 });
 
 /**
