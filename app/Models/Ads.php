@@ -52,7 +52,7 @@ class Ads extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -60,7 +60,12 @@ class Ads extends Model
     /**
      * @var array
      */
-    protected $fillable = ['product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'ads_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['areas_id', 'product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'ads_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Area', 'areas_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

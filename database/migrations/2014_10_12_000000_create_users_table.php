@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('website')->nullable();
             $table->boolean('status')->default(1)->comment('Status 1 means active');
             $table->enum('types',['Customer', 'Admin'])->default('Customer');
+            $table->string('address')->nullable();
+            $table->string('description')->nullable();
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

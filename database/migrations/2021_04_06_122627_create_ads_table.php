@@ -31,6 +31,7 @@ class CreateAdsTable extends Migration
             $table->boolean('is_shipping')->default(0)->comment('0 mean shipping not available');
             $table->enum('status', ['Publish', 'Pending', 'Canceled', 'Expire'])->default('Publish');
             $table->date('expire')->comment('Auto Set on after 60 days from created date by default');
+            $table->foreignId('areas_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('product_brands_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('product_categories_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('product_types_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');

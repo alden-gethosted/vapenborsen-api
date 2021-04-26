@@ -18,7 +18,7 @@ class Area extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -27,5 +27,10 @@ class Area extends Model
      * @var array
      */
     protected $fillable = ['name', 'address', 'longitude', 'latitude', 'deleted_at', 'created_at', 'updated_at'];
+
+    public function ads()
+    {
+        return $this->hasMany('App\Models\Ads', 'areas_id');
+    }
 
 }
