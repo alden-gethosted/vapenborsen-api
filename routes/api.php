@@ -8,7 +8,7 @@ use App\Http\Controllers\Product\BrandController;
 use App\Http\Controllers\AreaController;
 // use App\Http\Controllers\Advertisement\AdPackageController;
 // use App\Http\Controllers\Advertisement\AdController;
-// use App\Http\Controllers\Advertisement\AdReviewController;
+use App\Http\Controllers\Advertisement\AdReviewController;
 // use App\Http\Controllers\Advertisement\AdFavouriteController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Product\AttributeController;
@@ -44,7 +44,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/area', AreaController::class);
     Route::resource('/ads/package', AdPackageController::class);
     // Route::resource('/ads', AdController::class);
-    // Route::resource('/ads.reviews', AdReviewController::class);
+    Route::resource('/ads.reviews', AdReviewController::class);
     // Route::resource('/ads.favourite', AdFavouriteController::class);
     Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
