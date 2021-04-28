@@ -96,7 +96,7 @@ class Ads extends Model
      */
     public function productCategory()
     {
-        return $this->belongsTo('App\Models\ProductCategory', 'product_categories_id');
+        return $this->belongsTo('App\Models\ProductCategories', 'product_categories_id');
     }
 
     /**
@@ -185,5 +185,21 @@ class Ads extends Model
     public function notifications()
     {
         return $this->hasMany('App\Models\Notification', 'ads_id');
+    }
+
+    public function scopeState( $query, $value ) {
+        return $query->where( 'state', $value );
+    }
+
+    public function scopeStatus( $query, $value ) {
+        return $query->where( 'status', $value );
+    }
+
+    public function scopeUsed( $query, $value ) {
+        return $query->where( 'is_used', $value );
+    }
+
+    public function scopeShipping( $query, $value ) {
+        return $query->where( 'is_shipping', $value );
     }
 }
