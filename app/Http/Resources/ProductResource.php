@@ -22,12 +22,9 @@ class ProductResource extends JsonResource
             'is_disable' => $this->is_disable ? 'Yes':'No',
             'price' => $this->price,
             'photo' => isset($this->photo) ? asset($this->photo) : '',
-            'product_categories_id' => $this->product_categories_id,
-            'category' => $this->productCategory->name ?? '',
-            'product_types_id' => $this->product_types_id,
-            'types' => $this->productType->name ?? '',
-            'product_brands_id' => $this->product_brands_id,
-            'brand' => $this->productBrand->name ?? '',
+            'category' => new ProductCategoriesResource($this->productCategory),
+            'types' => new ProductTypeResource($this->productType),
+            'brand' => new ProductBrandResource($this->productBrand),
             'product_attribute' => ProductAttributeResource::collection($this->productAttributes()->get()),
             'product_tags' => ProductTagResource::collection($this->productTags()->get())
         ];

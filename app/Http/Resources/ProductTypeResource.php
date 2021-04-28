@@ -17,8 +17,7 @@ class ProductTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'product_categories_id' => $this->product_categories_id,
-            'product_categories' => $this->productCategory->name ?? ''
+            'product_categories' => new ProductCategoriesResource($this->productCategory)
         ];
     }
 }

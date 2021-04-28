@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Package\PackageController;
+use App\Http\Controllers\Package\PackagePurchaseController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\TagController;
 use App\Http\Controllers\Product\TypesController;
@@ -45,8 +47,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/category', CategoryController::class);
     Route::resource('/product/tag', TagController::class);
     Route::resource('/area', AreaController::class);
-    Route::resource('/ads/package', AdPackageController::class);
+
+   // Route::resource('/ads/package', AdPackageController::class);
     Route::resource('/ads', AdController::class);
+
+    Route::resource('/package/purchase', PackagePurchaseController::class);
+    Route::resource('/package', PackageController::class);
+
     Route::resource('/ads.reviews', AdReviewController::class);
     Route::resource('/ads.favourite', AdFavouriteController::class);
     Route::resource('/users.companies', CompanyController::class);
