@@ -17,9 +17,12 @@ class UserResource extends JsonResource
         return [
             'id'            => $this->id,
             'name'          => $this->name,
-            'email'       => isset( $this->address ) ? $this->address : '',
-            'longitude'     => isset( $this->longitude ) ? $this->longitude : '',
-            'latitude'      => isset( $this->latitude ) ? $this->latitude : '',
+            'email'       => $this->email,
+            'website'       => $this->website,
+            'status'       => $this->status ? 'Active':'Inactive',
+            'address'       => $this->address,
+            'description'       => $this->description,
+            'photo'       => isset($this->photo) ? asset($this->photo) : ''
         ];
     }
 }

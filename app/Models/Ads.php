@@ -78,7 +78,7 @@ class Ads extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function company()
+    public function companies()
     {
         return $this->belongsTo('App\Models\Company', 'companies_id');
     }

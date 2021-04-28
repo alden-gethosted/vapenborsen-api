@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\TagController;
 use App\Http\Controllers\Product\TypesController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Product\AttributeController;
 use App\Http\Controllers\Product\AttributeSetController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+Route::post('/customer/register', [UserController::class, 'register']);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/attribute', AttributeController::class);
@@ -49,6 +52,8 @@ Route::middleware(['auth:api'])->group(function () {
     // Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);
+
+    Route::resource('/customer', CustomerController::class);
 });
 
 /**

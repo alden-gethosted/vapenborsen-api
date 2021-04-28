@@ -29,6 +29,7 @@ class AuthController extends Controller
             $table->name = $request->name;
             $table->email = $request->email;
             $table->password = bcrypt($request->password);
+            $table->types = 'Admin';
             $table->save();
 
             $accessToken = $table->createToken('authToken')->accessToken;
