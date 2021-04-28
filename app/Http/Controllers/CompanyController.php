@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CompanyResource;
 use App\Traits\UploadTrait;
@@ -22,13 +23,18 @@ class CompanyController extends Controller
     public function index($user_id)
     {
         try {
+            $user = User::find( $user_id );
+
+            if( !$user ) {
+                return response()->json('User Not Found');
+            }
+
             $companies = Company::where( 'users_id', $user_id )->orderBy('id', 'DESC')->get();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return CompanyResource::collection($companies);
-        //return response()->json($areas);
     }
 
     /**
@@ -52,6 +58,12 @@ class CompanyController extends Controller
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try {
+            $user = User::find( $user_id );
+
+            if( !$user ) {
+                return response()->json('User Not Found');
+            }
+
             $company = new Company();
             
             $company->name           = $request->name;
@@ -97,6 +109,12 @@ class CompanyController extends Controller
     public function show( $user_id, $id )
     {
         try{
+            $user = User::find( $user_id );
+
+            if( !$user ) {
+                return response()->json('User Not Found');
+            }
+
             $company = Company::where( 'users_id', $user_id )->find($id);
 
         } catch (\Exception $ex) {
@@ -130,6 +148,12 @@ class CompanyController extends Controller
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
 
         try {
+
+            $user = User::find( $user_id );
+
+            if( !$user ) {
+                return response()->json('User Not Found');
+            }
 
             $company = Company::where( 'users_id', $user_id )->find($id);
           
@@ -176,6 +200,12 @@ class CompanyController extends Controller
     public function destroy( $user_id, $id )
     {
         try{
+            $user = User::find( $user_id );
+
+            if( !$user ) {
+                return response()->json('User Not Found');
+            }
+            
             Company::where( 'users_id', $user_id )->where('id', $id)->delete();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
