@@ -15,9 +15,10 @@ class CompanyResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'       => $this->id,
             'users_id' => $this->users_id,
-            'name' => $this->name,
-            'logo' => isset( $this->logo ) ? $this->logo : '',
+            'name'     => $this->name,
+            'logo'     => isset( $this->logo ) ? $this->logo : '',
             'description' => isset( $this->description ) ? $this->description : '', 
             'contact' => isset( $this->contact ) ? $this->contact : '',
             'contact_person' => isset( $this->contact_person ) ? $this->contact_person : '',
