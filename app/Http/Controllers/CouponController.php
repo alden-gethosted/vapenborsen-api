@@ -34,10 +34,13 @@ class CouponController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'code'       => 'required|string|min:3|unique:Coupons,code',
-            'amount'     => 'required',
-            'is_percent' => 'required',
-            'status'     => 'required'
+            'code'             => 'required|string|min:3|unique:Coupons,code',
+            'amount'           => 'required|numeric',
+            'is_percent'       => 'required|boolean',
+            'status'           => 'required|in:Active,Used,Inactive',
+            'ads_packages_id'  => 'sometimes|nullable|exists:ads_packages,id',
+            'users_id'         => 'sometimes|nullable|exists:users,id',
+            'expire'           => 'sometimes|nullable|date',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -45,18 +48,9 @@ class CouponController extends Controller
         try {
 
             $coupon = new Coupon();
-           
-            if( isset( $request->ads_packages_id ) ) {
-                $coupon->ads_packages_id = $request->ads_packages_id;
-            }
-
-            if( isset( $request->ads_packages_id ) ) {
-                $coupon->users_id        = $request->users_id;
-            }
-
-            if( isset( $request->expire ) ) {
-                $coupon->expire = $request->expire;
-            }
+            $coupon->ads_packages_id = $request->ads_packages_id;
+            $coupon->users_id        = $request->users_id;
+            $coupon->expire          = $request->expire;
 
             $coupon->code            = $request->code;
             $coupon->amount          = $request->amount;
@@ -99,10 +93,13 @@ class CouponController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'code'       => 'required|string|min:3|unique:Coupons,code',
-            'amount'     => 'required',
-            'is_percent' => 'required',
-            'status'     => 'required'
+            'code'             => 'required|string|min:3|unique:Coupons,code',
+            'amount'           => 'required|numeric',
+            'is_percent'       => 'required|boolean',
+            'status'           => 'required|in:Active,Used,Inactive',
+            'ads_packages_id'  => 'sometimes|nullable|exists:ads_packages,id',
+            'users_id'         => 'sometimes|nullable|exists:users,id',
+            'expire'           => 'sometimes|nullable|date',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
