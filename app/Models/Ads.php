@@ -62,7 +62,7 @@ class Ads extends Model
      */
     protected $fillable = ['areas_id', 'product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'ads_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
 
-    public function company()
+    public function areas()
     {
         return $this->belongsTo('App\Models\Area', 'areas_id');
     }
