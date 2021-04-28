@@ -62,7 +62,7 @@ class Ads extends Model
      */
     protected $fillable = ['areas_id', 'product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'ads_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
 
-    public function company()
+    public function area()
     {
         return $this->belongsTo('App\Models\Area', 'areas_id');
     }
@@ -96,7 +96,7 @@ class Ads extends Model
      */
     public function productCategory()
     {
-        return $this->belongsTo('App\Models\ProductCategory', 'product_categories_id');
+        return $this->belongsTo('App\Models\ProductCategories', 'product_categories_id');
     }
 
     /**
@@ -185,5 +185,21 @@ class Ads extends Model
     public function notifications()
     {
         return $this->hasMany('App\Models\Notification', 'ads_id');
+    }
+
+    public function scopeState( $query, $value ) {
+        return $query->where( 'state', $value );
+    }
+
+    public function scopeStatus( $query, $value ) {
+        return $query->where( 'status', $value );
+    }
+
+    public function scopeUsed( $query, $value ) {
+        return $query->where( 'is_used', $value );
+    }
+
+    public function scopeShipping( $query, $value ) {
+        return $query->where( 'is_shipping', $value );
     }
 }
