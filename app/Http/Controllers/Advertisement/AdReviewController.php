@@ -35,9 +35,9 @@ class AdReviewController extends Controller
     public function store( $ad_id, Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'comment'  => 'required',
-            'rating'   => 'required',
-            'users_id' => 'required',
+            'comment'  => 'required|string',
+            'rating'   => 'required|integer',
+            'users_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -90,9 +90,9 @@ class AdReviewController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'comment'  => 'required',
-            'rating'   => 'required',
-            'users_id' => 'required',
+            'comment'  => 'required|string',
+            'rating'   => 'required|integer',
+            'users_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));

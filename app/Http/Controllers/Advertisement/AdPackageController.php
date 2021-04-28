@@ -27,12 +27,14 @@ class AdPackageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'       => 'required|string|max:191',
-            'types'      => 'required',
-            'quantity'   => 'required',
-            'price'      => 'required',
-            'expire_day' => 'required',
-            'status'     => 'required'
+            'name'         => 'required|string|max:191|unique:ads_packages,name',
+            'types'        => 'required|in:Premium,Free',
+            'quantity'     => 'required|integer',
+            'price'        => 'required|numeric',
+            'expire_day'   => 'required|integer',
+            'status'       => 'required|boolean',
+            'banner'       => 'sometimes|nullable|mimes:jpg,bmp,png',
+            'description'  => 'sometimes|nullable|string',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -46,10 +48,7 @@ class AdPackageController extends Controller
             $table->expire_day  = $request->expire_day;
             $table->price       = $request->price;
             $table->status      = $request->status;
-
-            if( isset( $request->description ) ) {
-                $table->description = $request->description;
-            }
+            $table->description = $request->description;
 
             if ($request->has('banner')) {
                 // Get image file
@@ -69,6 +68,7 @@ class AdPackageController extends Controller
             $table->save();
 
         }catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -95,13 +95,16 @@ class AdPackageController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'       => 'required|string|max:191',
-            'types'      => 'required',
-            'quantity'   => 'required',
-            'price'      => 'required',
-            'expire_day' => 'required',
-            'status'     => 'required'
+            'name'         => 'required|string|max:191|unique:ads_packages,name',
+            'types'        => 'required|in:Premium,Free',
+            'quantity'     => 'required|integer',
+            'price'        => 'required|numeric',
+            'expire_day'   => 'required|integer',
+            'status'       => 'required|boolean',
+            'banner'       => 'sometimes|nullable|mimes:jpg,bmp,png',
+            'description'  => 'sometimes|nullable|string',
         ]);
+        
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try{
@@ -113,10 +116,7 @@ class AdPackageController extends Controller
             $table->expire_day  = $request->expire_day;
             $table->price       = $request->price;
             $table->status      = $request->status;
-
-            if( isset( $request->description ) ) {
-                $table->description = $request->description;
-            }
+            $table->description = $request->description;
 
             if ($request->has('banner')) {
                 // Get image file

@@ -23,17 +23,6 @@ class AreaController extends Controller
         }
 
         return AreaResource::collection($areas);
-        //return response()->json($areas);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -45,27 +34,21 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3|unique:Areas,name',
+            'name'          => 'required|string|min:3|unique:Areas,name',
+            'address'       => 'sometimes|string',
+            'longitude'     => 'sometimes|numeric',
+            'latitude'      => 'sometimes|numeric',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try {
 
-            $area       = new Area();
-            $area->name = $request->name;
-          
-            if ( isset( $request->address ) ) {
-                $area->address   = $request->address;
-            }
-
-            if ( isset( $request->longitude ) ) {
-                $area->longitude = $request->longitude;
-            }
-
-            if ( isset( $request->latitude ) ) {
-                $area->latitude = $request->latitude;
-            }
+            $area            = new Area();
+            $area->name      = $request->name;
+            $area->address   = $request->address;
+            $area->longitude = $request->longitude;
+            $area->latitude  = $request->latitude;
             
             $area->save();
 
@@ -93,18 +76,6 @@ class AreaController extends Controller
         }
 
         return new AreaResource($area);
-        // return response()->json($area);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -118,28 +89,21 @@ class AreaController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3|unique:Areas,name',
+            'name'          => 'required|string|min:3|unique:Areas,name',
+            'address'       => 'sometimes|string',
+            'longitude'     => 'sometimes|numeric',
+            'latitude'      => 'sometimes|numeric',
         ]);
 
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
 
         try {
-
             $area = Area::find($id);
             $area->name = $request->name;
-
-            if ( isset( $request->address ) ) {
-                $area->address   = $request->address;
-            }
-
-            if ( isset( $request->longitude ) ) {
-                $area->longitude = $request->longitude;
-            }
-
-            if ( isset( $request->latitude ) ) {
-                $area->latitude = $request->latitude;
-            }
-          
+            $area->address   = $request->address;
+            $area->longitude = $request->longitude;
+            $area->latitude = $request->latitude;
+            
             $area->save();
 
         } catch (\Exception $ex) {
@@ -147,8 +111,6 @@ class AreaController extends Controller
         }
 
         return new AreaResource($area);
-
-        // return response()->json( $area );
     }
 
     /**
