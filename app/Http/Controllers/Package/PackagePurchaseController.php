@@ -7,6 +7,7 @@ use App\Http\Resources\PackagePurchaseResource;
 use App\Models\AdsPackage;
 use App\Models\PurchasePackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PackagePurchaseController extends Controller
@@ -128,5 +129,16 @@ class PackagePurchaseController extends Controller
         }
 
         return response()->json(config('naz.del'));
+    }
+
+    public function my_order()
+    {
+        try{
+            $table = PurchasePackage::orderBy('id', 'DESC')->where('users_id', Auth::id())->get();
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return PackagePurchaseResource::collection($table);
     }
 }

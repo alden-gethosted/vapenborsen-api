@@ -51,6 +51,7 @@ Route::middleware(['auth:api'])->group(function () {
    // Route::resource('/ads/package', AdPackageController::class);
     Route::resource('/ads', AdController::class);
 
+    Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
     Route::resource('/package/purchase', PackagePurchaseController::class);
     Route::resource('/package', PackageController::class);
 
