@@ -11,11 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class AdMessageController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         try{
 
-            $table =  AdsMessage::orderBy('id', 'DESC')->get();
+            $tablex =  AdsMessage::orderBy('id', 'DESC');
+                if (isset($request->ads_id)) {
+                    $tablex->where('ads_id', $request->ads_id);
+                }
+            $table = $tablex->get();
 
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));

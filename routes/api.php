@@ -3,6 +3,7 @@
 use App\Http\Controllers\Advertisement\AdMessageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\SubscribeController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Package\PackagePurchaseController;
 use App\Http\Controllers\Product\CategoryController;
@@ -51,9 +52,9 @@ Route::middleware(['auth:api'])->group(function () {
 
    // Route::resource('/ads/package', AdPackageController::class);
     Route::get('/ads/message', [AdMessageController::class, 'index']);
-    Route::get('/ads/message/{id}', [AdMessageController::class, 'message']);
+    Route::get('/ads/message/{ads_id}', [AdMessageController::class, 'message']);
     Route::post('/ads/message', [AdMessageController::class, 'store']);
-    Route::delete('/ads/message', [AdMessageController::class, 'destroy']);
+    Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
 
     Route::resource('/ads', AdController::class);
 
@@ -67,7 +68,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);
 
+    Route::resource('/customer/subscribe', SubscribeController::class);
     Route::resource('/customer', CustomerController::class);
+
 });
 
 /**

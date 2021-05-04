@@ -10,11 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($ad_id)
     {
         try{
@@ -26,12 +22,7 @@ class AdReviewController extends Controller
         return AdReviewsResource::collection($reviews);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store( $ad_id, Request $request )
     {
         $validator = Validator::make($request->all(), [
@@ -53,19 +44,13 @@ class AdReviewController extends Controller
             $adReview->save();
 
         } catch (\Exception $ex) {
-            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new AdReviewsResource($adReview);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($ad_id, $id)
     {
         try{
@@ -79,13 +64,7 @@ class AdReviewController extends Controller
         return new AdReviewsResource($adReview);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update( $ad_id, Request $request, $id )
     {
 
@@ -114,18 +93,12 @@ class AdReviewController extends Controller
         return new AdReviewsResource($adReview);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy( $ad_id, $id )
     {
         try{
             AdsReview::where( 'ads_id', $ad_id )->where('id', $id)->delete();
         }catch (\Exception $ex) {
-            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
