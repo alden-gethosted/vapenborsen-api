@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Advertisement\AdMessageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Package\PackageController;
@@ -49,6 +50,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/area', AreaController::class);
 
    // Route::resource('/ads/package', AdPackageController::class);
+    Route::get('/ads/message', [AdMessageController::class, 'index']);
+    Route::get('/ads/message/{id}', [AdMessageController::class, 'message']);
+    Route::post('/ads/message', [AdMessageController::class, 'store']);
+    Route::delete('/ads/message', [AdMessageController::class, 'destroy']);
+
     Route::resource('/ads', AdController::class);
 
     Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);

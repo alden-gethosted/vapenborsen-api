@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\AdsResource;
 use App\Models\Ads;
 use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use App\Models\AdsItem;
 use App\Models\AdsTag;
@@ -18,11 +19,7 @@ use Illuminate\Support\Str;
 class AdController extends Controller
 {
     use UploadTrait;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         try {
@@ -34,14 +31,8 @@ class AdController extends Controller
         return AdsResource::collection($ads);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {        
+    {
         $validator = Validator::make($request->all(), [
             'name'                  => 'required|string|min:3|unique:ads,name',
             'state'                 => 'required|in:Weapon,Accessories,Other',
@@ -65,7 +56,7 @@ class AdController extends Controller
             'ads_packages_id'       => 'integer|exists:ads_packages,id',
             'products_id'           => 'integer|exists:products,id',
 
-            'email'                 => 'sometimes|nullable',
+            'email'                 => 'sometimes|nullable|email',
             'phone'                 => 'sometimes|nullable',
             'contact_time'          => 'sometimes|nullable',
             'brand'                 => 'sometimes|nullable',
@@ -80,7 +71,7 @@ class AdController extends Controller
 
         try {
             $ads = new Ads();
-            
+
             $ads->name        = $request->name;
             $ads->state       = $request->state;
             $ads->price       = $request->price;
@@ -90,7 +81,7 @@ class AdController extends Controller
             $ads->status      = $request->status;
             $ads->users_id    = $request->users_id;
             $ads->seller      = $request->seller;
-            
+
             $ads->areas_id              = $request->areas_id;
             $ads->product_brands_id     = $request->product_brands_id;
             $ads->product_categories_id = $request->product_categories_id;
@@ -112,7 +103,7 @@ class AdController extends Controller
                 $photo_name = Str::slug($request->input('name')) . '_' . time();
                 $folder     = '/uploads/ads/';
                 $filePath   = $folder . $photo_name . '.' . $image->getClientOriginalExtension();
-                
+
                 $this->uploadOne($image, $folder, 'public', $photo_name);
 
                 $ads->photo = $filePath;
@@ -124,20 +115,20 @@ class AdController extends Controller
             if( isset( $request->items ) && \is_array( $request->items ) ) {
                 foreach( $request->items as $key => $item ) {
                     $ads_item = new AdsItem();
-                   
+
                     $ads_item->quantity     = $item['quantity'];
                     $ads_item->descriptions = $item['descriptions'];
- 
+
                     $name          = $ads->id . '_item_' . $key . time();
                     $folder        = '/uploads/ads/';
                     $itemfilePath  = $folder . $name . '.' . $item->getClientOriginalExtension();
                     $this->uploadOne( $item['photo'], $folder, 'public', $name);
-                    
+
                     $ads_item->photo        = $itemfilePath;
                     $ads_item->ads_id       = $ads->id;
                     $ads_item->products_id  = $item['products_id'];
-                   
-                    $ads_item->save();  
+
+                    $ads_item->save();
                 }
             }
 
@@ -156,7 +147,7 @@ class AdController extends Controller
             if ( isset( $request->tags ) && \is_array( $request->tags ) ) {
                 foreach( $request->tags as $tag ) {
                     $ads_tag          = new AdsTag();
-                  
+
                     $ads_tag->name    = $tag;
                     $ads_tag->ads_id  = $ads->id;
 
@@ -165,7 +156,7 @@ class AdController extends Controller
             }
 
             if ($request->has('galleries')) {
-                
+
                 foreach( $request->file('galleries') as $key => $gallery ) {
                     $ads_photo = new AdsPhoto();
                     $name      = $ads->id . '_gallery_' . $key . time();
@@ -175,7 +166,7 @@ class AdController extends Controller
 
                     $ads_photo->name   = $filePath;
                     $ads_photo->ads_id = $ads->id;
-                    
+
                     $ads_photo->save();
                 }
             }
@@ -183,7 +174,7 @@ class AdController extends Controller
 
         } catch (\Exception $ex) {
             DB::rollBack();
-            dd($ex);
+            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -192,12 +183,6 @@ class AdController extends Controller
         return new AdsResource($ads);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{
@@ -210,13 +195,6 @@ class AdController extends Controller
         return new AdsResource($ads);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
 
@@ -250,7 +228,7 @@ class AdController extends Controller
 
         try {
            $ads              = Ads::find($id);
-           
+
            $ads->name        = $request->name;
            $ads->state       = $request->state;
            $ads->price       = $request->price;
@@ -259,7 +237,7 @@ class AdController extends Controller
            $ads->expire      = $request->expire;
            $ads->status      = $request->status;
            $ads->seller      = $request->seller;
-         
+
            $ads->product_brands_id     = $request->product_brands_id;
            $ads->product_categories_id = $request->product_categories_id;
            $ads->product_types_id      = $request->product_types_id;
@@ -267,7 +245,7 @@ class AdController extends Controller
            $ads->ads_packages_id       = $request->ads_packages_id;
            $ads->products_id           = $request->products_id;
            $ads->users_id              = $request->users_id;
-           
+
            $ads->email         = $request->email;
            $ads->phone         = $request->phone;
            $ads->contact_time  = $request->contact_time;
@@ -275,13 +253,13 @@ class AdController extends Controller
            $ads->category      = $request->category;
            $ads->product_types = $request->product_types;
            $ads->descriptions  = $request->descriptions;
-        
+
            if ($request->has('photo')) {
             $image      = $request->file('photo');
             $photo_name = Str::slug($request->input('name')) . '_' . time();
             $folder     = '/uploads/ads/';
             $filePath   = $folder . $photo_name . '.' . $image->getClientOriginalExtension();
-            
+
             $this->uploadOne($image, $folder, 'public', $photo_name);
 
             if( File::exists( $ads->photo ) ) {
@@ -296,7 +274,7 @@ class AdController extends Controller
         if( isset( $request->items ) && \is_array( $request->items ) ) {
             foreach( $request->items as $key => $item ) {
                 $ads_item = AdsItem::where( 'ads_id', $ads->id )->where('id', $item[id])->first();
-               
+
                 $ads_item->quantity     = $item['quantity'];
                 $ads_item->descriptions = $item['descriptions'];
 
@@ -311,8 +289,8 @@ class AdController extends Controller
 
                 $ads_item->photo        = $itemfilePath;
                 $ads_item->products_id  = $item['products_id'];
-               
-                $ads_item->save();  
+
+                $ads_item->save();
             }
         }
 
@@ -320,7 +298,7 @@ class AdController extends Controller
         if( isset( $request->attribute_vals ) ) {
             foreach( $request->attribute_vals as $key => $attribute ) {
                 $ads_attribute  = AdsAttribute::where( 'ads_id', $ads->id )->where('id', $item[id])->first();
-                
+
                 $ads_attribute->name    = $key ;
                 $ads_attribute->values  = json_encode( $attribute );
                 $ads_attribute->ads_id  = $ads->id;
@@ -351,7 +329,7 @@ class AdController extends Controller
                 }
 
                 $ads_photo->name   = $filePath;
-                
+
                 $ads_photo->save();
             }
         }
@@ -366,12 +344,6 @@ class AdController extends Controller
         return new AdsResource($ads);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{
@@ -379,7 +351,7 @@ class AdController extends Controller
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-       
+
         return response()->json(config('naz.del'));
     }
 }

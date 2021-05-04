@@ -8,6 +8,7 @@ use App\Http\Resources\AdPackageResource;
 use App\Models\AdsPackage;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AdPackageController extends Controller
 {
@@ -68,7 +69,7 @@ class AdPackageController extends Controller
             $table->save();
 
         }catch (\Exception $ex) {
-            dd($ex);
+            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -104,7 +105,7 @@ class AdPackageController extends Controller
             'banner'       => 'sometimes|nullable|mimes:jpg,bmp,png',
             'description'  => 'sometimes|nullable|string',
         ]);
-        
+
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try{
