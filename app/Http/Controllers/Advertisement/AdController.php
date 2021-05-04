@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Advertisement;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdsPackage;
 use Illuminate\Http\Request;
 use App\Http\Resources\AdsResource;
 use App\Models\Ads;
 use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use App\Models\AdsItem;
@@ -20,10 +22,46 @@ class AdController extends Controller
 {
     use UploadTrait;
 
-    public function index()
+    public function index(Request $request)
     {
+        $today = date('Y-m-d');
         try {
-            $ads = Ads::all();
+            if(Auth::user()->types == 'Admin'){
+                $table = Ads::orderBy('id', 'DESC');
+                if(isset($request->users_id)){
+                    $table->where('users_id', $request->users_id);
+                }
+                if(isset($request->status)){
+                    $table->where('status', $request->status);
+                }
+                if(isset($request->expire)){
+                    $table->where('expire', '>', $today);
+                }
+                if(isset($request->ads_packages_id)){
+                    $table->where('companies_id', $request->ads_packages_id);
+                }
+                $ads = $table->get();
+            }else{
+                $table = Ads::orderBy('id', 'DESC')->where('users_id', Auth::id());
+
+                if(isset($request->status)){
+                    $table->where('status', $request->status);
+                }
+                if(isset($request->expire)){
+                    $table->where('expire', '>', $today);
+                }
+
+                if(isset($request->ads_packages_id)){
+                    $table->where('companies_id', $request->ads_packages_id);
+                }
+
+                if(isset($request->companies_id)){
+                    $table->where('companies_id', $request->companies_id);
+                }
+
+                $ads = $table->get();
+            }
+
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
@@ -39,8 +77,7 @@ class AdController extends Controller
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
-            'status'                => 'required|in:Publish,Pending,Canceled,Expire',
-            'expire'                => 'required|date',
+            'status'                => 'required|in:Publish,Pending',
             'users_id'              => 'required|exists:users,id',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
@@ -48,48 +85,55 @@ class AdController extends Controller
             'items'                 => 'sometimes|nullable|array',
             'galleries'             => 'sometimes|nullable|array',
             'seller'                => 'sometimes|nullable|string',
-            'areas_id'              => 'integer|exists:areas,id',
-            'product_brands_id'     => 'integer|exists:product_brands,id',
-            'product_categories_id' => 'integer|exists:product_categories,id',
-            'product_types_id'      => 'integer|exists:product_types,id',
-            'companies_id'          => 'integer|exists:companies,id',
-            'ads_packages_id'       => 'integer|exists:ads_packages,id',
-            'products_id'           => 'integer|exists:products,id',
-
-            'email'                 => 'sometimes|nullable|email',
-            'phone'                 => 'sometimes|nullable',
-            'contact_time'          => 'sometimes|nullable',
-            'brand'                 => 'sometimes|nullable',
-            'category'              => 'sometimes|nullable',
-            'product_types'         => 'sometimes|nullable',
-            'descriptions'          => 'sometimes|nullable|string',
+            'areas_id'              => 'sometimes|nullable|integer|exists:areas,id',
+            'product_brands_id'     => 'sometimes|nullable|integer|exists:product_brands,id',
+            'product_categories_id' => 'sometimes|nullable|integer|exists:product_categories,id',
+            'product_types_id'      => 'sometimes|nullable|integer|exists:product_types,id',
+            'companies_id'          => 'sometimes|nullable|integer|exists:companies,id',
+            'ads_packages_id'       => 'sometimes|nullable|integer|exists:ads_packages,id',
+            'products_id'           => 'sometimes|nullable|integer|exists:products,id',
+            'email'                 => 'sometimes|nullable|email'
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
+
         DB::beginTransaction();
 
         try {
-            $ads = new Ads();
+            $today = date('Y-m-d');
 
+            if(isset($request->ads_packages_id)){
+                $package = AdsPackage::where('id', $request->ads_packages_id)->where('expire', '>', $today)->count(); //Check it is expire or not
+
+                if($package <= 0){
+                    throw new \Exception('This package was expired!!');
+                }
+            }
+
+            $ads = new Ads();
             $ads->name        = $request->name;
             $ads->state       = $request->state;
             $ads->price       = $request->price;
             $ads->is_used     = $request->is_used;
             $ads->is_shipping = $request->is_shipping;
-            $ads->expire      = date('Y-m-d',  strtotime( $request->expire ) );
-            $ads->status      = $request->status;
+            $ads->expire      = date('Y-m-d',  strtotime($today.'+60 days' )); //Expire date set to 60 based on current date
             $ads->users_id    = $request->users_id;
             $ads->seller      = $request->seller;
-
             $ads->areas_id              = $request->areas_id;
             $ads->product_brands_id     = $request->product_brands_id;
             $ads->product_categories_id = $request->product_categories_id;
             $ads->product_types_id      = $request->product_types_id;
             $ads->companies_id          = $request->companies_id;
-            $ads->ads_packages_id       = $request->ads_packages_id;
-            $ads->products_id           = $request->products_id;
 
+            if (isset($request->ads_packages_id)) {
+                $ads->ads_packages_id       = $request->ads_packages_id;
+                $ads->status      = $request->status;
+            }else{
+                $ads->status       = 'Pending';
+            }
+
+            $ads->products_id           = $request->products_id;
             $ads->email         = $request->email;
             $ads->phone         = $request->phone;
             $ads->contact_time  = $request->contact_time;
@@ -204,8 +248,7 @@ class AdController extends Controller
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
-            'status'                => 'required|in:Publish,Pending,Canceled,Expire',
-            'expire'                => 'required|date',
+            'status'                => 'required|in:Publish,Pending,Canceled',
             'users_id'              => 'required|exists:users,id',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
@@ -213,13 +256,13 @@ class AdController extends Controller
             'items'                 => 'sometimes|nullable|array',
             'galleries'             => 'sometimes|nullable|array',
             'seller'                => 'sometimes|nullable|string',
-            'areas_id'              => 'integer|exists:areas,id',
-            'product_brands_id'     => 'integer|exists:product_brands,id',
-            'product_categories_id' => 'integer|exists:product_categories,id',
-            'product_types_id'      => 'integer|exists:product_types,id',
-            'companies_id'          => 'integer|exists:companies,id',
-            'ads_packages_id'       => 'integer|exists:ads_packages,id',
-            'products_id'           => 'integer|exists:products,id',
+            'areas_id'              => 'sometimes|nullable|integer|exists:areas,id',
+            'product_brands_id'     => 'sometimes|nullable|integer|exists:product_brands,id',
+            'product_categories_id' => 'sometimes|nullable|integer|exists:product_categories,id',
+            'product_types_id'      => 'sometimes|nullable|integer|exists:product_types,id',
+            'companies_id'          => 'sometimes|nullable|integer|exists:companies,id',
+            'ads_packages_id'       => 'sometimes|nullable|integer|exists:ads_packages,id',
+            'products_id'           => 'sometimes|nullable|integer|exists:products,id',
         ]);
 
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
@@ -228,13 +271,11 @@ class AdController extends Controller
 
         try {
            $ads              = Ads::find($id);
-
            $ads->name        = $request->name;
            $ads->state       = $request->state;
            $ads->price       = $request->price;
            $ads->is_used     = $request->price;
            $ads->is_shipping = $request->price;
-           $ads->expire      = $request->expire;
            $ads->status      = $request->status;
            $ads->seller      = $request->seller;
 
@@ -242,10 +283,11 @@ class AdController extends Controller
            $ads->product_categories_id = $request->product_categories_id;
            $ads->product_types_id      = $request->product_types_id;
            $ads->companies_id          = $request->companies_id;
-           $ads->ads_packages_id       = $request->ads_packages_id;
+           if (isset($request->status)) {
+               $ads->status = $request->status;
+           }
            $ads->products_id           = $request->products_id;
            $ads->users_id              = $request->users_id;
-
            $ads->email         = $request->email;
            $ads->phone         = $request->phone;
            $ads->contact_time  = $request->contact_time;
