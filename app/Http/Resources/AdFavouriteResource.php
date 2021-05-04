@@ -17,7 +17,7 @@ class AdFavouriteResource extends JsonResource
         return [
             'id'       => $this->id,
             'ads_id'   => $this->ads_id,
-            'users_id' => $this->users_id,
+            'customer'  => new CustomerResource($this->user)
         ];
     }
 }

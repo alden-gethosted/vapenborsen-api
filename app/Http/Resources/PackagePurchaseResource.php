@@ -2,10 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\AdsPackage;
-use App\Models\Coupon;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class PackagePurchaseResource extends JsonResource
 {
@@ -23,8 +21,9 @@ class PackagePurchaseResource extends JsonResource
             'types'       => $this->types,
             'quantity'    => $this->quantity,
             'amount'  => $this->amount,
-            'expire'       => $this->expire,
+            'expire'       => Carbon::parse($this->expire)->format('d/m/Y h:i A'),
             'discount'      => $this->discount,
+            'created_at'  => Carbon::parse($this->created_at)->format('d/m/Y'),
             'coupon'      => new CouponResource($this->coupon),
             'package'      => new AdPackageResource($this->adsPackage),
             'customer'      => new CustomerResource($this->user)
