@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class ProductCategoriesResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class ProductCategoriesResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parents_id' => $this->parents_id,
+            'slug' => Str::slug($this->parents_id, '-'),
             'parent' => $this->parent->name ?? '',
             'icon' => isset($this->icon) ? asset($this->icon) : '',
             'link_attribute' => AttributeLinkResource::collection($this->attributeLinks()->get())
