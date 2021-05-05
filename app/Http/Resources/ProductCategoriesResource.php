@@ -19,7 +19,7 @@ class ProductCategoriesResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parents_id' => $this->parents_id,
-            'slug' => Str::slug($this->parents_id, '-'),
+            'slug' => Str::slug($this->name, '-'),
             'parent' => $this->parent->name ?? '',
             'icon' => isset($this->icon) ? asset($this->icon) : '',
             'link_attribute' => AttributeLinkResource::collection($this->attributeLinks()->get())
