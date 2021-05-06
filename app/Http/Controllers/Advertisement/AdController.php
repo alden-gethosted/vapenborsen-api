@@ -218,7 +218,6 @@ class AdController extends Controller
 
         } catch (\Exception $ex) {
             DB::rollBack();
-            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -395,5 +394,41 @@ class AdController extends Controller
         }
 
         return response()->json(config('naz.del'));
+    }
+
+    public function searches(Request $request){
+        try{
+            $today = date('Y-m-d');
+            $tablex = Ads::orderBy('id', 'DESC')->where('status', 'Publish')->where('expire', '>', $today);
+            if (isset($request->name)) {
+                $tablex->where('name', 'like', '%'.$request->name.'%');
+            }
+            if (isset($request->areas_id)) {
+                $tablex->where('areas_id', $request->areas_id);
+            }
+            if (isset($request->areas_id)) {
+                $tablex->where('product_brands_id', $request->product_brands_id);
+            }
+            if (isset($request->product_categories_id)) {
+                $tablex->where('product_categories_id', $request->product_categories_id);
+            }
+            if (isset($request->product_types_id)) {
+                $tablex->where('product_types_id', $request->product_types_id);
+            }
+            if (isset($request->companies_id)) {
+                $tablex->where('product_types_id', $request->companies_id);
+            }
+            if (isset($request->products_id)) {
+                $tablex->where('products_id', $request->products_id);
+            }
+            if (isset($request->is_limit)) {
+                $tablex->take(20);
+            }
+            $table = $tablex->get();
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return AdsResource::collection($table);
     }
 }

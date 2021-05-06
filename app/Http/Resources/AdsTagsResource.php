@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class AdsTagsResource extends JsonResource
 {
@@ -17,6 +18,7 @@ class AdsTagsResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
+            'slug'      => Str::slug($this->name, '-'),
             'ads_id'    => $this->ads_id,
         ];
     }

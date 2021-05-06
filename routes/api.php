@@ -56,6 +56,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/ads/message', [AdMessageController::class, 'store']);
     Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
 
+    Route::get('/ads/search', [AdController::class, 'searches']);
     Route::resource('/ads', AdController::class);
 
     Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
