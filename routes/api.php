@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Advertisement\AdMessageController;
+use App\Http\Controllers\Advertisement\SearchSaveController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\SubscribeController;
@@ -58,6 +59,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('/ads/search', [AdController::class, 'searches']);
     Route::resource('/ads', AdController::class);
+
+    Route::resource('/save-search', SearchSaveController::class);
 
     Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
     Route::resource('/package/purchase', PackagePurchaseController::class);

@@ -17,7 +17,7 @@ class SearchSave extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -25,7 +25,7 @@ class SearchSave extends Model
     /**
      * @var array
      */
-    protected $fillable = ['users_id', 'search_params', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['users_id', 'name', 'search_params', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -380,9 +380,7 @@ class AdController extends Controller
             DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-
         DB::commit();
-
         return new AdsResource($ads);
     }
 
@@ -417,7 +415,7 @@ class AdController extends Controller
                 $tablex->where('product_types_id', $request->product_types_id);
             }
             if (isset($request->companies_id)) {
-                $tablex->where('product_types_id', $request->companies_id);
+                $tablex->where('companies_id', $request->companies_id);
             }
             if (isset($request->products_id)) {
                 $tablex->where('products_id', $request->products_id);
@@ -429,7 +427,7 @@ class AdController extends Controller
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-
         return AdsResource::collection($table);
     }
+
 }
