@@ -40,13 +40,14 @@ class AdController extends Controller
                 if(isset($request->ads_packages_id)){
                     $table->where('companies_id', $request->ads_packages_id);
                 }
-                $ads = $table->get();
+                $ads =  $table->paginate(30);
             }else{
-                $table = Ads::orderBy('id', 'DESC')->where('users_id', Auth::id());
+                $table = Ads::orderByRaw('DATE(created_at)', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
 
                 if(isset($request->status)){
                     $table->where('status', $request->status);
                 }
+
                 if(isset($request->expire)){
                     $table->where('expire', '>', $today);
                 }
@@ -59,7 +60,7 @@ class AdController extends Controller
                     $table->where('companies_id', $request->companies_id);
                 }
 
-                $ads = $table->get();
+                $ads = $table->paginate(30);
             }
 
         } catch (\Exception $ex) {
