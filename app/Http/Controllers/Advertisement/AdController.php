@@ -40,7 +40,7 @@ class AdController extends Controller
                 if(isset($request->ads_packages_id)){
                     $table->where('companies_id', $request->ads_packages_id);
                 }
-                $ads =  $table->paginate(30);
+                $ads =  $table->paginate(config('naz.paginate'));
             }else{
                 $table = Ads::orderByRaw('DATE(created_at)', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
 
@@ -60,7 +60,7 @@ class AdController extends Controller
                     $table->where('companies_id', $request->companies_id);
                 }
 
-                $ads = $table->paginate(30);
+                $ads = $table->paginate(config('naz.paginate'));
             }
 
         } catch (\Exception $ex) {
@@ -421,7 +421,7 @@ class AdController extends Controller
                 $tablex->where('products_id', $request->products_id);
             }
             if (isset($request->is_limit)) {
-                $tablex->take(20);
+                $tablex->take(config('naz.search_limit'));
             }
             $table = $tablex->get();
         }catch (\Exception $ex) {

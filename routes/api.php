@@ -62,6 +62,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::resource('/save-search', SearchSaveController::class);
 
+    Route::get('/package/purchase-history', [PackagePurchaseController::class, 'payment_history']);
     Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
     Route::resource('/package/purchase', PackagePurchaseController::class);
     Route::resource('/package', PackageController::class);

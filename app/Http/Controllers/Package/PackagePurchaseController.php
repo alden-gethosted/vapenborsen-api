@@ -141,4 +141,31 @@ class PackagePurchaseController extends Controller
 
         return PackagePurchaseResource::collection($table);
     }
+
+    public function payment_history(Request $request){
+
+        try{
+            $tablex = PurchasePackage::orderBy('id', 'DESC');
+
+            if (isset($request->date_range)) {
+                $dates = db_range($request->date_range);
+
+                $tablex->whereBetween('created_at', $dates);
+            }
+
+            if (isset($request->ads_packages_id)) {
+                $tablex->where('ads_packages_id', $request->ads_packages_id);
+            }
+
+            if (isset($request->users_id)) {
+                $tablex->where('users_id', $request->users_id);
+            }
+
+            $table = $tablex->paginate(config('naz.paginate'));
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return PackagePurchaseResource::collection($table);
+    }
 }

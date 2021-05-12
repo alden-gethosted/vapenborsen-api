@@ -8,6 +8,9 @@ return [
     'db' => ['message' => 'Database error! please check again'],
     'n_found' => ['message' => 'Page Not Found'],
 
+    'paginate' => 30,
+    'search_limit' => 20,
+
     'validation' => 422,
     'db_error' => 400,
     'unauthorized' => 401,
