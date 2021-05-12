@@ -68,7 +68,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/package', PackageController::class);
 
     Route::resource('/ads.reviews', AdReviewController::class);
-    Route::resource('/ads.favourite', AdFavouriteController::class);
+    Route::resource('/users.favourite', AdFavouriteController::class);
     Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);

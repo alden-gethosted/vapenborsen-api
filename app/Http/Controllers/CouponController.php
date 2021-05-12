@@ -93,7 +93,7 @@ class CouponController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'code'             => 'required|string|min:3|unique:Coupons,code',
+            'code'             => 'required|string|min:3|unique:Coupons,code,'. $id,
             'amount'           => 'required|numeric',
             'is_percent'       => 'required|boolean',
             'status'           => 'required|in:Active,Used,Inactive',

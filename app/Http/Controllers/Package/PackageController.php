@@ -33,8 +33,9 @@ class PackageController extends Controller
 
     public function store(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'name'       => 'required|string|max:191',
+            'name'       => 'required|string|unique:ads_packages,name|max:191',
             'types'      => 'sometimes|nullable|in:Premium,Free',
             'quantity'   => 'required|numeric',
             'price'      => 'required|numeric',
@@ -108,13 +109,13 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'       => 'required|string|max:191',
+            'name'       => 'required|string|max:191|unique:ads_packages,name,'.$id,
             'types'      => 'sometimes|nullable|in:Premium,Free',
             'quantity'   => 'required|numeric',
             'price'      => 'required|numeric',
             'expire_day' => 'required|numeric',
             'banner'     => 'sometimes|nullable|file',
-            'status '     => 'sometimes|nullable|boolean'
+            'status '    => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
