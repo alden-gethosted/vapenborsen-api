@@ -149,7 +149,6 @@ class PackagePurchaseController extends Controller
 
             if (isset($request->date_range)) {
                 $dates = db_range($request->date_range);
-
                 $tablex->whereBetween('created_at', $dates);
             }
 
