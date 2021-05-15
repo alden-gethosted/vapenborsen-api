@@ -87,9 +87,8 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $validator = Validator::make($request->all(), [
-            'name'          => 'required|string|min:3|unique:Areas,name',
+            'name'          => 'required|string|min:3|unique:Areas,name,'. $id,
             'address'       => 'sometimes|string',
             'longitude'     => 'sometimes|numeric',
             'latitude'      => 'sometimes|numeric',

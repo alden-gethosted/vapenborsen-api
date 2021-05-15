@@ -166,7 +166,7 @@ class AdController extends Controller
 
                     $name          = $ads->id . '_item_' . $key . time();
                     $folder        = '/uploads/ads/';
-                    $itemfilePath  = $folder . $name . '.' . $item->getClientOriginalExtension();
+                    $itemfilePath  = $folder . $name . '.' . $item['photo']->getClientOriginalExtension();
                     $this->uploadOne( $item['photo'], $folder, 'public', $name);
 
                     $ads_item->photo        = $itemfilePath;
@@ -241,9 +241,8 @@ class AdController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $validator = Validator::make($request->all(), [
-            'name'                  => 'required|string|min:3|unique:ads,name',
+            'name'                  => 'required|string|min:3|unique:ads,name,'. $id,
             'state'                 => 'required|in:Weapon,Accessories,Other',
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
@@ -274,8 +273,8 @@ class AdController extends Controller
            $ads->name        = $request->name;
            $ads->state       = $request->state;
            $ads->price       = $request->price;
-           $ads->is_used     = $request->price;
-           $ads->is_shipping = $request->price;
+           $ads->is_used     = $request->is_used;
+           $ads->is_shipping = $request->is_shipping;
            $ads->status      = $request->status;
            $ads->seller      = $request->seller;
 
@@ -371,7 +370,8 @@ class AdController extends Controller
                 }
 
                 $ads_photo->name   = $filePath;
-
+                $ads_photo->ads_id = $ads->id;
+                
                 $ads_photo->save();
             }
         }
@@ -405,7 +405,7 @@ class AdController extends Controller
             if (isset($request->areas_id)) {
                 $tablex->where('areas_id', $request->areas_id);
             }
-            if (isset($request->areas_id)) {
+            if (isset($request->product_brands_id)) {
                 $tablex->where('product_brands_id', $request->product_brands_id);
             }
             if (isset($request->product_categories_id)) {

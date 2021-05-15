@@ -48,8 +48,8 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'name'          => 'required|string|min:3|unique:companies,name',
             'status'        => 'required|boolean',
-            'logo'          => 'sometimes|nullable|array',
-            'description'   => 'sometimes|nullable|array',
+            'logo'          => 'sometimes|nullable',
+            'description'   => 'sometimes|nullable',
             'contact'       => 'sometimes|nullable|max:15|string',
             'contact_person'=> 'sometimes|nullable|string',
             'website'       => 'sometimes|nullable|string'
@@ -134,15 +134,15 @@ class CompanyController extends Controller
      */
     public function update( $user_id, Request $request, $id )
     {
-        
+
         $validator = Validator::make($request->all(), [
-            'name'          => 'required|string|min:3|unique:companies,name',
-            'status'        => 'required|boolean',
-            'logo'          => 'sometimes|nullable|array',
-            'description'   => 'sometimes|nullable|array',
-            'contact'       => 'sometimes|nullable|max:15|string',
-            'contact_person'=> 'sometimes|nullable|string',
-            'website'       => 'sometimes|nullable|string'
+            'name'           => 'required|string|min:3|unique:companies,name,'. $id,
+            'status'         => 'required|boolean',
+            'logo'           => 'sometimes|nullable',
+            'description'    => 'sometimes|nullable',
+            'contact'        => 'sometimes|nullable|max:15|string',
+            'contact_person' => 'sometimes|nullable|string',
+            'website'        => 'sometimes|nullable|string'
         ]);
 
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
@@ -155,7 +155,8 @@ class CompanyController extends Controller
                 return response()->json('User Not Found');
             }
 
-            $company = Company::where( 'users_id', $user_id )->find($id);
+
+            $company = Company::where( 'users_id', $user_id )->where('id',$id)->first();
           
             $company->name           = $request->name;
             $company->status         = $request->status;
@@ -183,6 +184,7 @@ class CompanyController extends Controller
             $company->save();
 
         } catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
