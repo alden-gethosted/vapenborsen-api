@@ -16,6 +16,7 @@ class SubscriptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'users' => new CustomerResource($this->user),
             'seller' => new CustomerResource($this->seller)
         ];
     }

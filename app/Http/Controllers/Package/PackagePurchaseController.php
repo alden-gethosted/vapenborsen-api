@@ -16,7 +16,12 @@ class PackagePurchaseController extends Controller
     public function index()
     {
         try{
-            $table = PurchasePackage::orderBy('id', 'DESC')->get();
+            if(Auth::user()->types == 'Admin'){
+                $table = PurchasePackage::orderBy('id', 'DESC')->get();
+            }else{
+                $table = PurchasePackage::orderBy('id', 'DESC')->where('users_id', Auth::id())->get();
+            }
+
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

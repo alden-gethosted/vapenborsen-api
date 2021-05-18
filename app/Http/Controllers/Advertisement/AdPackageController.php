@@ -27,7 +27,7 @@ class AdPackageController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+
         $validator = Validator::make($request->all(), [
             'name'         => 'required|string|max:191|unique:ads_packages,name',
             'types'        => 'required|in:Premium,Free',
@@ -85,7 +85,6 @@ class AdPackageController extends Controller
 
         if(!$table)
             return response()->json(config('naz.n_found'), config('naz.not_found'));
-
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

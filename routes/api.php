@@ -4,6 +4,7 @@ use App\Http\Controllers\Advertisement\AdMessageController;
 use App\Http\Controllers\Advertisement\SearchSaveController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\CustomerProfile;
 use App\Http\Controllers\Customer\SubscribeController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Package\PackagePurchaseController;
@@ -72,6 +73,19 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);
+
+    /**
+     * Customer Profile
+     */
+    Route::get('/customer/profile', [CustomerProfile::class, 'index']);
+    Route::get('/customer/subscriber', [CustomerProfile::class, 'subscriber']);//subscriber list
+    Route::get('/customer/my-subscribe', [CustomerProfile::class, 'my_subscription']);//subscribe by me
+    Route::get('/customer/favorite-ads', [CustomerProfile::class, 'favorite_ads']);
+    Route::get('/customer/send-message', [CustomerProfile::class, 'send_message']);
+    Route::get('/customer/message', [CustomerProfile::class, 'message']);
+    /**
+     * /Customer Profile
+     */
 
     Route::resource('/customer/subscribe', SubscribeController::class);
     Route::resource('/customer', CustomerController::class);
