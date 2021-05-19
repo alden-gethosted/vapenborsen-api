@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    try {
+    /*try {
         Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
     } catch (\Exception $ex) {
         dd($ex);
-    }
+    }*/
     return view('welcome');
 });
