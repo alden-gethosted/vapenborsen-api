@@ -20,7 +20,7 @@ class Notification extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -28,7 +28,7 @@ class Notification extends Model
     /**
      * @var array
      */
-    protected $fillable = ['ads_id', 'users_id', 'message', 'types', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['ads_id', 'users_id', 'message', 'types', 'status', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

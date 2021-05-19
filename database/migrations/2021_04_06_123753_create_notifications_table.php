@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->text('message');
             $table->enum('types', ['Ads', 'News', 'Subscription', 'Package', 'Promotional', 'Purchase'])->default('News');
+            $table->boolean('status')->default(0)->comment('0 means unread');
             $table->foreignId('ads_id')->nullable()->comment('Reference ads if needed')->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();

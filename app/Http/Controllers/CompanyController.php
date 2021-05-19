@@ -15,11 +15,6 @@ class CompanyController extends Controller
 
     use UploadTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-    */
     public function index($user_id)
     {
         try {
@@ -37,12 +32,7 @@ class CompanyController extends Controller
         return CompanyResource::collection($companies);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store( $user_id, Request $request )
     {
         $validator = Validator::make($request->all(), [
@@ -65,13 +55,13 @@ class CompanyController extends Controller
             }
 
             $company = new Company();
-            
+
             $company->name           = $request->name;
             $company->status         = $request->status;
             $company->users_id       = $user_id;
             $company->description    = $request->description;
             $company->contact        = $request->contact;
-            $company->contact_person =  $request->contact_person; 
+            $company->contact_person =  $request->contact_person;
             $company->website        = $request->website;
 
             if ( $request->has('logo') ) {
@@ -92,7 +82,7 @@ class CompanyController extends Controller
             $company->save();
 
         } catch (\Exception $ex) {
-            dd($ex);
+            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -100,12 +90,7 @@ class CompanyController extends Controller
         //return response()->json($area);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show( $user_id, $id )
     {
         try{
@@ -125,13 +110,7 @@ class CompanyController extends Controller
         // return response()->json($area);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update( $user_id, Request $request, $id )
     {
 
@@ -157,7 +136,7 @@ class CompanyController extends Controller
 
 
             $company = Company::where( 'users_id', $user_id )->where('id',$id)->first();
-          
+
             $company->name           = $request->name;
             $company->status         = $request->status;
             $company->users_id       = $user_id;
@@ -180,11 +159,11 @@ class CompanyController extends Controller
                 // Set user profile image path in database to filePath
                 $company->logo = $filePath;
             }
-            
+
             $company->save();
 
         } catch (\Exception $ex) {
-            dd($ex);
+            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -193,12 +172,7 @@ class CompanyController extends Controller
         // return response()->json( $area );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy( $user_id, $id )
     {
         try{
@@ -207,12 +181,12 @@ class CompanyController extends Controller
             if( !$user ) {
                 return response()->json('User Not Found');
             }
-            
+
             Company::where( 'users_id', $user_id )->where('id', $id)->delete();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-       
+
         return response()->json(config('naz.del'));
     }
 }
