@@ -19,7 +19,7 @@ Route::get('/', function () {
     try {
         Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
     } catch (\Exception $ex) {
-        //dd($ex);
+        dd($ex);
     }
     return view('welcome');
 });
