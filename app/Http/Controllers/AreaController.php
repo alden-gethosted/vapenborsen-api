@@ -9,15 +9,11 @@ use App\Http\Resources\AreaResource;
 
 class AreaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-    */
+
     public function index()
     {
         try {
-            $areas = Area::all();
+            $areas = Area::orderBy('id', 'DESC')->get();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
@@ -25,12 +21,6 @@ class AreaController extends Controller
         return AreaResource::collection($areas);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,7 +39,7 @@ class AreaController extends Controller
             $area->address   = $request->address;
             $area->longitude = $request->longitude;
             $area->latitude  = $request->latitude;
-            
+
             $area->save();
 
         } catch (\Exception $ex) {
@@ -57,15 +47,8 @@ class AreaController extends Controller
         }
 
         return new AreaResource($area);
-        //return response()->json($area);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{
@@ -78,13 +61,6 @@ class AreaController extends Controller
         return new AreaResource($area);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -102,7 +78,7 @@ class AreaController extends Controller
             $area->address   = $request->address;
             $area->longitude = $request->longitude;
             $area->latitude = $request->latitude;
-            
+
             $area->save();
 
         } catch (\Exception $ex) {
@@ -112,12 +88,6 @@ class AreaController extends Controller
         return new AreaResource($area);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{
@@ -125,7 +95,7 @@ class AreaController extends Controller
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-       
+
         return response()->json(config('naz.del'));
     }
 }

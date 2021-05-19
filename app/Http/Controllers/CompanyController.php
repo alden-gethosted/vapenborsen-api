@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CompanyResource;
 use App\Traits\UploadTrait;
@@ -15,16 +16,27 @@ class CompanyController extends Controller
 
     use UploadTrait;
 
-    public function index($user_id)
+    public function index(Request $request)
     {
-        try {
-            $user = User::find( $user_id );
+        $validator = Validator::make($request->all(), [
+            'users_id'      => 'sometimes|nullable|exists:users,id',
+        ]);
 
-            if( !$user ) {
-                return response()->json('User Not Found');
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
+        try {
+            if(Auth::user()->types == 'Admin'){
+                $companiesx = Company::orderBy('id', 'DESC')->get();
+
+                if (isset($request->users_id)) {
+                    $companiesx->where( 'users_id', $request->users_id );
+                }
+
+                $companies = $companiesx->get();
+            }else {
+                $companies = Company::where( 'users_id', Auth::id())->orderBy('id', 'DESC')->get();
             }
 
-            $companies = Company::where( 'users_id', $user_id )->orderBy('id', 'DESC')->get();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
@@ -33,12 +45,13 @@ class CompanyController extends Controller
     }
 
 
-    public function store( $user_id, Request $request )
+    public function store(Request $request )
     {
         $validator = Validator::make($request->all(), [
             'name'          => 'required|string|min:3|unique:companies,name',
             'status'        => 'required|boolean',
-            'logo'          => 'sometimes|nullable',
+            'users_id'      => 'required|exists:users,id',
+            'logo'          => 'sometimes|nullable|file',
             'description'   => 'sometimes|nullable',
             'contact'       => 'sometimes|nullable|max:15|string',
             'contact_person'=> 'sometimes|nullable|string',
@@ -48,17 +61,11 @@ class CompanyController extends Controller
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try {
-            $user = User::find( $user_id );
-
-            if( !$user ) {
-                return response()->json('User Not Found');
-            }
 
             $company = new Company();
-
             $company->name           = $request->name;
             $company->status         = $request->status;
-            $company->users_id       = $user_id;
+            $company->users_id       = $request->users_id;
             $company->description    = $request->description;
             $company->contact        = $request->contact;
             $company->contact_person =  $request->contact_person;
@@ -82,42 +89,36 @@ class CompanyController extends Controller
             $company->save();
 
         } catch (\Exception $ex) {
-            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new CompanyResource($company);
-        //return response()->json($area);
     }
 
 
-    public function show( $user_id, $id )
+    public function show($id)
     {
         try{
-            $user = User::find( $user_id );
 
-            if( !$user ) {
-                return response()->json('User Not Found');
-            }
-
-            $company = Company::where( 'users_id', $user_id )->find($id);
+            $company = Company::find($id);
 
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new CompanyResource($company);
-        // return response()->json($area);
+
     }
 
 
-    public function update( $user_id, Request $request, $id )
+    public function update(Request $request, $id )
     {
 
         $validator = Validator::make($request->all(), [
             'name'           => 'required|string|min:3|unique:companies,name,'. $id,
             'status'         => 'required|boolean',
-            'logo'           => 'sometimes|nullable',
+            'users_id'      => 'required|exists:users,id',
+            'logo'           => 'sometimes|nullable|file',
             'description'    => 'sometimes|nullable',
             'contact'        => 'sometimes|nullable|max:15|string',
             'contact_person' => 'sometimes|nullable|string',
@@ -128,18 +129,10 @@ class CompanyController extends Controller
 
         try {
 
-            $user = User::find( $user_id );
-
-            if( !$user ) {
-                return response()->json('User Not Found');
-            }
-
-
-            $company = Company::where( 'users_id', $user_id )->where('id',$id)->first();
-
+            $company = Company::find($id);
             $company->name           = $request->name;
             $company->status         = $request->status;
-            $company->users_id       = $user_id;
+            $company->users_id       = $request->users_id;
             $company->description    = $request->description;
             $company->contact        = $request->contact;
             $company->contact_person = $request->contact_person;
@@ -151,7 +144,7 @@ class CompanyController extends Controller
                 // Make a image name based on user name and current timestamp
                 $name = Str::slug($request->input('name')) . '_' . time();
                 // Define folder path
-                $folder = '/uploads/categories/';
+                $folder = '/uploads/company/';
                 // Make a file path where image will be stored [ folder path + file name + file extension]
                 $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
                 // Upload image
@@ -163,26 +156,17 @@ class CompanyController extends Controller
             $company->save();
 
         } catch (\Exception $ex) {
-            //dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new CompanyResource($company);
-
-        // return response()->json( $area );
     }
 
 
-    public function destroy( $user_id, $id )
+    public function destroy($id)
     {
         try{
-            $user = User::find( $user_id );
-
-            if( !$user ) {
-                return response()->json('User Not Found');
-            }
-
-            Company::where( 'users_id', $user_id )->where('id', $id)->delete();
+            Company::destroy($id);
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
