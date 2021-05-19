@@ -69,14 +69,16 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/package', PackageController::class);
 
     Route::resource('/ads.reviews', AdReviewController::class);
-    Route::resource('/users.favourite', AdFavouriteController::class);
-    Route::resource('/users/companies', CompanyController::class);
+
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);
 
     /**
      * Customer Profile
      */
+    Route::resource('/customer/favourite', AdFavouriteController::class);
+    Route::resource('/customer/companies', CompanyController::class);
+
     Route::get('/customer/profile', [CustomerProfile::class, 'index']);
     Route::get('/customer/subscriber', [CustomerProfile::class, 'subscriber']);//subscriber list
     Route::get('/customer/my-subscribe', [CustomerProfile::class, 'my_subscription']);//subscribe by me

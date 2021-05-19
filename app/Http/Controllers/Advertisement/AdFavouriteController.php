@@ -6,17 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdsFavorites;
 use App\Http\Resources\AdFavouriteResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AdFavouriteController extends Controller
 {
 
-    public function index( $users_id )
+    public function index( Request $request )
     {
+        $validator = Validator::make($request->all(), [
+            'users_id'      => 'sometimes|nullable|exists:users,id',
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
         try{
-            $adFavorite = AdsFavorites::where( 'users_id', $users_id )->orderBy('id', 'DESC')->get();
-            if(!$adFavorite)
-                return response()->json(config('naz.n_found'), config('naz.not_found'));
+            if(Auth::user()->types == 'Admin'){
+                $adFavoritex = AdsFavorites::orderBy('id', 'DESC')->get();
+                if (isset($request->users_id)) {
+                    $adFavoritex->where('users_id', $request->users_id);
+                }
+                $adFavorite = $adFavoritex->get();
+            }else{
+                $adFavorite = AdsFavorites::where( 'users_id', Auth::id() )->orderBy('id', 'DESC')->get();
+            }
+
+
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
@@ -25,10 +40,11 @@ class AdFavouriteController extends Controller
     }
 
 
-    public function store( $users_id, Request $request )
+    public function store(Request $request )
     {
         $validator = Validator::make($request->all(), [
             'ad_id' => 'required|exists:ads,id',
+            'users_id'      => 'required|exists:users,id'
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -36,8 +52,7 @@ class AdFavouriteController extends Controller
         try {
             $adFavourite           = new AdsFavorites();
             $adFavourite->ads_id   =  $request->ad_id;
-            $adFavourite->users_id =  $users_id;
-
+            $adFavourite->users_id =  $request->users_id;
             $adFavourite->save();
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
@@ -46,11 +61,20 @@ class AdFavouriteController extends Controller
         return new AdFavouriteResource($adFavourite);
     }
 
+    public function show($id)
+    {
+        //
+    }
 
-    public function destroy( $users_id, $id )
+    public function update(Request $request, $id )
+    {
+        //
+    }
+
+    public function destroy($id)
     {
         try{
-            AdsFavorites::where( 'users_id', $users_id )->where('id', $id)->delete();
+            AdsFavorites::destroy($id);
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
