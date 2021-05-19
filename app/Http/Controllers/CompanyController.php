@@ -102,6 +102,9 @@ class CompanyController extends Controller
 
             $company = Company::find($id);
 
+            if(!$company)
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
+
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

@@ -217,6 +217,8 @@ class AdController extends Controller
             }
 
 
+
+
         } catch (\Exception $ex) {
             DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
@@ -231,6 +233,9 @@ class AdController extends Controller
     {
         try{
             $ads = Ads::find($id);
+
+            if(!$ads)
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
 
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
@@ -371,7 +376,7 @@ class AdController extends Controller
 
                 $ads_photo->name   = $filePath;
                 $ads_photo->ads_id = $ads->id;
-                
+
                 $ads_photo->save();
             }
         }

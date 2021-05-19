@@ -19,6 +19,8 @@ class CreateSubscriptionsTable extends Migration
             $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['seller_id', 'users_id']);
         });
     }
 

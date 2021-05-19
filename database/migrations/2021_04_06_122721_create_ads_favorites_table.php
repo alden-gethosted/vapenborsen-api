@@ -19,6 +19,8 @@ class CreateAdsFavoritesTable extends Migration
             $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['ads_id', 'users_id']);
         });
     }
 

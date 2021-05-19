@@ -43,7 +43,7 @@ class AdFavouriteController extends Controller
     public function store(Request $request )
     {
         $validator = Validator::make($request->all(), [
-            'ad_id' => 'required|exists:ads,id',
+            'ads_id' => 'required|exists:ads,id',
             'users_id'      => 'required|exists:users,id'
         ]);
 
@@ -51,7 +51,7 @@ class AdFavouriteController extends Controller
 
         try {
             $adFavourite           = new AdsFavorites();
-            $adFavourite->ads_id   =  $request->ad_id;
+            $adFavourite->ads_id   =  $request->ads_id;
             $adFavourite->users_id =  $request->users_id;
             $adFavourite->save();
         } catch (\Exception $ex) {

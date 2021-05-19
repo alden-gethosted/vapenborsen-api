@@ -54,6 +54,9 @@ class AreaController extends Controller
         try{
             $area = Area::find($id);
 
+            if(!$area)
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
+
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

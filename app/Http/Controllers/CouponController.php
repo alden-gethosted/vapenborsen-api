@@ -42,7 +42,7 @@ class CouponController extends Controller
             $coupon = new Coupon();
             $coupon->ads_packages_id = $request->ads_packages_id;
             $coupon->users_id        = $request->users_id;
-            $coupon->expire =  Carbon::parse($request->expire)->format('Y-m-d');
+            $coupon->expire =  Carbon::parse($request->expire)->format('Y-m-d H:i:s');
             $coupon->code            = $request->code;
             $coupon->amount          = $request->amount;
             $coupon->is_percent      = $request->is_percent;
@@ -97,7 +97,7 @@ class CouponController extends Controller
             }
 
             if( isset( $request->expire ) ) {
-                $coupon->expire =  Carbon::parse($request->expire)->format('Y-m-d');
+                $coupon->expire =  Carbon::parse($request->expire)->format('Y-m-d H:i:s');
             }
 
             $coupon->code            = $request->code;
