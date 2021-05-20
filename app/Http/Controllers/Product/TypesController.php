@@ -33,7 +33,7 @@ class TypesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191',
-            'product_categories_id' => 'required|numeric'
+            'product_categories_id' => 'required|numeric|exists:product_categories,id'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -78,7 +78,7 @@ class TypesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191',
-            'product_categories_id' => 'required|numeric'
+            'product_categories_id' => 'required|numeric|exists:product_categories,id'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 

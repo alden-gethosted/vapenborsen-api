@@ -26,7 +26,7 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:8|unique:tags,name',
+            'name' => 'required|string|max:191|unique:tags,name',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -63,7 +63,7 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:8|unique:tags,name,'.$id,
+            'name' => 'required|string|max:191|unique:tags,name,'.$id,
         ]);
 
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );

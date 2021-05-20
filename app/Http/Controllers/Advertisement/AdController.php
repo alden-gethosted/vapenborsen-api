@@ -444,7 +444,7 @@ class AdController extends Controller
             if (isset($request->is_limit)) {
                 $tablex->take(config('naz.search_limit'));
             }
-            $table = $tablex->get();
+            $table = $tablex->paginate(config('naz.paginate'));
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

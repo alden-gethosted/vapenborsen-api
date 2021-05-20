@@ -22,6 +22,7 @@ use App\Http\Controllers\Product\AttributeController;
 use App\Http\Controllers\Product\AttributeSetController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+
+Route::get('/', [AdController::class, 'searches']);
+
 Route::post('/customer/register', [UserController::class, 'register']);
 
 Route::middleware(['auth:api'])->group(function () {
@@ -58,7 +62,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/ads/message', [AdMessageController::class, 'store']);
     Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
 
-    Route::get('/ads/search', [AdController::class, 'searches']);
     Route::resource('/ads', AdController::class);
 
     Route::resource('/save-search', SearchSaveController::class);
@@ -92,6 +95,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/customer/subscribe', SubscribeController::class);
     Route::resource('/customer', CustomerController::class);
 
+    Route::put('/permissions/{id}', [RoleController::class, 'assign_role']);
+    Route::get('/permissions', [RoleController::class, 'all_permissions']);
+    Route::resource('/roles', RoleController::class);
+
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::post('/users', [UserController::class, 'save']);
 });
 
 /**
