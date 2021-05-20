@@ -1,6 +1,8 @@
 <?php
 
 use App\Mail\TestMail;
+use App\Models\User;
+use App\Notifications\SubscribeNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +23,9 @@ Route::get('/', function () {
     } catch (\Exception $ex) {
         dd($ex);
     }*/
+
+    //$table = User::find(3);
+    //$table->notify(new SubscribeNotification()); //Notification Test
+
     return view('welcome');
 });

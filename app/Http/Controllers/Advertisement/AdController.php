@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Advertisement;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdsPackage;
+use App\Models\Subscription;
+use App\Notifications\SubscribeNotification;
 use Illuminate\Http\Request;
 use App\Http\Resources\AdsResource;
 use App\Models\Ads;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use App\Models\AdsItem;
 use App\Models\AdsTag;
@@ -215,8 +218,21 @@ class AdController extends Controller
                     $ads_photo->save();
                 }
             }
+            /**
+             * Notification when post new ads
+             */
 
+            $subscriber = Subscription::where('seller_id', $request->users_id)->get();
 
+            foreach ($subscriber as $row){
+                if (isset($row->user->email)) {
+                    Notification::route('mail' , $row->user->email)->notify(new SubscribeNotification($ads));
+                }
+            }
+
+            /**
+             * /Notification when post new ads
+             */
 
 
         } catch (\Exception $ex) {

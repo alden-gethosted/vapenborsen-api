@@ -16,9 +16,10 @@ class SubscribeNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $ads;
+    public function __construct($ads)
     {
-        //
+        $this->ads = $ads;
     }
 
     /**
@@ -42,6 +43,7 @@ class SubscribeNotification extends Notification
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
+                    ->line('Ads title : '.$this->ads->name)
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
