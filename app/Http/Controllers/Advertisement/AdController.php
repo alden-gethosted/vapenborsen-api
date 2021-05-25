@@ -451,4 +451,30 @@ class AdController extends Controller
         return AdsResource::collection($table);
     }
 
+    public function statusUpdate(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:Publish,Pending',
+            'ads' => 'required|array',
+        ]);
+
+        if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
+        
+        DB::beginTransaction();
+
+        try {
+            if( isset( $request->ads ) ) {
+                DB::connection()->enableQueryLog();
+                $items = Ads::whereIn('id',$request->ads)->update(['status' => $request->status]);
+                $items = Ads::whereIn('id',$request->ads)->get();
+                return AdsResource::collection($items);
+            }
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        DB::commit();
+    }
+
 }

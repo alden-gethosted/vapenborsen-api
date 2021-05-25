@@ -63,7 +63,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
 
     Route::resource('/ads', AdController::class);
-
+    Route::post('/ads/status', [AdController::class, 'statusUpdate']);
     Route::resource('/save-search', SearchSaveController::class);
 
     Route::get('/package/purchase-history', [PackagePurchaseController::class, 'payment_history']);
