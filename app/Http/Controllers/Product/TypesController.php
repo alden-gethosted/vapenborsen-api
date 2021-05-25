@@ -84,7 +84,7 @@ class TypesController extends Controller
 
         try{
 
-            $table = new ProductType();
+            $table = ProductType::find($id);
             $table->name = $request->name;
             $table->product_categories_id = $request->product_categories_id;
             $table->save();
