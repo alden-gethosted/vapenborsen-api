@@ -36,7 +36,7 @@ class AttributeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:attributes,name',
-            'attribute_sets_id' => 'required|numeric',
+            'attribute_sets_id' => 'required|numeric|exists:attribute_sets,id',
             'product_categories_id' => 'required|array',
             'attr_values' => 'required|array',
             'is_filterable' =>  'required|boolean'
@@ -106,7 +106,7 @@ class AttributeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:attributes,name,'.$id,
-            'attribute_sets_id' => 'required|numeric',
+            'attribute_sets_id' => 'required|numeric|exists:attribute_sets,id',
             'product_categories_id' => 'required|array',
             'attr_values' => 'required|array',
             'is_filterable' =>  'required|boolean'
