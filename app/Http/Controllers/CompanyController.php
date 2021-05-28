@@ -26,7 +26,7 @@ class CompanyController extends Controller
 
         try {
             if(Auth::user()->types == 'Admin'){
-                $companiesx = Company::orderBy('id', 'DESC')->get();
+                $companiesx = Company::orderBy('id', 'DESC');
 
                 if (isset($request->users_id)) {
                     $companiesx->where( 'users_id', $request->users_id );
