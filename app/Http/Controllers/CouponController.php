@@ -61,12 +61,14 @@ class CouponController extends Controller
     public function show($id)
     {
         try{
-            $coupon = Coupon::find($id);
+            $table = Coupon::find($id);
+            if(!$table)
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
-        return new CouponResource($coupon);
+        return new CouponResource($table);
     }
 
 
