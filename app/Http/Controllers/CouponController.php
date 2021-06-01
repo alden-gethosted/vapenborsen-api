@@ -26,7 +26,7 @@ class CouponController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'code'             => 'required|string|min:3|unique:Coupons,code',
+            'code'             => 'required|string|min:3|unique:coupons,code',
             'amount'           => 'required|numeric',
             'is_percent'       => 'required|boolean',
             'status'           => 'required|in:Active,Used,Inactive',
@@ -47,7 +47,6 @@ class CouponController extends Controller
             $coupon->amount          = $request->amount;
             $coupon->is_percent      = $request->is_percent;
             $coupon->status          = $request->status;
-
             $coupon->save();
 
         } catch (\Exception $ex) {
