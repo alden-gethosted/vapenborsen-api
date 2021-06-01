@@ -24,9 +24,10 @@ class Coupon extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
+    protected $table = 'coupons';
     protected $keyType = 'integer';
 
     /**
