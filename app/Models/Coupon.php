@@ -27,7 +27,6 @@ class Coupon extends Model
      *
      * @var string
      */
-    protected $table = 'coupons';
     protected $keyType = 'integer';
 
     /**
