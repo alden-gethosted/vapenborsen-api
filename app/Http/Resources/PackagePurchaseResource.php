@@ -26,7 +26,8 @@ class PackagePurchaseResource extends JsonResource
             'created_at'  => Carbon::parse($this->created_at)->format('d/m/Y'),
             'coupon'      => new CouponResource($this->coupon),
             'package'      => new AdPackageResource($this->adsPackage),
-            'customer'      => new CustomerResource($this->user)
+            'customer'      => new CustomerResource($this->user),
+            'company'      => new CompanyResource($this->company)
         ];
     }
 }

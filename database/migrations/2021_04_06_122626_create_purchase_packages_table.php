@@ -25,6 +25,7 @@ class CreatePurchasePackagesTable extends Migration
             $table->boolean('is_percent')->default(0)->comment('0 mean not % in discount');
             $table->foreignId('coupons_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('ads_packages_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('companies_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();

@@ -28,7 +28,7 @@ class PurchasePackage extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -36,7 +36,7 @@ class PurchasePackage extends Model
     /**
      * @var array
      */
-    protected $fillable = ['coupons_id', 'ads_packages_id', 'users_id', 'name', 'types', 'quantity', 'amount', 'discount', 'status', 'expire', 'is_percent', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['coupons_id', 'ads_packages_id', 'companies_id', 'users_id', 'name', 'types', 'quantity', 'amount', 'discount', 'status', 'expire', 'is_percent', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -60,5 +60,9 @@ class PurchasePackage extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'users_id');
+    }
+
+    public function company(){
+        return $this->belongsTo('App\Models\Company', 'companies_id');
     }
 }
