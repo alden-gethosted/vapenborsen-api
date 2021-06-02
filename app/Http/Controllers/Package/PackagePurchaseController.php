@@ -40,7 +40,7 @@ class PackagePurchaseController extends Controller
             'coupons_id'      => 'sometimes|nullable|numeric',
             'ads_packages_id'      => 'required|numeric|exists:ads_packages,id',
             'users_id'      => 'required|numeric|exists:users,id',
-            'companies_id'      => 'required|numeric|exists:companies,id',
+            'companies_id'      => 'sometimes|nullable|exists:companies,id',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -60,7 +60,9 @@ class PackagePurchaseController extends Controller
             $table->coupons_id     = $request->coupons_id;
             $table->ads_packages_id  = $request->ads_packages_id;
             $table->users_id       = $request->users_id;
-            $table->companies_id       = $request->companies_id;
+            if (isset($request->companies_id)) {
+                $table->companies_id       = $request->companies_id;
+            }
             $table->save();
 
         }catch (\Exception $ex) {
@@ -96,7 +98,7 @@ class PackagePurchaseController extends Controller
             'coupons_id'      => 'sometimes|nullable|numeric',
             'ads_packages_id'      => 'required|numeric|exists:ads_packages,id',
             'users_id'      => 'required|numeric|exists:users,id',
-            'companies_id'      => 'required|numeric|exists:companies,id',
+            'companies_id'      => 'sometimes|nullable|exists:companies,id',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -120,7 +122,9 @@ class PackagePurchaseController extends Controller
             $table->discount = $request->discount ?? 0;
             $table->coupons_id = $request->coupons_id;
             $table->users_id = $request->users_id;
-            $table->companies_id       = $request->companies_id;
+            if (isset($request->companies_id)) {
+                $table->companies_id       = $request->companies_id;
+            }
             $table->save();
 
         }catch (\Exception $ex) {
