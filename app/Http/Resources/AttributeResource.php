@@ -18,8 +18,7 @@ class AttributeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'is_filterable' => $this->is_filterable,
-            'attribute_sets_id' => $this->attribute_sets_id,
-            'attribute_set' => $this->attributeSet->name ?? '',
+            'attribute_set' => new AttributeSetResource($this->attributeSet),
             'link_with' => AttributeLinkResource::collection($this->attributeLinks()->get()),
             'attr_value' => AttributeValueResource::collection($this->attributeValues()->get())
         ];

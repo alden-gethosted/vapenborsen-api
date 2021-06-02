@@ -19,7 +19,6 @@ class AttributeLinkResource extends JsonResource
             'attribute' => $this->attribute->name ?? '',
             'attributes_id' => $this->attributes_id,
             'product_category' => $this->productCategory->name ?? '',
-            'product_categories_id' => $this->product_categories_id,
 
         ];
     }
