@@ -237,11 +237,10 @@ class AdController extends Controller
 
         } catch (\Exception $ex) {
             DB::rollBack();
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-
         DB::commit();
-
         return new AdsResource($ads);
     }
 
@@ -459,7 +458,7 @@ class AdController extends Controller
         ]);
 
         if ( $validator->fails() ) return response()->json( $validator->errors(), config('naz.validation') );
-        
+
         DB::beginTransaction();
 
         try {
