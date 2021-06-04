@@ -82,7 +82,6 @@ class AdController extends Controller
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
             'status'                => 'required|in:Publish,Pending',
-            'users_id'              => 'required|exists:users,id',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
             'tags'                  => 'sometimes|nullable|array',
@@ -122,7 +121,7 @@ class AdController extends Controller
             $ads->is_used     = $request->is_used;
             $ads->is_shipping = $request->is_shipping;
             $ads->expire      = date('Y-m-d',  strtotime($today.'+60 days' )); //Expire date set to 60 based on current date
-            $ads->users_id    = $request->users_id;
+            $ads->users_id    = Auth::id();
             $ads->seller      = $request->seller;
             $ads->areas_id              = $request->areas_id;
             $ads->product_brands_id     = $request->product_brands_id;
@@ -275,7 +274,6 @@ class AdController extends Controller
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
             'status'                => 'required|in:Publish,Pending,Canceled',
-            'users_id'              => 'required|exists:users,id',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
             'tags'                  => 'sometimes|nullable|array',
@@ -313,7 +311,6 @@ class AdController extends Controller
                $ads->status = $request->status;
            }
            $ads->products_id           = $request->products_id;
-           $ads->users_id              = $request->users_id;
            $ads->email         = $request->email;
            $ads->phone         = $request->phone;
            $ads->contact_time  = $request->contact_time;
