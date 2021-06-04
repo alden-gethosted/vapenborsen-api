@@ -76,7 +76,7 @@ class AdController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'                  => 'required|string|min:3|unique:ads,name',
+            'name'                  => 'required|string|min:3',
             'state'                 => 'required|in:Weapon,Accessories,Other',
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
@@ -243,7 +243,7 @@ class AdController extends Controller
              */
         } catch (\Exception $e){
             return response()->json([
-                'message' => 'Email Subscription Not send. But Data Successfully Saved',
+                'message' => 'Subscription Email Not send. But Data Successfully Saved',
                 'data' => new AdsResource($ads)
             ]);
         }
@@ -269,7 +269,7 @@ class AdController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'                  => 'required|string|min:3|unique:ads,name,'. $id,
+            'name'                  => 'required|string|min:3',
             'state'                 => 'required|in:Weapon,Accessories,Other',
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
