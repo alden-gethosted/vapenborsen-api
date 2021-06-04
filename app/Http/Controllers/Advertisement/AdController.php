@@ -222,13 +222,13 @@ class AdController extends Controller
              * Notification when post new ads
              */
 
-            $subscriber = Subscription::where('seller_id', $request->users_id)->get();
+            /*$subscriber = Subscription::where('seller_id', $request->users_id)->get();
 
             foreach ($subscriber as $row){
                 if (isset($row->user->email)) {
                     Notification::route('mail' , $row->user->email)->notify(new SubscribeNotification($ads));
                 }
-            }
+            }*/
 
             /**
              * /Notification when post new ads
