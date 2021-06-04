@@ -41,11 +41,11 @@ class AdController extends Controller
                     $table->where('expire', '>', $today);
                 }
                 if(isset($request->ads_packages_id)){
-                    $table->where('companies_id', $request->ads_packages_id);
+                    $table->where('ads_packages_id', $request->ads_packages_id);
                 }
                 $ads =  $table->paginate(config('naz.paginate'));
             }else{
-                $table = Ads::orderBy('id', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
+                $table = Ads::orderByRaw('DATE(created_at)', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
 
                 if(isset($request->status)){
                     $table->where('status', $request->status);
@@ -56,7 +56,7 @@ class AdController extends Controller
                 }
 
                 if(isset($request->ads_packages_id)){
-                    $table->where('companies_id', $request->ads_packages_id);
+                    $table->where('ads_packages_id', $request->ads_packages_id);
                 }
 
                 if(isset($request->companies_id)){
