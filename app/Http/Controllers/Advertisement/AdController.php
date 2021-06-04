@@ -45,7 +45,7 @@ class AdController extends Controller
                 }
                 $ads =  $table->paginate(config('naz.paginate'));
             }else{
-                $table = Ads::orderByRaw('DATE(created_at)', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
+                $table = Ads::orderBy('id', 'DESC')->orderByRaw('ISNULL(ads_packages_id)')->where('users_id', Auth::id());
 
                 if(isset($request->status)){
                     $table->where('status', $request->status);
