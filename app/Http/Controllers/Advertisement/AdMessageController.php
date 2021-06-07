@@ -13,11 +13,21 @@ class AdMessageController extends Controller
 
     public function index(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'ads_id'      => 'sometimes|nullable|integer|exists:ads,id',
+            'users_id'      => 'sometimes|nullable|integer|exists:users,id',
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
         try{
 
             $tablex =  AdsMessage::orderBy('id', 'DESC');
                 if (isset($request->ads_id)) {
                     $tablex->where('ads_id', $request->ads_id);
+                }
+                if (isset($request->users_id)) {
+                    $tablex->where('users_id', $request->users_id);
                 }
             $table = $tablex->get();
 
