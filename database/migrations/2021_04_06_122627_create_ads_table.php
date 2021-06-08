@@ -29,7 +29,7 @@ class CreateAdsTable extends Migration
             $table->text('descriptions', 500)->nullable();
             $table->boolean('is_used')->default(0)->comment('0 mean new');
             $table->boolean('is_shipping')->default(0)->comment('0 mean shipping not available');
-            $table->enum('status', ['Publish', 'Pending', 'Canceled', 'Expire'])->default('Publish');
+            $table->enum('status', ['Published', 'Draft', 'Pending', 'Canceled', 'Expired'])->default('Published');
             $table->date('expire')->comment('Auto Set on after 60 days from created date by default');
             $table->foreignId('areas_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('product_brands_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');

@@ -81,7 +81,7 @@ class AdController extends Controller
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
-            'status'                => 'required|in:Publish,Pending',
+            'status'                => 'required|in:Published,Draft,Pending,Canceled,Expired',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
             'tags'                  => 'sometimes|nullable|array',
@@ -273,7 +273,7 @@ class AdController extends Controller
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
-            'status'                => 'required|in:Publish,Pending,Canceled',
+            'status'                => 'required|in:Published,Draft,Pending,Canceled,Expired',
             'photo'                 => 'sometimes|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
             'tags'                  => 'sometimes|nullable|array',
@@ -457,7 +457,7 @@ class AdController extends Controller
     public function statusUpdate(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'status' => 'required|in:Publish,Pending',
+            'status' => 'required|in:Published,Draft,Pending,Canceled,Expired',
             'ads' => 'required|array',
         ]);
 
