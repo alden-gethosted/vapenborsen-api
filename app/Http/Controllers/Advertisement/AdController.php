@@ -467,10 +467,9 @@ class AdController extends Controller
 
         try {
             if( isset( $request->ads ) ) {
-                DB::connection()->enableQueryLog();
+                //DB::connection()->enableQueryLog();
                 $items = Ads::whereIn('id',$request->ads)->update(['status' => $request->status]);
-                $items = Ads::whereIn('id',$request->ads)->get();
-                return AdsResource::collection($items);
+                $table = Ads::whereIn('id',$request->ads)->get();
             }
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -478,6 +477,8 @@ class AdController extends Controller
         }
 
         DB::commit();
+
+        return AdsResource::collection($table);
     }
 
 }
