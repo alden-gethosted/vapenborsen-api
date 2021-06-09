@@ -40,7 +40,8 @@ class CustomerController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'photo' => 'sometimes|nullable|file'
+            'photo' => 'sometimes|nullable|file',
+            'status' => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -55,6 +56,9 @@ class CustomerController extends Controller
             $table->description = $request->description;
             $table->password = bcrypt($request->password);
             $table->types = 'Customer';
+            if (isset($request->status)){
+                $table->status = $request->status;
+            }
 
             if ($request->has('photo')) {
                 // Get image file
@@ -110,7 +114,8 @@ class CustomerController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|string|email|unique:users,email,'.$id,
             'password' => 'sometimes|nullable|min:8|confirmed',
-            'photo' => 'sometimes|nullable|file'
+            'photo' => 'sometimes|nullable|file',
+            'status' => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -123,6 +128,9 @@ class CustomerController extends Controller
             $table->website = $request->website;
             $table->address = $request->address;
             $table->description = $request->description;
+            if (isset($request->status)){
+                $table->status = $request->status;
+            }
 
             if (isset($request->password)) {
                 $table->password = bcrypt($request->password);
@@ -164,5 +172,24 @@ class CustomerController extends Controller
         }
 
         return response()->json(config('naz.del'));
+    }
+
+    public function change_status(Request $request){
+        $validator = Validator::make($request->all(), [
+            'users_id' => 'required|array',
+            'status' => 'required|boolean'
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
+        try{
+
+            User::whereIn('id', $request->users_id)->update(['status' => $request->status]);
+
+        }catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return response()->json(config('naz.edit'));
     }
 }

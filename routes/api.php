@@ -92,6 +92,7 @@ Route::middleware(['auth:api'])->group(function () {
      * /Customer Profile
      */
 
+    Route::post('/customer/status', [CustomerController::class, 'change_status']);
     Route::resource('/customer/subscribe', SubscribeController::class);
     Route::resource('/customer', CustomerController::class);
 
