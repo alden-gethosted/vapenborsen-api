@@ -21,8 +21,9 @@ class AdFavouriteController extends Controller
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
         try{
+            dd(AdsFavorites::orderBy('id', 'DESC')->get());
+
             if(Auth::user()->types == 'Admin'){
-                dd(Auth::id());
                 $adFavoritex = AdsFavorites::orderBy('id', 'DESC');
                 if (isset($request->users_id)) {
                     $adFavoritex->where('users_id', $request->users_id);
