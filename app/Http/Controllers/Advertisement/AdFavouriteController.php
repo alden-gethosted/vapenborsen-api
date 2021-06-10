@@ -22,16 +22,15 @@ class AdFavouriteController extends Controller
 
         try{
             if(Auth::user()->types == 'Admin'){
+                dd(Auth::id());
                 $adFavoritex = AdsFavorites::orderBy('id', 'DESC');
                 if (isset($request->users_id)) {
                     $adFavoritex->where('users_id', $request->users_id);
                 }
                 $adFavorite = $adFavoritex->get();
-                dd($adFavorite);
             }else{
                 $adFavorite = AdsFavorites::where( 'users_id', Auth::id() )->orderBy('id', 'DESC')->get();
             }
-
 
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
