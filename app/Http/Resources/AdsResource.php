@@ -25,7 +25,7 @@ class AdsResource extends JsonResource
             'ads_packages'          => isset( $this->adsPackage ) ? $this->adsPackage : '',
             'products'              => isset( $this->product ) ? new ProductResource( $this->product ) : '',
             'users'                 => isset( $this->user ) ? new UserResource( $this->user ) : '',
-            //'reviews'               => isset( $this->adsReviews ) ? AdReviewsResource::collection( $this->adsReviews ): [],
+            'reviews'               => isset( $this->adsReviews ) ? AdReviewsResource::collection( $this->adsReviews ): [],
             'gallery'               => isset( $this->adsPhotos ) ?  AdPhotosResource::collection( $this->adsPhotos ) : [],
             'tags'                  => isset( $this->adsTags ) ? AdsTagsResource::collection( $this->adsTags ) : [],
             'items'                  => isset( $this->adsItems ) ? AdsItemResource::collection( $this->adsItems ) : [],
