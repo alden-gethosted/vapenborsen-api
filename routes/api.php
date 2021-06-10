@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Advertisement\AdMessageController;
+use App\Http\Controllers\Advertisement\AdsGalleyController;
 use App\Http\Controllers\Advertisement\SearchSaveController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
@@ -62,6 +63,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/ads/message', [AdMessageController::class, 'store']);
     Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
 
+    Route::resource('/ads/gallery', AdsGalleyController::class);
     Route::resource('/ads', AdController::class);
     Route::post('/ads/status', [AdController::class, 'statusUpdate']);
     Route::resource('/save-search', SearchSaveController::class);
