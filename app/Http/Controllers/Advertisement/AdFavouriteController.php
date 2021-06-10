@@ -27,6 +27,7 @@ class AdFavouriteController extends Controller
                     $adFavoritex->where('users_id', $request->users_id);
                 }
                 $adFavorite = $adFavoritex->get();
+                dd($adFavorite);
             }else{
                 $adFavorite = AdsFavorites::where( 'users_id', Auth::id() )->orderBy('id', 'DESC')->get();
             }
