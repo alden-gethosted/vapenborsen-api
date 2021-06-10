@@ -22,7 +22,7 @@ class AdFavouriteController extends Controller
 
         try{
             if(Auth::user()->types == 'Admin'){
-                $adFavoritex = AdsFavorites::orderBy('id', 'DESC')->get();
+                $adFavoritex = AdsFavorites::orderBy('id', 'DESC');
                 if (isset($request->users_id)) {
                     $adFavoritex->where('users_id', $request->users_id);
                 }
