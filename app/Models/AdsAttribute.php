@@ -18,7 +18,7 @@ class AdsAttribute extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -33,6 +33,6 @@ class AdsAttribute extends Model
      */
     public function ad()
     {
-        return $this->belongsTo('App\Models\Ad', 'ads_id');
+        return $this->belongsTo('App\Models\Ads', 'ads_id');
     }
 }

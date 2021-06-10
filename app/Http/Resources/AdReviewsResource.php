@@ -18,7 +18,7 @@ class AdReviewsResource extends JsonResource
             'id'        => $this->id,
             'comment'   => $this->comment,
             'rating'    => $this->rating,
-            'ads_id'    => $this->ads_id,
+            'ads'    => new AdsResource($this->ad),
             'customer'  => new CustomerResource($this->user)
         ];
     }

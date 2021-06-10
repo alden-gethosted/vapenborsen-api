@@ -19,7 +19,7 @@ class AdsItemResource extends JsonResource
             'quantity'     => $this->quantity,
             'descriptions' => $this->descriptions,
             'photo'        => asset($this->photo),
-            'products'  => new ProductResource($this->product),
-        ];    
+            'products'  => new ProductResource($this->product)
+        ];
     }
 }

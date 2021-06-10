@@ -19,7 +19,7 @@ class AdsTagsResource extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name,
             'slug'      => Str::slug($this->name, '-'),
-            'ads_id'    => $this->ads_id,
+            'ads'    => new AdsResource($this->ad)
         ];
     }
 }

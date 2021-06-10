@@ -19,7 +19,7 @@ class AdsMessageResource extends JsonResource
             'message'        => $this->message,
             'is_buyer'       => $this->is_buyer,//	0 mean it is seller end message & 1 mean buyer end message
             'ads'    => new AdsResource($this->ad),
-            'customer'      => new CustomerResource($this->user),
+            'customer'      => new CustomerResource($this->user)
 
         ];
     }

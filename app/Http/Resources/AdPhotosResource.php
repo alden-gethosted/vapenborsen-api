@@ -17,7 +17,7 @@ class AdPhotosResource extends JsonResource
         return [
            'id'     => $this->id,
            'name'   => asset($this->name),
-           'ads_id' => $this->ads_id
+            'ads'    => new AdsResource($this->ad),
         ];
     }
 }

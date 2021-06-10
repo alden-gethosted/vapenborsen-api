@@ -25,7 +25,7 @@ class AdsPackage extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -40,7 +40,7 @@ class AdsPackage extends Model
      */
     public function ads()
     {
-        return $this->hasMany('App\Models\Ad', 'ads_packages_id');
+        return $this->hasMany('App\Models\Ads', 'ads_packages_id');
     }
 
     /**

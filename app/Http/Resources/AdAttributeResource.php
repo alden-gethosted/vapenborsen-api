@@ -18,7 +18,7 @@ class AdAttributeResource extends JsonResource
            'id'       => $this->id,
            'name'     => $this->name,
            'values'   => $this->values,
-           'ads_id' => $this->ads_id
+            'ads'    => new AdsResource($this->ad),
         ];
     }
 }
