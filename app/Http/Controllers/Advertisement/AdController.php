@@ -422,7 +422,7 @@ class AdController extends Controller
     public function searches(Request $request){
         try{
             $today = date('Y-m-d');
-            $tablex = Ads::orderBy('id', 'DESC')->where('status', 'Publish')->where('expire', '>', $today);
+            $tablex = Ads::orderBy('id', 'DESC')->where('status', 'Published')->where('expire', '>', $today);
             if (isset($request->name)) {
                 $tablex->where('name', 'like', '%'.$request->name.'%');
             }
