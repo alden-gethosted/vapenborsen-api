@@ -13,14 +13,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @property string $created_at
  * @property string $updated_at
- * @property Ad[] $ads
+ * @property Ads[] $ads
  * @property Product[] $products
  */
 class ProductBrand extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -28,7 +28,7 @@ class ProductBrand extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'origin', 'description', 'logo', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'origin', 'description', 'logo','product_categories_id', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -44,5 +44,10 @@ class ProductBrand extends Model
     public function products()
     {
         return $this->hasMany('App\Models\Product', 'product_brands_id');
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo('App\Models\ProductCategories', 'product_categories_id');
     }
 }

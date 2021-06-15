@@ -19,6 +19,7 @@ class CreateProductBrandsTable extends Migration
             $table->string('origin')->nullable();
             $table->string('description')->nullable();
             $table->string('logo')->nullable();
+            $table->foreignId('product_categories_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
         });

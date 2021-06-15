@@ -35,7 +35,8 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:191'
+            'name' => 'required|string|max:191',
+            'product_categories_id' => 'required|numeric|exists:product_categories,id'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -45,6 +46,7 @@ class BrandController extends Controller
             $table->name = $request->name;
             $table->origin = $request->origin;
             $table->description = $request->description;
+            $table->product_categories_id = $request->product_categories_id;
 
             if ($request->has('logo')) {
                 // Get image file
@@ -97,7 +99,8 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:191'
+            'name' => 'required|string|max:191',
+            'product_categories_id' => 'required|numeric|exists:product_categories,id'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -107,6 +110,7 @@ class BrandController extends Controller
             $table->name = $request->name;
             $table->origin = $request->origin;
             $table->description = $request->description;
+            $table->product_categories_id = $request->product_categories_id;
 
             if ($request->has('logo')) {
                 // Get image file
