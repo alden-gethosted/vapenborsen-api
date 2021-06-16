@@ -44,6 +44,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 
 Route::get('/', [AdController::class, 'searches']);
+Route::post('/customer/register/', [CustomerController::class, 'customer_register']);
 
 Route::post('/customer/register', [UserController::class, 'register']);
 

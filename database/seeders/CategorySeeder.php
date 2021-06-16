@@ -30,7 +30,7 @@ class CategorySeeder extends Seeder
             ['id' => 11,'name' => 'Buer', 'parents_id' => 1],
             ['id' => 12,'name' => 'Air Weapons', 'parents_id' => 1],
             ['id' => 13,'name' => 'Accessories', 'parents_id' => 2],
-            ['id' => 14,'name' => 'For Collect & Antique', 'parents_id' => 2]
+            ['id' => 14,'name' => 'Collect & Antique', 'parents_id' => 2]
         ], [], ['id']);
 
         ProductType::upsert([
@@ -151,9 +151,7 @@ class CategorySeeder extends Seeder
             ['id' => 84,'name' => 'Sig Sauer', 'product_categories_id' => 12],
             ['id' => 85,'name' => 'Springfield Armory', 'product_categories_id' => 12],
             ['id' => 86,'name' => 'Tanfoglio', 'product_categories_id' => 12],
-            ['id' => 87,'name' => 'Black powder weapons', 'product_categories_id' => 12],
-            ['id' => 88,'name' => 'Brand & Mode', 'product_categories_id' => 12],
-            ['id' => 89,'name' => 'Year-From-To', 'product_categories_id' => 12]
+            ['id' => 87,'name' => 'Black powder weapons', 'product_categories_id' => 12]
         ], [], ['id']);
     }
 }
