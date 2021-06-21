@@ -48,6 +48,19 @@ Route::post('/customer/reg/', [CustomerController::class, 'customer_register']);
 
 Route::post('/customer/register', [UserController::class, 'register']);
 
+Route::get('/global/product/category', [CategoryController::class, 'index']);
+Route::get('/global/product/category/{id}', [CategoryController::class, 'show']);
+Route::get('/global/product/category/tree', [CategoryController::class, 'category_tree']);
+
+Route::get('/global/product/brand', [BrandController::class, 'index']);
+Route::get('/global/product/brand/{id}', [BrandController::class, 'show']);
+
+Route::get('/global/product/tag', [TagController::class, 'index']);
+Route::get('/global/product/tag/{id}', [TagController::class, 'show']);
+
+Route::get('/global/product/types', [TypesController::class, 'index']);
+Route::get('/global/product/types/{id}', [TypesController::class, 'show']);
+
 Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/attribute', AttributeController::class);
     Route::resource('/product/attribute-set', AttributeSetController::class);
