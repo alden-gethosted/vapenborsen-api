@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Advertisement;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdsPackage;
+use App\Models\PurchasePackage;
 use App\Models\Subscription;
 use App\Notifications\SubscribeNotification;
 use Illuminate\Http\Request;
@@ -104,11 +105,13 @@ class AdController extends Controller
         DB::beginTransaction();
 
         try {
-            $today = date('Y-m-d');
+            $today   = date('Y-m-d');
+
+            $user_id = Auth::user()->id;
 
             if(isset($request->ads_packages_id)){
-                $package = AdsPackage::where('id', $request->ads_packages_id)->where('expire', '>', $today)->count(); //Check it is expire or not
-
+                $package = PurchasePackage::where('ads_packages_id', $request->ads_packages_id)->where('users_id', '=', $user_id)->where('expire', '>', $today)->count(); //Check it is expire or not
+               
                 if($package <= 0){
                     throw new \Exception('This package was expired!!');
                 }
@@ -133,7 +136,8 @@ class AdController extends Controller
                 $ads->ads_packages_id       = $request->ads_packages_id;
                 $ads->status      = $request->status;
             }else{
-                $ads->status       = 'Pending';
+           //     $ads->status       = 'Pending';
+                $ads->status      = in_array( $request->status, [ 'Draft','Pending','Canceled','Expired' ] ) ? $request->status : 'Draft';
             }
 
             $ads->products_id           = $request->products_id;
@@ -219,6 +223,7 @@ class AdController extends Controller
             }
 
         } catch (\Exception $ex) {
+            dd($ex);
             DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
