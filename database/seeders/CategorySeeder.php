@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attribute;
+use App\Models\AttributeLink;
+use App\Models\AttributeSet;
+use App\Models\AttributeValue;
 use App\Models\ProductBrand;
 use App\Models\ProductCategories;
 use App\Models\ProductType;
@@ -30,7 +34,140 @@ class CategorySeeder extends Seeder
             ['id' => 11,'name' => 'Buer', 'parents_id' => 1],
             ['id' => 12,'name' => 'Air Weapons', 'parents_id' => 1],
             ['id' => 13,'name' => 'Accessories', 'parents_id' => 2],
-            ['id' => 14,'name' => 'Collect & Antique', 'parents_id' => 2]
+            ['id' => 14,'name' => 'Collect & Antique', 'parents_id' => 2],
+            ['id' => 15,'name' => 'Rifles', 'parents_id' => 13],
+            ['id' => 16,'name' => 'Shotguns', 'parents_id' => 13],
+            ['id' => 17,'name' => 'Pistol', 'parents_id' => 13],
+            ['id' => 18,'name' => 'Paintball & Softguns', 'parents_id' => 13],
+            ['id' => 19,'name' => 'Clothing Shoots Hunters', 'parents_id' => 13],
+            ['id' => 20,'name' => 'Literature Books', 'parents_id' => 13],
+            ['id' => 21,'name' => 'Clay Tablets Throwsers', 'parents_id' => 13],
+            ['id' => 22,'name' => 'Blinkers', 'parents_id' => 13],
+            ['id' => 23,'name' => 'Electronics', 'parents_id' => 13],
+            ['id' => 24,'name' => 'Home Charger', 'parents_id' => 13],
+            ['id' => 25,'name' => 'Knives', 'parents_id' => 13],
+            ['id' => 26,'name' => 'Lock cases', 'parents_id' => 3],
+            ['id' => 27,'name' => 'End piece', 'parents_id' => 3],
+            ['id' => 28,'name' => 'Shafts', 'parents_id' => 3],
+            ['id' => 29,'name' => 'Exhaust', 'parents_id' => 3],
+            ['id' => 30,'name' => 'Magazine', 'parents_id' => 3],
+            ['id' => 31,'name' => 'Pistol', 'parents_id' => 4],
+            ['id' => 32,'name' => 'Rifles', 'parents_id' => 4],
+            ['id' => 33,'name' => 'Rifle', 'parents_id' => 5],
+            ['id' => 34,'name' => 'Pistol', 'parents_id' => 5],
+            ['id' => 35,'name' => 'Shotguns', 'parents_id' => 5],
+            ['id' => 36,'name' => 'Handheld Binoculars', 'parents_id' => 5],
+            ['id' => 37,'name' => 'Air Force', 'parents_id' => 5],
+
+            ['id' => 38,'name' => 'Weapon stand', 'parents_id' => 15],
+            ['id' => 39,'name' => 'Straps and strap fasteners', 'parents_id' => 15],
+            ['id' => 40,'name' => 'Bolt balls', 'parents_id' => 15],
+            ['id' => 41,'name' => 'End pieces', 'parents_id' => 15],
+            ['id' => 42,'name' => 'Ammo boxes', 'parents_id' => 15],
+            ['id' => 43,'name' => 'Lanterns and parties', 'parents_id' => 15],
+            ['id' => 44,'name' => 'Lens protectors', 'parents_id' => 15],
+            ['id' => 45,'name' => 'Mirageband', 'parents_id' => 15],
+            ['id' => 46,'name' => 'Kolbekapper', 'parents_id' => 15],
+            ['id' => 47,'name' => 'Polishing equipment', 'parents_id' => 15],
+            ['id' => 48,'name' => 'Shooting belt', 'parents_id' => 15],
+            ['id' => 49,'name' => 'Futurals', 'parents_id' => 15],
+            ['id' => 50,'name' => 'Shooting support', 'parents_id' => 15],
+            ['id' => 51,'name' => 'Recoil damper', 'parents_id' => 15],
+            ['id' => 52,'name' => 'Shooting mats', 'parents_id' => 15],
+            ['id' => 53,'name' => 'Small parts', 'parents_id' => 15],
+            ['id' => 54,'name' => 'Springs', 'parents_id' => 15],
+            ['id' => 55,'name' => 'Spark plugs', 'parents_id' => 15],
+
+            ['id' => 56,'name' => 'Straps and straps', 'parents_id' => 16],
+            ['id' => 57,'name' => 'Grip', 'parents_id' => 16],
+            ['id' => 58,'name' => 'Lanterns and parties', 'parents_id' => 16],
+            ['id' => 59,'name' => 'Polishing equipment', 'parents_id' => 16],
+            ['id' => 60,'name' => 'Lever arms/End pieces', 'parents_id' => 16],
+            ['id' => 61,'name' => 'Ammo Boxes Belts', 'parents_id' => 16],
+            ['id' => 62,'name' => 'Weapon stand', 'parents_id' => 16],
+            ['id' => 63,'name' => 'Chocker', 'parents_id' => 16],
+            ['id' => 64,'name' => 'Small parts', 'parents_id' => 16],
+            ['id' => 65,'name' => 'Springs', 'parents_id' => 16],
+            ['id' => 66,'name' => 'Spark plugs', 'parents_id' => 16],
+
+            ['id' => 67,'name' => 'Grip', 'parents_id' => 17],
+            ['id' => 68,'name' => 'Polishing equipment', 'parents_id' => 17],
+            ['id' => 69,'name' => 'Tønner', 'parents_id' => 17],
+            ['id' => 70,'name' => 'Speed loaders', 'parents_id' => 17],
+            ['id' => 71,'name' => 'Holster Belts Vests', 'parents_id' => 17],
+            ['id' => 72,'name' => 'Case & Storage Boxes', 'parents_id' => 17],
+            ['id' => 73,'name' => 'Ammo boxes', 'parents_id' => 17],
+            ['id' => 74,'name' => 'Small parts', 'parents_id' => 17],
+            ['id' => 75,'name' => 'Springs', 'parents_id' => 17],
+            ['id' => 76,'name' => 'Spark plugs', 'parents_id' => 17],
+
+
+            ['id' => 77,'name' => 'Paintball', 'parents_id' => 18],
+            ['id' => 78,'name' => 'Soft Gun', 'parents_id' => 18],
+            ['id' => 79,'name' => 'Accessories', 'parents_id' => 18],
+            ['id' => 80,'name' => 'Clothes', 'parents_id' => 18],
+            ['id' => 81,'name' => 'Regulated 18 years', 'parents_id' => 18],
+
+            ['id' => 82,'name' => 'Whole set of clothes', 'parents_id' => 19],
+            ['id' => 83,'name' => 'Shooting jackets', 'parents_id' => 19],
+            ['id' => 84,'name' => 'Shooting pants', 'parents_id' => 19],
+            ['id' => 85,'name' => 'Shooting shoes', 'parents_id' => 19],
+            ['id' => 86,'name' => 'Shooting Gloves', 'parents_id' => 19],
+            ['id' => 87,'name' => 'Knee Elbow Protectors', 'parents_id' => 19],
+            ['id' => 88,'name' => 'Glasses', 'parents_id' => 19],
+            ['id' => 89,'name' => 'Hearing protection', 'parents_id' => 19],
+            ['id' => 90,'name' => 'Field shoes-Hunting', 'parents_id' => 19],
+            ['id' => 91,'name' => 'Vester Belter Tactical clothing', 'parents_id' => 19],
+            ['id' => 92,'name' => 'Hunting clothes', 'parents_id' => 19],
+            ['id' => 93,'name' => 'Hunting shoes', 'parents_id' => 19],
+
+            ['id' => 93,'name' => 'Manuals', 'parents_id' => 20],
+            ['id' => 94,'name' => 'Charging books', 'parents_id' => 20],
+            ['id' => 95,'name' => 'Magazines', 'parents_id' => 20],
+            ['id' => 96,'name' => 'General books', 'parents_id' => 20],
+
+            ['id' => 97,'name' => 'Manual', 'parents_id' => 21],
+            ['id' => 98,'name' => 'Electronic', 'parents_id' => 21],
+
+            ['id' => 99,'name' => 'Self-indicators', 'parents_id' => 22],
+            ['id' => 100,'name' => 'Steel', 'parents_id' => 22],
+            ['id' => 101,'name' => 'Cardboard', 'parents_id' => 22],
+            ['id' => 102,'name' => 'Electronic', 'parents_id' => 22],
+            ['id' => 103,'name' => 'Parts & Components', 'parents_id' => 22],
+
+            ['id' => 104,'name' => 'Chronographs', 'parents_id' => 23],
+            ['id' => 105,'name' => 'Wind Height Barometer meters', 'parents_id' => 23],
+            ['id' => 106,'name' => 'GPS & Trackers', 'parents_id' => 23],
+            ['id' => 107,'name' => 'Rangefinders', 'parents_id' => 23],
+            ['id' => 108,'name' => 'Radio', 'parents_id' => 23],
+            ['id' => 109,'name' => 'Shoot cam', 'parents_id' => 23],
+            ['id' => 110,'name' => 'Bait Light', 'parents_id' => 23],
+            ['id' => 111,'name' => 'Lure Equipment', 'parents_id' => 23],
+
+            ['id' => 112,'name' => 'Empty Sleeves', 'parents_id' => 24],
+            ['id' => 113,'name' => 'Bullets', 'parents_id' => 24],
+            ['id' => 114,'name' => 'Gunpowder', 'parents_id' => 24],
+            ['id' => 115,'name' => 'Black powder', 'parents_id' => 24],
+            ['id' => 116,'name' => 'Spark Plugs', 'parents_id' => 24],
+            ['id' => 117,'name' => 'Parts Charging presses', 'parents_id' => 24],
+            ['id' => 118,'name' => 'Diers & Sleeve Holders', 'parents_id' => 24],
+            ['id' => 120,'name' => 'Scales-Manual-Electronic', 'parents_id' => 24],
+            ['id' => 121,'name' => 'Conversion Kit', 'parents_id' => 24],
+            ['id' => 122,'name' => 'Sleeve prep & trimmers', 'parents_id' => 24],
+            ['id' => 123,'name' => 'Measuring Instruments & Tools', 'parents_id' => 24],
+            ['id' => 124,'name' => 'Tumblers & Media', 'parents_id' => 24],
+            ['id' => 125,'name' => 'Bullet casting', 'parents_id' => 24],
+            ['id' => 126,'name' => 'Gunpowder dispensers', 'parents_id' => 24],
+
+            ['id' => 127,'name' => 'Hunting knives', 'parents_id' => 25],
+            ['id' => 128,'name' => 'Custom knives', 'parents_id' => 25],
+            ['id' => 129,'name' => 'Swords and others', 'parents_id' => 25],
+
+            ['id' => 130,'name' => 'Gun', 'parents_id' => 112],
+            ['id' => 131,'name' => 'Rifle', 'parents_id' => 112],
+            ['id' => 134,'name' => 'Wet', 'parents_id' => 124],
+            ['id' => 135,'name' => 'Dry', 'parents_id' => 124]
+
         ], [], ['id']);
 
         ProductType::upsert([
@@ -61,7 +198,25 @@ class CategorySeeder extends Seeder
             ['id' => 25,'name' => 'Competition', 'product_categories_id' => 14],
             ['id' => 26,'name' => 'Semiauto', 'product_categories_id' => 14],
             ['id' => 27,'name' => 'Revolver', 'product_categories_id' => 14],
-            ['id' => 28,'name' => 'Single shot', 'product_categories_id' => 14]
+            ['id' => 28,'name' => 'Single shot', 'product_categories_id' => 14],
+            ['id' => 29,'name' => '14x1', 'product_categories_id' => 51],
+            ['id' => 30,'name' => '14x1.5', 'product_categories_id' => 51],
+            ['id' => 31,'name' => '17x1', 'product_categories_id' => 51],
+            ['id' => 32,'name' => '5/8¨x24', 'product_categories_id' => 51],
+            ['id' => 33,'name' => '17x1', 'product_categories_id' => 51],
+            ['id' => 34,'name' => '17x1', 'product_categories_id' => 51],
+            ['id' => 35,'name' => '13x1', 'product_categories_id' => 51],
+            ['id' => 36,'name' => '15x1', 'product_categories_id' => 51],
+            ['id' => 37,'name' => '1/2x20', 'product_categories_id' => 51],
+            ['id' => 38,'name' => '1/2x28', 'product_categories_id' => 51],
+
+            ['id' => 39,'name' => 'Beretta', 'product_categories_id' => 63],
+            ['id' => 40,'name' => 'Winchester', 'product_categories_id' => 63],
+            ['id' => 41,'name' => 'Remington', 'product_categories_id' => 63],
+            ['id' => 42,'name' => 'Browning', 'product_categories_id' => 63],
+            ['id' => 43,'name' => 'Sauer', 'product_categories_id' => 63],
+            ['id' => 44,'name' => 'Other brands', 'product_categories_id' => 63]
+
         ], [], ['id']);
 
         ProductBrand::upsert([
@@ -151,7 +306,160 @@ class CategorySeeder extends Seeder
             ['id' => 84,'name' => 'Sig Sauer', 'product_categories_id' => 12],
             ['id' => 85,'name' => 'Springfield Armory', 'product_categories_id' => 12],
             ['id' => 86,'name' => 'Tanfoglio', 'product_categories_id' => 12],
-            ['id' => 87,'name' => 'Black powder weapons', 'product_categories_id' => 12]
+            ['id' => 87,'name' => 'Black powder weapons', 'product_categories_id' => 12],
+
+            ['id' => 88,'name' => 'Lapua', 'product_categories_id' => 113],
+            ['id' => 89,'name' => 'Berger', 'product_categories_id' => 113],
+            ['id' => 90,'name' => 'Barnes', 'product_categories_id' => 113],
+            ['id' => 91,'name' => 'Hornady', 'product_categories_id' => 113],
+            ['id' => 92,'name' => 'Norma', 'product_categories_id' => 113],
+            ['id' => 93,'name' => 'Nosler', 'product_categories_id' => 113],
+            ['id' => 94,'name' => 'Sierra', 'product_categories_id' => 113],
+            ['id' => 95,'name' => 'Fox Bullets', 'product_categories_id' => 113],
+            ['id' => 96,'name' => 'Rhino', 'product_categories_id' => 113],
+            ['id' => 97,'name' => 'Geco', 'product_categories_id' => 113],
+            ['id' => 98,'name' => 'Swift', 'product_categories_id' => 113],
+            ['id' => 99,'name' => 'Federal', 'product_categories_id' => 113],
+            ['id' => 100,'name' => 'Woodleigh', 'product_categories_id' => 113],
+            ['id' => 101,'name' => 'RWS', 'product_categories_id' => 113],
+            ['id' => 102,'name' => 'GGC', 'product_categories_id' => 113],
+            ['id' => 103,'name' => 'Partizan', 'product_categories_id' => 113],
+            ['id' => 104,'name' => 'S&B', 'product_categories_id' => 113],
+            ['id' => 105,'name' => 'Spear', 'product_categories_id' => 113],
+            ['id' => 107,'name' => 'Supersonic', 'product_categories_id' => 113],
+
+            ['id' => 108,'name' => 'Norma', 'product_categories_id' => 114],
+            ['id' => 109,'name' => 'Vihtavuori', 'product_categories_id' => 114],
+            ['id' => 110,'name' => 'Winchester', 'product_categories_id' => 114],
+            ['id' => 111,'name' => 'IMR', 'product_categories_id' => 114],
+            ['id' => 112,'name' => 'Hodgon', 'product_categories_id' => 114],
+            ['id' => 113,'name' => 'Lovex', 'product_categories_id' => 114],
+            ['id' => 114,'name' => 'Alliance', 'product_categories_id' => 114],
+            ['id' => 115,'name' => 'Vectan', 'product_categories_id' => 114],
+
+            ['id' => 116,'name' => 'Federal', 'product_categories_id' => 116],
+            ['id' => 117,'name' => 'RWS', 'product_categories_id' => 116],
+            ['id' => 118,'name' => 'Remington', 'product_categories_id' => 116],
+            ['id' => 119,'name' => 'CCI', 'product_categories_id' => 116],
+            ['id' => 120,'name' => 'Winchester', 'product_categories_id' => 116],
+            ['id' => 121,'name' => 'Murom', 'product_categories_id' => 116],
+            ['id' => 122,'name' => 'S&B', 'product_categories_id' => 116],
+
+            ['id' => 123,'name' => 'Lyman', 'product_categories_id' => 118],
+            ['id' => 124,'name' => 'Lee', 'product_categories_id' => 118],
+            ['id' => 125,'name' => 'RCBS', 'product_categories_id' => 118],
+            ['id' => 126,'name' => 'Hornady', 'product_categories_id' => 118],
+            ['id' => 127,'name' => 'Dillon', 'product_categories_id' => 118],
+            ['id' => 128,'name' => 'Forster', 'product_categories_id' => 118],
+            ['id' => 129,'name' => 'Rescue', 'product_categories_id' => 118],
+
+            ['id' => 130,'name' => 'Lyman', 'product_categories_id' => 121],
+            ['id' => 131,'name' => 'Lee', 'product_categories_id' => 121],
+            ['id' => 132,'name' => 'RCBS', 'product_categories_id' => 121],
+            ['id' => 133,'name' => 'Hornady', 'product_categories_id' => 121],
+            ['id' => 134,'name' => 'Dillon', 'product_categories_id' => 121],
+            ['id' => 135,'name' => 'Forster', 'product_categories_id' => 121],
+            ['id' => 136,'name' => 'Rescue', 'product_categories_id' => 121],
+
+            ['id' => 137,'name' => 'Lyman', 'product_categories_id' => 122],
+            ['id' => 138,'name' => 'Lee', 'product_categories_id' => 122],
+            ['id' => 139,'name' => 'RCBS', 'product_categories_id' => 122],
+            ['id' => 140,'name' => 'Hornady', 'product_categories_id' => 122],
+            ['id' => 141,'name' => 'Dillon', 'product_categories_id' => 122],
+            ['id' => 142,'name' => 'Forster', 'product_categories_id' => 122],
+            ['id' => 143,'name' => 'Rescue', 'product_categories_id' => 122]
+
         ], [], ['id']);
+
+
+        AttributeSet::upsert([
+            ['id' => 1, 'name' => 'Caliber']
+        ], [], ['id']);
+
+        Attribute::upsert([
+            ['id' => 1, 'name' => 'Rifles', 'is_filterable' => 1, 'attribute_sets_id' => 1],
+            ['id' => 2, 'name' => 'Shotguns', 'is_filterable' => 1, 'attribute_sets_id' => 1],
+            ['id' => 3, 'name' => 'Pistol', 'is_filterable' => 1, 'attribute_sets_id' => 1]
+        ], [], ['id']);
+
+        AttributeValue::upsert([
+            ['id' => 2, 'name' => '6.5x55', 'attributes_id' => 1],
+            ['id' => 3, 'name' => '6.5 Creedmoor', 'attributes_id' => 1],
+            ['id' => 4, 'name' => '308 Winchester', 'attributes_id' => 1],
+            ['id' => 5, 'name' => '30.06 Springfield', 'attributes_id' => 1],
+            ['id' => 6, 'name' => '22-250 Remington', 'attributes_id' => 1],
+            ['id' => 7, 'name' => '223 Remington', 'attributes_id' => 1],
+            ['id' => 8, 'name' => '22 Hornet', 'attributes_id' => 1],
+            ['id' => 9, 'name' => '17 HMR', 'attributes_id' => 1],
+            ['id' => 10, 'name' => '22LR', 'attributes_id' => 1],
+            ['id' => 11, 'name' => '221 Remington Fireball', 'attributes_id' => 1],
+            ['id' => 12, 'name' => '222 Remington', 'attributes_id' => 1],
+            ['id' => 13, 'name' => '243 Winchester', 'attributes_id' => 1],
+            ['id' => 14, 'name' => '6mm XC', 'attributes_id' => 1],
+            ['id' => 15, 'name' => '6.5x47 Lapua', 'attributes_id' => 1],
+            ['id' => 16, 'name' => '260 Remington', 'attributes_id' => 1],
+            ['id' => 17, 'name' => '6.5-284 Norma', 'attributes_id' => 1],
+            ['id' => 18, 'name' => '270 Winchester', 'attributes_id' => 1],
+            ['id' => 19, 'name' => '284 Winchester', 'attributes_id' => 1],
+            ['id' => 20, 'name' => '300 H&H', 'attributes_id' => 1],
+            ['id' => 21, 'name' => '300 Black Out', 'attributes_id' => 1],
+            ['id' => 22, 'name' => '300 Winchester Magnum', 'attributes_id' => 1],
+            ['id' => 23, 'name' => '300 Norma Magnum', 'attributes_id' => 1],
+            ['id' => 24, 'name' => '300 Blaser Magnum', 'attributes_id' => 1],
+            ['id' => 25, 'name' => '300 Lapua Magnum', 'attributes_id' => 1],
+            ['id' => 26, 'name' => '338 Lapua Magnum', 'attributes_id' => 1],
+            ['id' => 27, 'name' => '338 Winchester Magnum', 'attributes_id' => 1],
+            ['id' => 28, 'name' => '338 RUM', 'attributes_id' => 1],
+            ['id' => 29, 'name' => '6.5 - 284 Norma', 'attributes_id' => 1],
+            ['id' => 30, 'name' => '6.5 Creedmoor', 'attributes_id' => 1],
+            ['id' => 31, 'name' => '7mm-08', 'attributes_id' => 1],
+            ['id' => 32, 'name' => '7x57', 'attributes_id' => 1],
+            ['id' => 33, 'name' => '7x57R', 'attributes_id' => 1],
+            ['id' => 34, 'name' => '7x64', 'attributes_id' => 1],
+            ['id' => 35, 'name' => '7mm Remington Magnum', 'attributes_id' => 1],
+            ['id' => 36, 'name' => '7mm-08 Remington', 'attributes_id' => 1],
+            ['id' => 37, 'name' => '7mm WSM', 'attributes_id' => 1],
+            ['id' => 38, 'name' => '9.3x62', 'attributes_id' => 1],
+            ['id' => 39, 'name' => '9.3x 74R', 'attributes_id' => 1],
+            ['id' => 40, 'name' => '9.3x66 SAKO', 'attributes_id' => 1],
+            ['id' => 41, 'name' => '8x68 S', 'attributes_id' => 1],
+            ['id' => 42, 'name' => '8x57 IRS', 'attributes_id' => 1],
+            ['id' => 43, 'name' => '8x58IS Mauser', 'attributes_id' => 1],
+            ['id' => 44, 'name' => '375 H&H', 'attributes_id' => 1],
+            ['id' => 45, 'name' => '416 Rigby', 'attributes_id' => 1],
+            ['id' => 46, 'name' => '444 Marlin', 'attributes_id' => 1],
+            ['id' => 47, 'name' => '458 Lott', 'attributes_id' => 1],
+            ['id' => 48, 'name' => '458 Winchester Magnum', 'attributes_id' => 1],
+            ['id' => 49, 'name' => '470 NE', 'attributes_id' => 1],
+            ['id' => 50, 'name' => '500 NE', 'attributes_id' => 1],
+            ['id' => 51, 'name' => '45-70 Government', 'attributes_id' => 1],
+            ['id' => 52, 'name' => '30.30 Winchester', 'attributes_id' => 1],
+            ['id' => 53, 'name' => '30- 378 Weather by Magnum', 'attributes_id' => 1],
+            ['id' => 54, 'name' => '50 Browning', 'attributes_id' => 1],
+            ['id' => 55, 'name' => 'Kal 12', 'attributes_id' => 2],
+            ['id' => 56, 'name' => 'Kal 16', 'attributes_id' => 2],
+            ['id' => 57, 'name' => 'Kal 20', 'attributes_id' => 2],
+            ['id' => 58, 'name' => 'Kal 10', 'attributes_id' => 2],
+            ['id' => 59, 'name' => '357 Magnum', 'attributes_id' => 3],
+            ['id' => 60, 'name' => '44 Magnum', 'attributes_id' => 3],
+            ['id' => 61, 'name' => '454', 'attributes_id' => 3],
+            ['id' => 62, 'name' => '22LR', 'attributes_id' => 3],
+            ['id' => 63, 'name' => '9mm', 'attributes_id' => 3],
+            ['id' => 64, 'name' => '45 ACP', 'attributes_id' => 3],
+            ['id' => 65, 'name' => '45 Auto', 'attributes_id' => 3],
+            ['id' => 66, 'name' => '38 Special', 'attributes_id' => 3],
+            ['id' => 67, 'name' => '32 ACP', 'attributes_id' => 3],
+            ['id' => 68, 'name' => '50 S&W', 'attributes_id' => 3],
+            ['id' => 69, 'name' => '50AE', 'attributes_id' => 3]
+        ], [], ['id']);
+
+
+        AttributeLink::upsert([
+            ['id' => 1, 'product_categories_id' => 8,  'attributes_id' => 1],
+            ['id' => 1, 'product_categories_id' => 9,  'attributes_id' => 2],
+            ['id' => 1, 'product_categories_id' => 10,  'attributes_id' => 3],
+        ], [], ['id']);
+
+
     }
 }
