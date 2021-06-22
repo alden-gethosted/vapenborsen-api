@@ -78,7 +78,7 @@ class AdController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'                  => 'required|string|min:3',
-            'state'                 => 'required|in:Weapon,Accessories,Other',
+            'state'                 => 'sometimes|nullable|in:Weapon,Accessories,Other',
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
@@ -111,7 +111,7 @@ class AdController extends Controller
 
             if(isset($request->ads_packages_id)){
                 $package = PurchasePackage::where('ads_packages_id', $request->ads_packages_id)->where('users_id', '=', $user_id)->where('expire', '>', $today)->count(); //Check it is expire or not
-               
+
                 if($package <= 0){
                     throw new \Exception('This package was expired!!');
                 }
@@ -119,7 +119,9 @@ class AdController extends Controller
 
             $ads = new Ads();
             $ads->name        = $request->name;
-            $ads->state       = $request->state;
+            if (isset($request->state)){
+                $ads->state       = $request->state;
+            }
             $ads->price       = $request->price;
             $ads->is_used     = $request->is_used;
             $ads->is_shipping = $request->is_shipping;
@@ -274,7 +276,7 @@ class AdController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'                  => 'required|string|min:3',
-            'state'                 => 'required|in:Weapon,Accessories,Other',
+            'state'                 => 'sometimes|nullable|in:Weapon,Accessories,Other',
             'price'                 => 'required|numeric',
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
@@ -301,7 +303,9 @@ class AdController extends Controller
         try {
            $ads              = Ads::find($id);
            $ads->name        = $request->name;
-           $ads->state       = $request->state;
+            if (isset($request->state)){
+                $ads->state       = $request->state;
+            }
            $ads->price       = $request->price;
            $ads->is_used     = $request->is_used;
            $ads->is_shipping = $request->is_shipping;

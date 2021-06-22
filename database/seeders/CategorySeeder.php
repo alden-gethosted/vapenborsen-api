@@ -154,7 +154,6 @@ class CategorySeeder extends Seeder
             ['id' => 131,'name' => 'Rifle', 'parents_id' => 112],
             ['id' => 134,'name' => 'Wet', 'parents_id' => 124],
             ['id' => 135,'name' => 'Dry', 'parents_id' => 124]
-
         ], [], ['id']);
 
         ProductType::upsert([
@@ -202,7 +201,6 @@ class CategorySeeder extends Seeder
             ['id' => 42,'name' => 'Browning', 'product_categories_id' => 63],
             ['id' => 43,'name' => 'Sauer', 'product_categories_id' => 63],
             ['id' => 44,'name' => 'Other brands', 'product_categories_id' => 63]
-
         ], [], ['id']);
 
         ProductBrand::upsert([
@@ -662,7 +660,6 @@ class CategorySeeder extends Seeder
             ['id' => 455,'name' => 'Rescue', 'product_categories_id' => 7]
         ], [], ['id']);
 
-
         AttributeSet::upsert([
             ['id' => 1, 'name' => 'Caliber']
         ], [], ['id']);
@@ -751,14 +748,13 @@ class CategorySeeder extends Seeder
             ['id' => 76, 'name' => '3 shots', 'attributes_id' => 3],
             ['id' => 77, 'name' => '5 shots', 'attributes_id' => 3],
             ['id' => 78, 'name' => '10 shots', 'attributes_id' => 3]
-
         ], [], ['id']);
 
 
         AttributeLink::upsert([
             ['id' => 1, 'product_categories_id' => 8,  'attributes_id' => 1],
             ['id' => 2, 'product_categories_id' => 9,  'attributes_id' => 2],
-            ['id' => 3, 'product_categories_id' => 10,  'attributes_id' => 3],
+            ['id' => 3, 'product_categories_id' => 10,  'attributes_id' => 3]
         ], [], ['id']);
 
 
