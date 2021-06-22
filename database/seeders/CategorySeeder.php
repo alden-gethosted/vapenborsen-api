@@ -58,7 +58,6 @@ class CategorySeeder extends Seeder
             ['id' => 35,'name' => 'Shotguns', 'parents_id' => 5],
             ['id' => 36,'name' => 'Handheld Binoculars', 'parents_id' => 5],
             ['id' => 37,'name' => 'Air Force', 'parents_id' => 5],
-
             ['id' => 38,'name' => 'Weapon stand', 'parents_id' => 15],
             ['id' => 39,'name' => 'Straps and strap fasteners', 'parents_id' => 15],
             ['id' => 40,'name' => 'Bolt balls', 'parents_id' => 15],
@@ -77,7 +76,6 @@ class CategorySeeder extends Seeder
             ['id' => 53,'name' => 'Small parts', 'parents_id' => 15],
             ['id' => 54,'name' => 'Springs', 'parents_id' => 15],
             ['id' => 55,'name' => 'Spark plugs', 'parents_id' => 15],
-
             ['id' => 56,'name' => 'Straps and straps', 'parents_id' => 16],
             ['id' => 57,'name' => 'Grip', 'parents_id' => 16],
             ['id' => 58,'name' => 'Lanterns and parties', 'parents_id' => 16],
@@ -89,7 +87,6 @@ class CategorySeeder extends Seeder
             ['id' => 64,'name' => 'Small parts', 'parents_id' => 16],
             ['id' => 65,'name' => 'Springs', 'parents_id' => 16],
             ['id' => 66,'name' => 'Spark plugs', 'parents_id' => 16],
-
             ['id' => 67,'name' => 'Grip', 'parents_id' => 17],
             ['id' => 68,'name' => 'Polishing equipment', 'parents_id' => 17],
             ['id' => 69,'name' => 'Tønner', 'parents_id' => 17],
@@ -100,14 +97,11 @@ class CategorySeeder extends Seeder
             ['id' => 74,'name' => 'Small parts', 'parents_id' => 17],
             ['id' => 75,'name' => 'Springs', 'parents_id' => 17],
             ['id' => 76,'name' => 'Spark plugs', 'parents_id' => 17],
-
-
             ['id' => 77,'name' => 'Paintball', 'parents_id' => 18],
             ['id' => 78,'name' => 'Soft Gun', 'parents_id' => 18],
             ['id' => 79,'name' => 'Accessories', 'parents_id' => 18],
             ['id' => 80,'name' => 'Clothes', 'parents_id' => 18],
             ['id' => 81,'name' => 'Regulated 18 years', 'parents_id' => 18],
-
             ['id' => 82,'name' => 'Whole set of clothes', 'parents_id' => 19],
             ['id' => 83,'name' => 'Shooting jackets', 'parents_id' => 19],
             ['id' => 84,'name' => 'Shooting pants', 'parents_id' => 19],
@@ -120,21 +114,17 @@ class CategorySeeder extends Seeder
             ['id' => 91,'name' => 'Vester Belter Tactical clothing', 'parents_id' => 19],
             ['id' => 92,'name' => 'Hunting clothes', 'parents_id' => 19],
             ['id' => 93,'name' => 'Hunting shoes', 'parents_id' => 19],
-
             ['id' => 93,'name' => 'Manuals', 'parents_id' => 20],
             ['id' => 94,'name' => 'Charging books', 'parents_id' => 20],
             ['id' => 95,'name' => 'Magazines', 'parents_id' => 20],
             ['id' => 96,'name' => 'General books', 'parents_id' => 20],
-
             ['id' => 97,'name' => 'Manual', 'parents_id' => 21],
             ['id' => 98,'name' => 'Electronic', 'parents_id' => 21],
-
             ['id' => 99,'name' => 'Self-indicators', 'parents_id' => 22],
             ['id' => 100,'name' => 'Steel', 'parents_id' => 22],
             ['id' => 101,'name' => 'Cardboard', 'parents_id' => 22],
             ['id' => 102,'name' => 'Electronic', 'parents_id' => 22],
             ['id' => 103,'name' => 'Parts & Components', 'parents_id' => 22],
-
             ['id' => 104,'name' => 'Chronographs', 'parents_id' => 23],
             ['id' => 105,'name' => 'Wind Height Barometer meters', 'parents_id' => 23],
             ['id' => 106,'name' => 'GPS & Trackers', 'parents_id' => 23],
@@ -143,7 +133,6 @@ class CategorySeeder extends Seeder
             ['id' => 109,'name' => 'Shoot cam', 'parents_id' => 23],
             ['id' => 110,'name' => 'Bait Light', 'parents_id' => 23],
             ['id' => 111,'name' => 'Lure Equipment', 'parents_id' => 23],
-
             ['id' => 112,'name' => 'Empty Sleeves', 'parents_id' => 24],
             ['id' => 113,'name' => 'Bullets', 'parents_id' => 24],
             ['id' => 114,'name' => 'Gunpowder', 'parents_id' => 24],
@@ -158,11 +147,9 @@ class CategorySeeder extends Seeder
             ['id' => 124,'name' => 'Tumblers & Media', 'parents_id' => 24],
             ['id' => 125,'name' => 'Bullet casting', 'parents_id' => 24],
             ['id' => 126,'name' => 'Gunpowder dispensers', 'parents_id' => 24],
-
             ['id' => 127,'name' => 'Hunting knives', 'parents_id' => 25],
             ['id' => 128,'name' => 'Custom knives', 'parents_id' => 25],
             ['id' => 129,'name' => 'Swords and others', 'parents_id' => 25],
-
             ['id' => 130,'name' => 'Gun', 'parents_id' => 112],
             ['id' => 131,'name' => 'Rifle', 'parents_id' => 112],
             ['id' => 134,'name' => 'Wet', 'parents_id' => 124],
@@ -209,7 +196,6 @@ class CategorySeeder extends Seeder
             ['id' => 36,'name' => '15x1', 'product_categories_id' => 51],
             ['id' => 37,'name' => '1/2x20', 'product_categories_id' => 51],
             ['id' => 38,'name' => '1/2x28', 'product_categories_id' => 51],
-
             ['id' => 39,'name' => 'Beretta', 'product_categories_id' => 63],
             ['id' => 40,'name' => 'Winchester', 'product_categories_id' => 63],
             ['id' => 41,'name' => 'Remington', 'product_categories_id' => 63],
@@ -771,8 +757,8 @@ class CategorySeeder extends Seeder
 
         AttributeLink::upsert([
             ['id' => 1, 'product_categories_id' => 8,  'attributes_id' => 1],
-            ['id' => 1, 'product_categories_id' => 9,  'attributes_id' => 2],
-            ['id' => 1, 'product_categories_id' => 10,  'attributes_id' => 3],
+            ['id' => 2, 'product_categories_id' => 9,  'attributes_id' => 2],
+            ['id' => 3, 'product_categories_id' => 10,  'attributes_id' => 3],
         ], [], ['id']);
 
 
