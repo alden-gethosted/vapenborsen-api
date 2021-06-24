@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\CustomerProfile;
 use App\Http\Controllers\Customer\SubscribeController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Package\PackagePurchaseController;
 use App\Http\Controllers\Product\CategoryController;
@@ -136,7 +137,7 @@ Route::get('/auth/me', [AuthController::class, 'me']);
 /**
  * API Forgot Password
  */
-Route::post('password/email', 'ForgotPasswordController@forgot');
+Route::post('password/email', [ForgotPasswordController::class, 'forgot']);
 /**
  * API Forgot Password
  */
