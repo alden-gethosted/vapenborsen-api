@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
-//use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -34,18 +33,15 @@ class AuthController extends Controller
             $table->types = 'Admin';
             $table->save();
 
-            //event(new Registered($table));
-            $table->sendEmailVerificationNotification();
-            //$accessToken = $table->createToken('authToken')->accessToken;
+            $accessToken = $table->createToken('authToken')->accessToken;
 
             $data = array(
-                'message' => 'Successfully Register. Verification link sent!'
-                //'token_type' => 'Bearer',
-                //'access_token' => $accessToken
+                'message' => 'Successfully Register.',
+                'token_type' => 'Bearer',
+                'access_token' => $accessToken
             );
 
         }catch (\Exception $ex) {
-            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
