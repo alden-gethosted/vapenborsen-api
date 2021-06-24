@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    /*try {
+    try {
         Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
     } catch (\Exception $ex) {
         dd($ex);
-    }*/
+    }
 
     //$table = User::find(3);
     //$table->notify(new SubscribeNotification()); //Notification Test
