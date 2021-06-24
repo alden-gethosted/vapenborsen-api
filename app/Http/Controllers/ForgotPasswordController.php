@@ -17,7 +17,7 @@ class ForgotPasswordController extends Controller
 
         try {
 
-            Password::sendResetLink($request->email);
+            Password::sendResetLink($request->all());
 
         } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
