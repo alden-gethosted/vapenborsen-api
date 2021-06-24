@@ -33,12 +33,13 @@ class AuthController extends Controller
             $table->types = 'Admin';
             $table->save();
 
-            $accessToken = $table->createToken('authToken')->accessToken;
+            $table->sendEmailVerificationNotification();
+            //$accessToken = $table->createToken('authToken')->accessToken;
 
             $data = array(
-                'message' => 'Successfully Register.',
-                'token_type' => 'Bearer',
-                'access_token' => $accessToken
+                'message' => 'Successfully Register. Verification link sent!'
+                //'token_type' => 'Bearer',
+                //'access_token' => $accessToken
             );
 
         }catch (\Exception $ex) {
