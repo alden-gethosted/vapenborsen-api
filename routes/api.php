@@ -134,6 +134,14 @@ Route::get('/auth/me', [AuthController::class, 'me']);
  */
 
 /**
+ * API Forgot Password
+ */
+Route::post('password/email', 'ForgotPasswordController@forgot');
+/**
+ * API Forgot Password
+ */
+
+/**
  * /Email Verification
  */
 Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify'); // Make sure to keep this as your route name
