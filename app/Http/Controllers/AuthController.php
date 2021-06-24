@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -33,7 +34,8 @@ class AuthController extends Controller
             $table->types = 'Admin';
             $table->save();
 
-            $table->sendEmailVerificationNotification();
+            event(new Registered($table));
+            //$table->sendEmailVerificationNotification();
             //$accessToken = $table->createToken('authToken')->accessToken;
 
             $data = array(
