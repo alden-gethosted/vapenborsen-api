@@ -28,5 +28,5 @@ Route::get('/', function () {
     //$table = User::find(3);
     //$table->notify(new SubscribeNotification()); //Notification Test
 
-    return view('welcome');
+    //return view('welcome');
 });
