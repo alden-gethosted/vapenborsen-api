@@ -159,6 +159,7 @@ Route::get('/test-mail', function () {
         dd($ex);
     }
 
+    return 'It is works';
 });
 /**
  * /Email Verification
