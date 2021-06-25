@@ -26,8 +26,8 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
-use App\Mail\TestMail;
-use Illuminate\Support\Facades\Mail;
+//use App\Mail\TestMail;
+//use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -153,7 +153,7 @@ Route::get('email/resend', 'VerificationController@resend')->name('verification.
 
 Route::get('/test-mail', function () {
     try {
-        Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
+       // Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
         //dd($dd);
     } catch (\Exception $ex) {
         dd($ex);
