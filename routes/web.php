@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     try {
-        Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
+        $dd = Mail::to('wall.mate@gmail.com')->send(new TestMail('It works!'));
+        dd($dd);
     } catch (\Exception $ex) {
         dd($ex);
     }
