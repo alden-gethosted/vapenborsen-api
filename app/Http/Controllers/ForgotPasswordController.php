@@ -31,6 +31,17 @@ class ForgotPasswordController extends Controller
         }
     }
 
+    public function get_reset(Request $request){
+        $validator = Validator::make($request->all(), [
+            'token'          => 'required',
+            'email'          => 'required|email|exists:users,email'
+        ]);
+
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
+        return response()->json([$request->all()]);
+    }
+
     public function reset(Request $request){
         $validator = Validator::make($request->all(), [
             'token'          => 'required',

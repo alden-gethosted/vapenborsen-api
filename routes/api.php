@@ -140,7 +140,8 @@ Route::get('/auth/me', [AuthController::class, 'me']);
  * API Forgot Password
  */
 Route::post('password/email', [ForgotPasswordController::class, 'forgot']);
-Route::post('password/reset', [ForgotPasswordController::class, 'reset'])->name('password.reset');
+Route::get('password/reset', [ForgotPasswordController::class, 'get_reset'])->name('password.reset');
+Route::post('password/reset', [ForgotPasswordController::class, 'reset']);
 /**
  * API Forgot Password
  */
