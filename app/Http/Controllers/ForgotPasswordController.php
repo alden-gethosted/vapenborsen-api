@@ -20,7 +20,6 @@ class ForgotPasswordController extends Controller
             $status = Password::sendResetLink($request->only('email'));
 
         } catch (\Exception $ex) {
-            dd($ex);
             return response()->json([config('naz.db'), config('naz.db_error')]);
         }
 
@@ -39,7 +38,7 @@ class ForgotPasswordController extends Controller
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
-        return response()->json([$request->all()]);
+        return response()->json(['data' => $request->all()]);
     }
 
     public function reset(Request $request){
