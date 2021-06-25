@@ -17,12 +17,16 @@ class ForgotPasswordController extends Controller
 
         try {
 
-            Password::sendResetLink($request->only('email'));
+            $status = Password::sendResetLink($request->only('email'));
 
         } catch (\Exception $ex) {
-            return response()->json(config('naz.db'), config('naz.db_error'));
+            return response()->json([config('naz.db'), config('naz.db_error')]);
         }
 
-        return response()->json(["message" => 'Reset password link sent on your email id.']);
+        if ($status == Password::RESET_LINK_SENT) {
+            return response()->json(["message" => 'Reset password link sent on your email id.']);
+        }else{
+            dd($status);
+        }
     }
 }
