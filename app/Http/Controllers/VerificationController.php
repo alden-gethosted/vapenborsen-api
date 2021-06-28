@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 class VerificationController extends Controller
 {
     public function sendVerificationEmail(Request $request)
