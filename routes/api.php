@@ -28,6 +28,7 @@ use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 //use App\Mail\TestMail;
 //use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -149,9 +150,9 @@ Route::post('password/reset', [ForgotPasswordController::class, 'reset']);
 /**
  * /Email Verification
  */
-Route::get('email/verify/{id}', 'VerificationController@verify')->name('verification.verify'); // Make sure to keep this as your route name
+Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
-Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+Route::get('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::get('/test-mail', function () {
     try {
