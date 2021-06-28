@@ -26,7 +26,13 @@ class VerificationController extends Controller
         $id = $request->route('id');
         $user = User::find($id);
 
+        if ($id != $user->getKey()) {
+            return [
+                'message'=>'Invalid data'
+            ];
+        }
 
+        
         if ($user->hasVerifiedEmail()) {
             return [
                 'message' => 'Email already verified'
