@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class VerificationController extends Controller
 {
@@ -23,17 +21,20 @@ class VerificationController extends Controller
         return ['message' => 'verification-link-sent'];
     }
 
-    public function verify(EmailVerificationRequest $request)
+    public function verify(Request $request)
     {
+        $id = $request->route('id');
+        $user = User::find($id);
 
-        if ($request->user()->hasVerifiedEmail()) {
+
+        if ($user->hasVerifiedEmail()) {
             return [
                 'message' => 'Email already verified'
             ];
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
         }
 
         return [
