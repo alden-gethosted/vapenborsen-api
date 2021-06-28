@@ -130,14 +130,13 @@ Route::middleware(['auth:api'])->group(function () {
      */
 
     Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail']);
-
+    Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
     /**
      * /Email Verification
      */
 });
 
-Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 /**
  * API Auth
  */
