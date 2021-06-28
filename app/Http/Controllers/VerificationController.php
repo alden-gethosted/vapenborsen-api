@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 class VerificationController extends Controller
 {
     public function sendVerificationEmail(Request $request)
@@ -32,7 +32,14 @@ class VerificationController extends Controller
             ];
         }
 
-        
+        if (! hash_equals((string) $request->route('hash'),
+            sha1($user->getEmailForVerification()))) {
+            return [
+                'message'=>'Invalid Security Key'
+            ];
+        }
+
+
         if ($user->hasVerifiedEmail()) {
             return [
                 'message' => 'Email already verified'
