@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class VerificationController extends Controller
 {
@@ -19,7 +20,7 @@ class VerificationController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
-        return ['status' => 'verification-link-sent'];
+        return ['message' => 'verification-link-sent'];
     }
 
     public function verify(EmailVerificationRequest $request)

@@ -123,18 +123,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::post('/users', [UserController::class, 'save']);
-
-
-    /**
-     * /Email Verification
-     */
-
-    Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail']);
-    Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-
-    /**
-     * /Email Verification
-     */
 });
 
 /**
@@ -157,6 +145,17 @@ Route::get('password/reset', [ForgotPasswordController::class, 'get_reset'])->na
 Route::post('password/reset', [ForgotPasswordController::class, 'reset']);
 /**
  * API Forgot Password
+ */
+
+/**
+ * /Email Verification
+ */
+
+Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.resend');
+Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+
+/**
+ * /Email Verification
  */
 
 
