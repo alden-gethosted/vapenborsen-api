@@ -161,7 +161,7 @@ class CategoryController extends Controller
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-        return ProductCategoriesResource::collection($table);
-        //return response()->json($table);
+        //return ProductCategoriesResource::collection($table);
+        return response()->json($table);
     }
 }
