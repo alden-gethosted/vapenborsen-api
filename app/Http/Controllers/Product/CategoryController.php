@@ -157,7 +157,7 @@ class CategoryController extends Controller
 
     public function category_tree(){
         try{
-            $table = ProductCategories::with('parent', 'children')->get();
+            $table = ProductCategories::with('parent', 'children')->select('id','name', 'parents_id', 'icon', 'children')->get();
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
