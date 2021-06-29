@@ -65,11 +65,11 @@ class ProductCategories extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\ProductCategories','parents_id')->where('parents_id', null)->with('parent');
+        return $this->belongsTo('App\Models\ProductCategories','parents_id')->where('parents_id', null)->with('parent')->select('id','name', 'parents_id', 'icon');
     }
 
     public function children()
     {
-        return $this->hasMany('App\Models\ProductCategories','parents_id')->with('children');
+        return $this->hasMany('App\Models\ProductCategories','parents_id')->with('children')->select('id','name', 'parents_id', 'icon');
     }
 }
