@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\ProductCategoriesResource;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -65,11 +66,11 @@ class ProductCategories extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Models\ProductCategories','parents_id')->where('parents_id', null)->with('parent')->select('id','name', 'parents_id', 'icon');
+        return ProductCategoriesResource::collection($this->belongsTo('App\Models\ProductCategories','parents_id')->where('parents_id', null)->with('parent')->select('id','name', 'parents_id', 'icon'));
     }
 
     public function children()
     {
-        return $this->hasMany('App\Models\ProductCategories','parents_id')->with('children')->select('id','name', 'parents_id', 'icon');
+        return ProductCategoriesResource::collection($this->hasMany('App\Models\ProductCategories','parents_id')->with('children')->select('id','name', 'parents_id', 'icon'));
     }
 }
