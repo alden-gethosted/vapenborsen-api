@@ -132,8 +132,9 @@ class AdController extends Controller
             $ads->product_brands_id     = $request->product_brands_id;
             $ads->product_categories_id = $request->product_categories_id;
             $ads->product_types_id      = $request->product_types_id;
-            $ads->companies_id          = $request->companies_id;
-
+            if (isset($request->companies_id)) {
+                $ads->companies_id          = $request->companies_id;
+            }
             if (isset($request->ads_packages_id)) {
                 $ads->ads_packages_id       = $request->ads_packages_id;
                 $ads->status      = $request->status;
@@ -315,7 +316,9 @@ class AdController extends Controller
            $ads->product_brands_id     = $request->product_brands_id;
            $ads->product_categories_id = $request->product_categories_id;
            $ads->product_types_id      = $request->product_types_id;
-           $ads->companies_id          = $request->companies_id;
+            if (isset($request->companies_id)) {
+                $ads->companies_id          = $request->companies_id;
+            }
            if (isset($request->status)) {
                $ads->status = $request->status;
            }
