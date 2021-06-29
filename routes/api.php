@@ -66,6 +66,7 @@ Route::get('/global/product/types', [TypesController::class, 'index']);
 Route::get('/global/product/types/{id}', [TypesController::class, 'show']);
 
 Route::middleware(['auth:api'])->group(function () {
+
     Route::resource('/product/attribute', AttributeController::class);
     Route::resource('/product/attribute-set', AttributeSetController::class);
     Route::resource('/product/brand', BrandController::class);
