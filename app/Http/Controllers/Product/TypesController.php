@@ -11,10 +11,21 @@ use Illuminate\Support\Facades\Validator;
 class TypesController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'product_categories_id' => 'sometimes|nullable|exists:product_categories,id'
+        ]);
+        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+
         try{
-            $table = ProductType::orderBy('id', 'DESC')->get();
+            $tablex = ProductType::orderBy('id', 'DESC');
+
+            if (isset($request->product_categories_id)) {
+                $tablex->where('product_categories_id', $request->product_categories_id);
+            }
+
+            $table = $tablex->get();
         }catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
