@@ -83,7 +83,7 @@ class AdController extends Controller
             'is_used'               => 'required|boolean',
             'is_shipping'           => 'required|boolean',
             'status'                => 'required|in:Published,Draft,Pending,Canceled,Expired',
-            'photo'                 => 'sometimes|mimes:jpg,bmp,png',
+            'photo'                 => 'sometimes|nullable|mimes:jpg,bmp,png',
             'attribute_vals'        => 'sometimes|nullable|array',
             'tags'                  => 'sometimes|nullable|array',
             'items'                 => 'sometimes|nullable|array',
@@ -138,7 +138,7 @@ class AdController extends Controller
                 $ads->ads_packages_id       = $request->ads_packages_id;
                 $ads->status      = $request->status;
             }else{
-           //     $ads->status       = 'Pending';
+                //$ads->status       = 'Pending';
                 $ads->status      = in_array( $request->status, [ 'Draft','Pending','Canceled','Expired' ] ) ? $request->status : 'Draft';
             }
 
