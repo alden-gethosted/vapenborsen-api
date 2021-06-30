@@ -413,6 +413,7 @@ class AdController extends Controller
 
         } catch (\Exception $ex) {
             DB::rollBack();
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
         DB::commit();
