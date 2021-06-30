@@ -76,6 +76,7 @@ class AdController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'name'                  => 'required|string|min:3',
             'state'                 => 'sometimes|nullable|in:Weapon,Accessories,Other',
