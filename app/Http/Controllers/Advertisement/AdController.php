@@ -76,7 +76,7 @@ class AdController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+       // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name'                  => 'required|string|min:3',
             'state'                 => 'sometimes|nullable|in:Weapon,Accessories,Other',
@@ -192,9 +192,8 @@ class AdController extends Controller
                 foreach( $request->attribute_vals as $key => $attribute ) {
                     $ads_attribute          = new AdsAttribute();
                     $ads_attribute->name    = $key ;
-                    $ads_attribute->values  = json_encode( $attribute );
+                    $ads_attribute->values  = $attribute;
                     $ads_attribute->ads_id  = $ads->id;
-
                     $ads_attribute->save();
                 }
             }
@@ -227,7 +226,7 @@ class AdController extends Controller
             }
 
         } catch (\Exception $ex) {
-            dd($ex);
+            //dd($ex);
             DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
@@ -375,12 +374,12 @@ class AdController extends Controller
 
         if( isset( $request->attribute_vals ) ) {
             foreach( $request->attribute_vals as $key => $attribute ) {
-                $ads_attribute  = AdsAttribute::where( 'ads_id', $ads->id )->where('id', $item[id])->first();
+                AdsAttribute::where( 'ads_id', $ads->id )->delete();
 
+                $ads_attribute          = new AdsAttribute();
                 $ads_attribute->name    = $key ;
-                $ads_attribute->values  = json_encode( $attribute );
+                $ads_attribute->values  = $attribute;
                 $ads_attribute->ads_id  = $ads->id;
-
                 $ads_attribute->save();
             }
         }

@@ -16,7 +16,7 @@ class CreateAdsAttributesTable extends Migration
         Schema::create('ads_attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('values')->comment('Attribute Value');
+            $table->string('values')->comment('Attribute Value');
             $table->foreignId('ads_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
             $table->timestamps();
