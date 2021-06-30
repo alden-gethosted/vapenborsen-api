@@ -373,9 +373,8 @@ class AdController extends Controller
 
 
         if( isset( $request->attribute_vals ) ) {
+            AdsAttribute::where( 'ads_id', $ads->id)->delete();
             foreach( $request->attribute_vals as $key => $attribute ) {
-                AdsAttribute::where( 'ads_id', $ads->id )->delete();
-
                 $ads_attribute          = new AdsAttribute();
                 $ads_attribute->name    = $key ;
                 $ads_attribute->values  = $attribute;
