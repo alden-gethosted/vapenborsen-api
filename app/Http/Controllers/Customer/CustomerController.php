@@ -40,7 +40,7 @@ class CustomerController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'photo' => 'sometimes|nullable|file',
+            'photo' => 'sometimes|nullable|image',
             'status' => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -61,18 +61,20 @@ class CustomerController extends Controller
             }
 
             if ($request->has('photo')) {
-                // Get image file
-                $image = $request->file('photo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/user/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->photo = $filePath;
+                if (isset($request->photo)) {
+                    // Get image file
+                    $image = $request->file('photo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/user/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->photo = $filePath;
+                }
             }
 
             $table->save();
@@ -114,7 +116,7 @@ class CustomerController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|string|email|unique:users,email,'.$id,
             'password' => 'sometimes|nullable|min:8|confirmed',
-            'photo' => 'sometimes|nullable|file',
+            'photo' => 'sometimes|nullable|image',
             'status' => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -137,18 +139,24 @@ class CustomerController extends Controller
             }
 
             if ($request->has('photo')) {
-                // Get image file
-                $image = $request->file('photo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/user/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->photo = $filePath;
+                if (isset($request->photo)) {
+                    // Get image file
+                    $image = $request->file('photo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/user/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->photo = $filePath;
+                }else{
+                    $table->photo = null;
+                }
+            }else{
+                $table->photo = null;
             }
 
             $table->save();
@@ -198,7 +206,7 @@ class CustomerController extends Controller
             'name' => 'required|max:191',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'photo' => 'sometimes|nullable|file',
+            'photo' => 'sometimes|nullable|image',
             'status' => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -219,18 +227,20 @@ class CustomerController extends Controller
             }
 
             if ($request->has('photo')) {
-                // Get image file
-                $image = $request->file('photo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/user/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->photo = $filePath;
+                if (isset($request->photo)) {
+                    // Get image file
+                    $image = $request->file('photo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/user/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->photo = $filePath;
+                }
             }
 
             $table->save();

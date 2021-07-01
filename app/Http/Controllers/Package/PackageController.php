@@ -33,14 +33,14 @@ class PackageController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'name'       => 'required|string|unique:ads_packages,name|max:191',
             'types'      => 'sometimes|nullable|in:Premium,Free',
             'quantity'   => 'required|numeric',
             'price'      => 'required|numeric',
             'expire_day' => 'required|numeric',
-            'banner'     => 'sometimes|nullable|file',
+            'banner'     => 'sometimes|nullable|image',
             'status '     => 'sometimes|nullable|boolean'
         ]);
 
@@ -62,18 +62,20 @@ class PackageController extends Controller
             $table->description = $request->description;
 
             if ($request->has('banner')) {
-                // Get image file
-                $image = $request->file('banner');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/package/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->banner = $filePath;
+                if (isset($request->banner)) {
+                    // Get image file
+                    $image = $request->file('banner');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/package/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->banner = $filePath;
+                }
             }
 
             $table->save();
@@ -114,7 +116,7 @@ class PackageController extends Controller
             'quantity'   => 'required|numeric',
             'price'      => 'required|numeric',
             'expire_day' => 'required|numeric',
-            'banner'     => 'sometimes|nullable|file',
+            'banner'     => 'sometimes|nullable|image',
             'status '    => 'sometimes|nullable|boolean'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -135,18 +137,24 @@ class PackageController extends Controller
             $table->description = $request->description;
 
             if ($request->has('banner')) {
-                // Get image file
-                $image = $request->file('banner');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/package/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->banner = $filePath;
+                if (isset($request->banner)) {
+                    // Get image file
+                    $image = $request->file('banner');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/package/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->banner = $filePath;
+                }else{
+                    $table->banner = null;
+                }
+            }else{
+                $table->banner = null;
             }
 
             $table->save();

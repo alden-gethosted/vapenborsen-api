@@ -38,7 +38,8 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:product_categories,name',
-            'parents_id' => 'sometimes|nullable|exists:product_categories,id'
+            'parents_id' => 'sometimes|nullable|exists:product_categories,id',
+            'icon'     => 'sometimes|nullable|image'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -51,18 +52,20 @@ class CategoryController extends Controller
             }
 
             if ($request->has('icon')) {
-                // Get image file
-                $image = $request->file('icon');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/categories/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->icon = $filePath;
+                if (isset($request->icon)) {
+                    // Get image file
+                    $image = $request->file('icon');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/categories/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->icon = $filePath;
+                }
             }
 
             $table->save();
@@ -102,7 +105,8 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:product_categories,name,'.$id,
-            'parents_id' => 'sometimes|nullable|exists:product_categories,id'
+            'parents_id' => 'sometimes|nullable|exists:product_categories,id',
+            'icon'     => 'sometimes|nullable|image'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
@@ -117,18 +121,25 @@ class CategoryController extends Controller
             }
 
             if ($request->has('icon')) {
-                // Get image file
-                $image = $request->file('icon');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/categories/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->icon = $filePath;
+                if (isset($request->icon)) {
+                    // Get image file
+                    $image = $request->file('icon');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/categories/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->icon = $filePath;
+                }else{
+                    $table->icon = null;
+                }
+
+            }else{
+                $table->icon = null;
             }
 
             $table->save();

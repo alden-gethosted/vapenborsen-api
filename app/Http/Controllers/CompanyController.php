@@ -51,7 +51,7 @@ class CompanyController extends Controller
             'name'          => 'required|string|min:3|unique:companies,name',
             'status'        => 'required|boolean',
             'users_id'      => 'required|exists:users,id',
-            'logo'          => 'sometimes|nullable|file',
+            'logo'          => 'sometimes|nullable|image',
             'description'   => 'sometimes|nullable',
             'contact'       => 'sometimes|nullable|max:15|string',
             'contact_person'=> 'sometimes|nullable|string',
@@ -72,18 +72,20 @@ class CompanyController extends Controller
             $company->website        = $request->website;
 
             if ( $request->has('logo') ) {
-                // Get image file
-                $image = $request->file('logo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/company/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $company->logo = $filePath;
+                if (isset($request->logo)) {
+                    // Get image file
+                    $image = $request->file('logo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/company/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $company->logo = $filePath;
+                }
             }
 
             $company->save();
@@ -142,18 +144,24 @@ class CompanyController extends Controller
             $company->website        = $request->website;
 
             if ( $request->has('logo') ) {
-                // Get image file
-                $image = $request->file('logo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/company/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $company->logo = $filePath;
+                if (isset($request->logo)) {
+                    // Get image file
+                    $image = $request->file('logo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/company/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $company->logo = $filePath;
+                }else{
+                    $company->logo = null;
+                }
+            }else{
+                $company->logo = null;
             }
 
             $company->save();

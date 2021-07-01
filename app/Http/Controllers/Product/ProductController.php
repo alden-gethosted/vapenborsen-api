@@ -152,7 +152,8 @@ class ProductController extends Controller
             'product_brands_id' => 'required|numeric|exists:product_brands,id',
             'attributes_id' => 'sometimes|nullable|array',
             'attributes_val' => 'sometimes|nullable|array',
-            'tags_id' => 'sometimes|nullable|array'
+            'tags_id' => 'sometimes|nullable|array',
+            'photo'                 => 'sometimes|nullable|image'
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
