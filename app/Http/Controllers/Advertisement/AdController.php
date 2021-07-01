@@ -336,18 +336,22 @@ class AdController extends Controller
            $ads->descriptions  = $request->descriptions;
 
            if ($request->has('photo')) {
-            $image      = $request->file('photo');
-            $photo_name = Str::slug($request->input('name')) . '_' . time();
-            $folder     = '/uploads/ads/';
-            $filePath   = $folder . $photo_name . '.' . $image->getClientOriginalExtension();
+               if (isset($request->photo)) {
+                   $image = $request->file('photo');
+                   $photo_name = Str::slug($request->input('name')) . '_' . time();
+                   $folder = '/uploads/ads/';
+                   $filePath = $folder . $photo_name . '.' . $image->getClientOriginalExtension();
 
-            $this->uploadOne($image, $folder, 'public', $photo_name);
+                   $this->uploadOne($image, $folder, 'public', $photo_name);
 
-            if( File::exists( $ads->photo ) ) {
-                File::delete( $ads->photo );
-            }
+                   if (File::exists($ads->photo)) {
+                       File::delete($ads->photo);
+                   }
 
-            $ads->photo = $filePath;
+                   $ads->photo = $filePath;
+               }else{
+                   $ads->photo = null;
+               }
         }else{
                $ads->photo = null;
        }

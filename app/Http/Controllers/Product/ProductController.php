@@ -172,18 +172,22 @@ class ProductController extends Controller
             $table->product_brands_id = $request->product_brands_id;
 
             if ($request->has('photo')) {
-                // Get image file
-                $image = $request->file('photo');
-                // Make a image name based on user name and current timestamp
-                $name = Str::slug($request->input('name')) . '_' . time();
-                // Define folder path
-                $folder = '/uploads/products/';
-                // Make a file path where image will be stored [ folder path + file name + file extension]
-                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                // Upload image
-                $this->uploadOne($image, $folder, 'public', $name);
-                // Set user profile image path in database to filePath
-                $table->photo = $filePath;
+                if (isset($request->photo)) {
+                    // Get image file
+                    $image = $request->file('photo');
+                    // Make a image name based on user name and current timestamp
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    // Define folder path
+                    $folder = '/uploads/products/';
+                    // Make a file path where image will be stored [ folder path + file name + file extension]
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    // Upload image
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    // Set user profile image path in database to filePath
+                    $table->photo = $filePath;
+                }else{
+                    $table->photo = null;
+                }
             }else{
                 $table->photo = null;
             }
