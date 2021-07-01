@@ -302,7 +302,13 @@ class AdController extends Controller
         DB::beginTransaction();
 
         try {
-           $ads              = Ads::find($id);
+
+            $ads              = Ads::find($id);
+
+            if (isset($request->status)) {
+                $ads->status = $request->status;
+            }
+
            $ads->name        = $request->name;
             if (isset($request->state)){
                 $ads->state       = $request->state;
@@ -319,9 +325,7 @@ class AdController extends Controller
             if (isset($request->companies_id)) {
                 $ads->companies_id          = $request->companies_id;
             }
-           if (isset($request->status)) {
-               $ads->status = $request->status;
-           }
+
            $ads->products_id           = $request->products_id;
            $ads->email         = $request->email;
            $ads->phone         = $request->phone;
