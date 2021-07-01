@@ -348,7 +348,9 @@ class AdController extends Controller
             }
 
             $ads->photo = $filePath;
-        }
+        }else{
+               $ads->photo = null;
+       }
 
         $ads->save();
 
