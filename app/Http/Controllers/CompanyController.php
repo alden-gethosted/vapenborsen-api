@@ -157,8 +157,6 @@ class CompanyController extends Controller
                     $this->uploadOne($image, $folder, 'public', $name);
                     // Set user profile image path in database to filePath
                     $company->logo = $filePath;
-                }else{
-                    $company->logo = null;
                 }
             }else{
                 $company->logo = null;

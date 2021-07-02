@@ -152,8 +152,6 @@ class CustomerController extends Controller
                     $this->uploadOne($image, $folder, 'public', $name);
                     // Set user profile image path in database to filePath
                     $table->photo = $filePath;
-                }else{
-                    $table->photo = null;
                 }
             }else{
                 $table->photo = null;

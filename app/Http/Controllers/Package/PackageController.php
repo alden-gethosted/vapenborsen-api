@@ -150,8 +150,6 @@ class PackageController extends Controller
                     $this->uploadOne($image, $folder, 'public', $name);
                     // Set user profile image path in database to filePath
                     $table->banner = $filePath;
-                }else{
-                    $table->banner = null;
                 }
             }else{
                 $table->banner = null;

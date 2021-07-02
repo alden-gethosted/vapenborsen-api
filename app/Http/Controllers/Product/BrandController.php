@@ -141,10 +141,7 @@ class BrandController extends Controller
                     $this->uploadOne($image, $folder, 'public', $name);
                     // Set user profile image path in database to filePath
                     $table->logo = $filePath;
-                }else{
-                    $table->logo = null;
                 }
-
             }else{
                 $table->logo = null;
             }

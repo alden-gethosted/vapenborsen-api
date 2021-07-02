@@ -46,7 +46,7 @@ class AdsGalleyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ads_id'          => 'required|integer|exists:ads,id',
-            'name'                 => 'required|file',
+            'name'                 => 'required|image',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -90,7 +90,7 @@ class AdsGalleyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'ads_id'          => 'required|integer|exists:ads,id',
-            'name'                 => 'sometimes|nullable|file',
+            'name'                 => 'sometimes|nullable|image',
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
