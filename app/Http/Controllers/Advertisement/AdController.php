@@ -490,7 +490,7 @@ class AdController extends Controller
         try {
             if( isset( $request->ads ) ) {
                 //DB::connection()->enableQueryLog();
-                $items = Ads::whereIn('id',$request->ads)->update(['status' => $request->status]);
+                Ads::whereIn('id',$request->ads)->update(['status' => $request->status]);
                 $table = Ads::whereIn('id',$request->ads)->get();
             }
         } catch (\Exception $ex) {
