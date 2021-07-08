@@ -200,7 +200,17 @@ class CategorySeeder extends Seeder
             ['id' => 41,'name' => 'Remington', 'product_categories_id' => 63],
             ['id' => 42,'name' => 'Browning', 'product_categories_id' => 63],
             ['id' => 43,'name' => 'Sauer', 'product_categories_id' => 63],
-            ['id' => 44,'name' => 'Other brands', 'product_categories_id' => 63]
+            ['id' => 44,'name' => 'Other brands', 'product_categories_id' => 63],
+            ['id' => 45,'name' => 'Red dot', 'product_categories_id' => 33],
+            ['id' => 46,'name' => 'Traditionally', 'product_categories_id' => 33],
+            ['id' => 47,'name' => 'Night optics', 'product_categories_id' => 33],
+            ['id' => 48,'name' => 'Red dot', 'product_categories_id' => 34],
+            ['id' => 49,'name' => 'Traditionally', 'product_categories_id' => 34],
+            ['id' => 50,'name' => 'Red dot', 'product_categories_id' => 35],
+            ['id' => 51,'name' => 'Traditionally', 'product_categories_id' => 35],
+            ['id' => 52,'name' => 'With rangefinder', 'product_categories_id' => 36],
+            ['id' => 53,'name' => 'Without rangefinder', 'product_categories_id' => 36],
+            ['id' => 54,'name' => 'Traditionally', 'product_categories_id' => 37]
         ], [], ['id']);
 
         ProductBrand::upsert([
