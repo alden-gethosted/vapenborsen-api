@@ -21,7 +21,7 @@ class AdsResource extends JsonResource
             'product_brands'        => new ProductBrandResource( $this->productBrand ),
             'product_categories'    => new ProductCategoriesResource( $this->productCategory ),
             'product_types_id'      => new ProductTypeResource( $this->productType ),
-            'companies'             => new CompanyResource( $this->company),
+            'companies'             => new CompanyResource( $this->companies),
             'ads_packages'          => isset( $this->adsPackage ) ? $this->adsPackage : '',
             'products'              => new ProductResource( $this->product ),
             'users'                 => new UserResource( $this->user ),
