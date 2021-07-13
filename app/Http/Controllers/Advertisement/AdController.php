@@ -95,7 +95,7 @@ class AdController extends Controller
             'product_categories_id' => 'sometimes|nullable|integer|exists:product_categories,id',
             'product_types_id'      => 'sometimes|nullable|integer|exists:product_types,id',
             'companies_id'          => 'sometimes|nullable|integer|exists:companies,id',
-            'ads_packages_id'       => 'sometimes|nullable|integer|exists:ads_packages,id',
+            'purchase_packages_id'       => 'sometimes|nullable|integer|exists:purchase_packages,id',
             'products_id'           => 'sometimes|nullable|integer|exists:products,id',
             'email'                 => 'sometimes|nullable|email'
         ]);
@@ -110,7 +110,7 @@ class AdController extends Controller
 
             $user_id = Auth::user()->id;
 
-            if(isset($request->ads_packages_id)){
+            if(isset($request->purchase_packages_id)){
                 $package = PurchasePackage::where('ads_packages_id', $request->ads_packages_id)->where('users_id', '=', $user_id)->where('expire', '>', $today)->count(); //Check it is expire or not
 
                 if($package <= 0){
@@ -136,8 +136,8 @@ class AdController extends Controller
             if (isset($request->companies_id)) {
                 $ads->companies_id          = $request->companies_id;
             }
-            if (isset($request->ads_packages_id)) {
-                $ads->ads_packages_id       = $request->ads_packages_id;
+            if (isset($request->purchase_packages_id)) {
+                $ads->purchase_packages_id       = $request->purchase_packages_id;
                 $ads->status      = $request->status;
             }else{
                 //$ads->status       = 'Pending';
@@ -295,7 +295,7 @@ class AdController extends Controller
             'product_categories_id' => 'sometimes|nullable|integer|exists:product_categories,id',
             'product_types_id'      => 'sometimes|nullable|integer|exists:product_types,id',
             'companies_id'          => 'sometimes|nullable|integer|exists:companies,id',
-            'ads_packages_id'       => 'sometimes|nullable|integer|exists:ads_packages,id',
+            //'purchase_packages_id'       => 'sometimes|nullable|integer|exists:purchase_packages,id',
             'products_id'           => 'sometimes|nullable|integer|exists:products,id',
         ]);
 
