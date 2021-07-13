@@ -111,8 +111,13 @@ class AdController extends Controller
             $user_id = Auth::user()->id;
 
             if(isset($request->purchase_packages_id)){
-                $package = PurchasePackage::where('id', $request->purchase_packages_id)->where('users_id', '=', $user_id)->where('expire', '>', $today)->count(); //Check it is expire or not
+                $rem = PurchasePackage::find($request->purchase_packages_id);
+                $remain = $rem->remaining();
+                if($remain <= 0){
+                    throw new \Exception('This package quantity limit exceeded!!');
+                }
 
+                $package = PurchasePackage::where('id', $request->purchase_packages_id)->where('users_id', '=', $user_id)->where('expire', '>', $today)->count(); //Check it is expire or not
                 if($package <= 0){
                     throw new \Exception('This package was expired!!');
                 }
