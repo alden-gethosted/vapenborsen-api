@@ -21,7 +21,7 @@ class AdsFavResource extends JsonResource
             'product_categories'    => new ProductCategoriesResource( $this->productCategory ),
             'product_types_id'      => new ProductTypeResource( $this->productType ),
             'companies'             => new CompanyResource( $this->company),
-            'ads_packages'          => isset( $this->adsPackage ) ? $this->adsPackage : '',
+            'purchase_packages'     => new PackagePurchaseResource($this->purchasePackage),
             'products'              => new ProductResource( $this->product ),
             'reviews'               => AdReviewsResource::collection( $this->adsReviews ),
             'gallery'               => AdPhotosResource::collection( $this->adsPhotos ),

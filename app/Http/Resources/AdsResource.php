@@ -22,7 +22,7 @@ class AdsResource extends JsonResource
             'product_categories'    => new ProductCategoriesResource( $this->productCategory ),
             'product_types_id'      => new ProductTypeResource( $this->productType ),
             'companies'             => new CompanyResource( $this->companies),
-            'ads_packages'          => isset( $this->adsPackage ) ? $this->adsPackage : '',
+            'purchase_packages'     => new PackagePurchaseResource($this->purchasePackage),
             'products'              => new ProductResource( $this->product ),
             'users'                 => new UserResource( $this->user ),
             'reviews'               => AdReviewsResource::collection( $this->adsReviews ),
