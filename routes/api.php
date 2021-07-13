@@ -46,7 +46,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-
+    
 Route::get('/', [AdController::class, 'searches']);
 Route::post('/customer/reg/', [CustomerController::class, 'customer_register']);
 
@@ -76,7 +76,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/tag', TagController::class);
     Route::resource('/area', AreaController::class);
 
-   // Route::resource('/ads/package', AdPackageController::class);
+   Route::resource('/ads/package', AdPackageController::class);
     Route::get('/ads/message', [AdMessageController::class, 'index']);
     Route::get('/ads/message/{ads_id}', [AdMessageController::class, 'message']);
     Route::post('/ads/message', [AdMessageController::class, 'store']);
@@ -89,7 +89,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('/package/purchase-history', [PackagePurchaseController::class, 'payment_history']);
     Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
-    Route::resource('/package/purchase', PackagePurchaseController::class);
+    // Route::resource('/package/purchase', PackagePurchaseController::class);
     Route::resource('/package', PackageController::class);
 
     Route::resource('/ads.reviews', AdReviewController::class);
