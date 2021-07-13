@@ -21,6 +21,7 @@ class PackagePurchaseResource extends JsonResource
             'types'       => $this->types,
             'quantity'    => $this->quantity,
             'amount'  => $this->amount,
+            'remaining'  => $this->remaining ?? 0,
             'expire'       => Carbon::parse($this->expire)->format('d/m/Y h:i A'),
             'discount'      => $this->discount,
             'created_at'  => Carbon::parse($this->created_at)->format('d/m/Y'),
