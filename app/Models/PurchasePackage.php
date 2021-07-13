@@ -26,37 +26,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PurchasePackage extends Model
 {
-    /**
-     * The "type" of the auto-incrementing ID.
-     *
-     * @var string
-     */
+
     protected $keyType = 'integer';
 
-    /**
-     * @var array
-     */
+
     protected $fillable = ['coupons_id', 'ads_packages_id', 'companies_id', 'users_id', 'name', 'types', 'quantity', 'amount', 'discount', 'status', 'expire', 'is_percent', 'deleted_at', 'created_at', 'updated_at'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function adsPackage()
     {
         return $this->belongsTo('App\Models\AdsPackage', 'ads_packages_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function coupon()
     {
         return $this->belongsTo('App\Models\Coupon', 'coupons_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'users_id');
@@ -64,5 +52,15 @@ class PurchasePackage extends Model
 
     public function company(){
         return $this->belongsTo('App\Models\Company', 'companies_id');
+    }
+
+    public function usePackage(){
+        return $this->hasMany('App\Models\Ads', 'purchase_packages_id');
+    }
+
+    public function remaining(){
+        $total = $this->quantity;
+        $use_package = $this->usePackage()->count();
+        return $total - $use_package;
     }
 }
