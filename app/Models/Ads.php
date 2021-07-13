@@ -60,7 +60,7 @@ class Ads extends Model
     /**
      * @var array
      */
-    protected $fillable = ['areas_id', 'product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'ads_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['areas_id', 'product_brands_id', 'product_categories_id', 'product_types_id', 'companies_id', 'purchase_packages_id', 'products_id', 'users_id', 'name', 'state', 'seller', 'email', 'phone', 'contact_time', 'brand', 'category', 'product_types', 'photo', 'price', 'descriptions', 'is_used', 'is_shipping', 'status', 'expire', 'deleted_at', 'created_at', 'updated_at'];
 
     public function areas()
     {
@@ -70,9 +70,9 @@ class Ads extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function adsPackage()
+    public function purchasePackage()
     {
-        return $this->belongsTo('App\Models\AdsPackage', 'ads_packages_id');
+        return $this->belongsTo('App\Models\PurchasePackage', 'purchase_packages_id');
     }
 
     /**

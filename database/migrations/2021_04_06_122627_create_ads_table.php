@@ -36,7 +36,7 @@ class CreateAdsTable extends Migration
             $table->foreignId('product_categories_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('product_types_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('companies_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
-            $table->foreignId('ads_packages_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
+            $table->foreignId('purchase_packages_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('products_id')->nullable()->constrained()->onDelete('Set Null')->onUpdate('No Action');
             $table->foreignId('users_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->softDeletes();
