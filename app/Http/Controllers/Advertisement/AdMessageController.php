@@ -8,11 +8,14 @@ use App\Models\AdsMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use App\Events\MessageSend;
+
 class AdMessageController extends Controller
 {
 
     public function index(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'ads_id'      => 'sometimes|nullable|integer|exists:ads,id',
             'users_id'      => 'sometimes|nullable|integer|exists:users,id',
@@ -22,7 +25,7 @@ class AdMessageController extends Controller
 
         try{
 
-            $tablex =  AdsMessage::orderBy('id', 'DESC');
+            $tablex =  AdsMessage::orderBy('id', 'ASC');
                 if (isset($request->ads_id)) {
                     $tablex->where('ads_id', $request->ads_id);
                 }
@@ -72,7 +75,10 @@ class AdMessageController extends Controller
             $table->users_id  = $request->users_id;
             $table->save();
 
+            broadcast( new MessageSend( $request->users_id, new AdsMessageResource($table) ) )->toOthers();
+
         }catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
