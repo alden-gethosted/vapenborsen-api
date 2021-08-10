@@ -47,13 +47,14 @@ class MessageSend implements ShouldBroadcast
         if( $this->message->is_buyer == 0 ) {
 
             return [
-                new Channel('chat.'.$this->message->ads_id.'.'.$this->message->users_id)
+                new Channel('chat.'.$this->message->ads_id.'.'.$this->message->users_id),
                     // new Channel('chat.'.$this->message->ads_id.'.'.'1')
             ];  
         } else {
             $ad = Ads::find($this->message->ads_id);
             return [
-                new Channel('chat.'.$this->message->ads_id.'.'.$ad->users_id)
+                new Channel('chat.'.$this->message->ads_id.'.'.$ad->users_id),
+                new Channel('chat.'.$this->message->ads_id.'.'.'1')
             ];   
         }
 
