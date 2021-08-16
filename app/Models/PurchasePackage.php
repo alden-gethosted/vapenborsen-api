@@ -30,7 +30,7 @@ class PurchasePackage extends Model
     protected $keyType = 'integer';
 
 
-    protected $fillable = ['coupons_id', 'ads_packages_id', 'companies_id', 'users_id', 'name', 'types', 'quantity', 'amount', 'discount', 'status', 'expire', 'is_percent', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['coupons_id', 'ads_packages_id', 'companies_id', 'users_id', 'name', 'types', 'quantity', 'amount', 'discount', 'status', 'expire', 'is_percent', 'deleted_at', 'created_at', 'updated_at', 'stripe_payment_id'];
 
 
     public function adsPackage()
