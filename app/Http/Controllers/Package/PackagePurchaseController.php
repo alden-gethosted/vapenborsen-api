@@ -9,6 +9,7 @@ use App\Models\PurchasePackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stripe;
 
 class PackagePurchaseController extends Controller
 {
@@ -36,11 +37,14 @@ class PackagePurchaseController extends Controller
 
     public function store(Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'coupons_id'      => 'sometimes|nullable|numeric',
             'ads_packages_id'      => 'required|numeric|exists:ads_packages,id',
             'users_id'      => 'required|numeric|exists:users,id',
             'companies_id'      => 'sometimes|nullable|exists:companies,id',
+            'stripetoken'       => 'required|string'
         ]);
 
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
@@ -49,6 +53,28 @@ class PackagePurchaseController extends Controller
             $today = date('Y-m-d H:i:s');
 
             $package = AdsPackage::find($request->ads_packages_id);
+
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            /*
+            $token = Stripe\Token::create([
+              'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 8,
+                'exp_year' => 2022,
+                'cvc' => '314',
+              ],
+            ]);
+            */
+
+            $price = (int) floor(  $package->price);
+
+            $payment = Stripe\Charge::create ([
+                "amount" => 100 *  $package->price,
+                "currency" => "usd",
+                "source" => $request->stripetoken,
+                "description" => "This payment is tested"
+            ]);
 
             $table = new PurchasePackage();
             $table->name        = $package->name;
@@ -60,12 +86,18 @@ class PackagePurchaseController extends Controller
             $table->coupons_id     = $request->coupons_id;
             $table->ads_packages_id  = $request->ads_packages_id;
             $table->users_id       = $request->users_id;
+            $table->stripe_payment_id = $payment->id;
             if (isset($request->companies_id)) {
                 $table->companies_id       = $request->companies_id;
             }
             $table->save();
 
+
+
+            
+
         }catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
         return new PackagePurchaseResource($table);
