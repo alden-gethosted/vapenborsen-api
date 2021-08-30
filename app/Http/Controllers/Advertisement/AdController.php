@@ -374,7 +374,6 @@ class AdController extends Controller
 
                 $ads_item->photo        = $itemfilePath;
                 $ads_item->products_id  = $item['products_id'];
-
                 $ads_item->save();
             }
         }
@@ -394,7 +393,6 @@ class AdController extends Controller
         if ( isset( $request->tags ) && \is_array( $request->tags ) ) {
             foreach( $request->tags as $tag ) {
                 $ads_tag = AdsTag::where( 'ads_id', $ads->id )->where('id', $item[id])->first();
-
                 $ads_tag->name     = $tag;
                 $ads_tag->save();
             }

@@ -149,7 +149,7 @@ class CategorySeeder extends Seeder
             ['id' => 126,'name' => 'Gunpowder dispensers', 'parents_id' => 24],
             ['id' => 127,'name' => 'Hunting knives', 'parents_id' => 25],
             ['id' => 128,'name' => 'Custom knives', 'parents_id' => 25],
-            ['id' => 129,'name' => 'Swords and others', 'parents_id' => 25],
+            //['id' => 129,'name' => 'Swords and others', 'parents_id' => 25],
             ['id' => 130,'name' => 'Gun', 'parents_id' => 112],
             ['id' => 131,'name' => 'Rifle', 'parents_id' => 112],
             ['id' => 134,'name' => 'Wet', 'parents_id' => 124],
