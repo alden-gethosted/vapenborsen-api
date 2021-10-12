@@ -27,7 +27,7 @@ class CategorySeeder extends Seeder
             ['id' => 4,'name' => 'Mufflers', 'parents_id' => null],
             ['id' => 5,'name' => 'Optics', 'parents_id' => null],
             ['id' => 6,'name' => 'Weapons & Storage', 'parents_id' => null],
-            ['id' => 7,'name' => 'Charging Presses & Tumblers', 'parents_id' => null],
+            ['id' => 7,'name' => 'Reloading Presses', 'parents_id' => null],
             ['id' => 8,'name' => 'Rifles', 'parents_id' => 1],
             ['id' => 9,'name' => 'Shotguns', 'parents_id' => 1],
             ['id' => 10,'name' => 'Pistol', 'parents_id' => 1],
