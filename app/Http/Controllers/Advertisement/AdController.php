@@ -226,7 +226,7 @@ class AdController extends Controller
             }
 
         } catch (\Exception $ex) {
-            //dd($ex);
+            dd($ex);
             DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
         }

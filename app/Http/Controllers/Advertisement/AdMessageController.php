@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Advertisement;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdsMessageResource;
 use App\Models\AdsMessage;
+use App\Models\Ads;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 use App\Events\MessageSend;
+use App\Mail\StartConversation;
 
 class AdMessageController extends Controller
 {
@@ -75,10 +78,17 @@ class AdMessageController extends Controller
             $table->users_id  = $request->users_id;
             $table->save();
 
+            $messages = AdsMessage::where('ads_id', $request->ads_id)->where('users_id', $request->users_id)->get();
+
+
+            if( count($messages) <= 1 ) {
+                $ad = Ads::find($request->ads_id);
+                Mail::to($ad->user->email)->send(new StartConversation());
+            }
+
             broadcast( new MessageSend( $request->users_id, new AdsMessageResource($table) ) )->toOthers();
 
         }catch (\Exception $ex) {
-            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
