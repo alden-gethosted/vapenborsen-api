@@ -160,3 +160,9 @@ Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify']
  */
 
 
+/*
+    get Active ADS
+ */
+
+
+Route::get('getActiveAds', [AdController::class, 'getByActiveAds'])->name('activeads');

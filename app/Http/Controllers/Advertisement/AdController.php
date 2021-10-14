@@ -499,4 +499,15 @@ class AdController extends Controller
         return AdsResource::collection($table);
     }
 
+
+    public function getByActiveAds(Request $request){
+        try{
+            $today = date('Y-m-d');
+            $tablex = Ads::orderBy('id', 'DESC')->where('status', 'Published')->where('expire', '>', $today)->count();
+        } catch (\Exception $ex) {
+            return response()->json(config('naz.db'), config('naz.db_error'));
+        }
+
+        return response()->json(['count' => $tablex]);
+    }
 }
