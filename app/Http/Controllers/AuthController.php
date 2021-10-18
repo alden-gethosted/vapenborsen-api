@@ -24,7 +24,7 @@ class AuthController extends Controller
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
-        try{
+        try {
 
             $table = new User();
             $table->name = $request->name;
@@ -42,7 +42,7 @@ class AuthController extends Controller
             );
 
         }catch (\Exception $ex) {
-            return response()->json(config('naz.db'), config('naz.db_error'));
+            return response()->json($ex,config('naz.db'), config('naz.db_error'));
         }
 
         return response()->json($data);
