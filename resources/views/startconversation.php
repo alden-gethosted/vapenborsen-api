@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1> Welcome Email </h1>
+    <h1> Hei, en kjøper ønsker å komme i kontakt med deg ang anoonsen din på Våpenbørsen.no</h1>
 </body>
 
 </html>
