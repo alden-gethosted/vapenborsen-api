@@ -39,7 +39,7 @@ class CategorySeeder extends Seeder
             ['id' => 16,'name' => 'Shotguns', 'parents_id' => 13],
             ['id' => 17,'name' => 'Pistol', 'parents_id' => 13],
             ['id' => 18,'name' => 'Paintball & Softguns', 'parents_id' => 13],
-            ['id' => 19,'name' => 'ClothingClothing Hunters & Competition Shooters', 'parents_id' => 13],
+            ['id' => 19,'name' => 'Clothing Hunters & Competition Shooters', 'parents_id' => 13],
             ['id' => 20,'name' => 'Literature & books', 'parents_id' => 13],
             ['id' => 21,'name' => 'Clay Tablets Throwsers', 'parents_id' => 13],
             ['id' => 22,'name' => 'Shooting targets', 'parents_id' => 13],
