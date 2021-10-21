@@ -252,6 +252,7 @@ class CustomerController extends Controller
             );
 
         }catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
