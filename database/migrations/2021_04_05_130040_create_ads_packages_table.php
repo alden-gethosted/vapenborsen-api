@@ -18,7 +18,7 @@ class CreateAdsPackagesTable extends Migration
             $table->string('name');
             $table->enum('types',['Premium', 'Free'])->default('Premium');
             $table->integer('quantity')->default(0)->comment('0 means Unlimited');
-            $table->tinyInteger('expire_day')->default(0)->comment('0 means Unlimited');
+            $table->integer('expire_day')->default(0)->comment('0 means Unlimited');
             $table->double('price')->default(0)->comment('0 means Free');
             $table->string('banner')->nullable();
             $table->string('description')->nullable();
