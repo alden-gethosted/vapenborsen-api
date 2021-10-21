@@ -34,7 +34,7 @@ class CategorySeeder extends Seeder
             ['id' => 11,'name' => 'Buer', 'parents_id' => 1],
             ['id' => 12,'name' => 'Air Weapons', 'parents_id' => 1],
             ['id' => 13,'name' => 'Accessories', 'parents_id' => 2],
-            ['id' => 14,'name' => 'Collect & Antique', 'parents_id' => 2],
+            ['id' => 14,'name' => 'Collectors & Antique', 'parents_id' => 1],
             ['id' => 15,'name' => 'Rifles', 'parents_id' => 13],
             ['id' => 16,'name' => 'Shotguns', 'parents_id' => 13],
             ['id' => 17,'name' => 'Pistol', 'parents_id' => 13],
