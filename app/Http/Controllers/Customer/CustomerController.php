@@ -7,6 +7,7 @@ use App\Http\Resources\CustomerResource;
 use App\Models\User;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -209,6 +210,7 @@ class CustomerController extends Controller
         ]);
         if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
 
+        DB::beginTransaction();
         try{
 
             $table = new User();
@@ -252,9 +254,10 @@ class CustomerController extends Controller
             );
 
         }catch (\Exception $ex) {
+            DB::rollBack();
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
-
+        DB::commit();
         return response()->json($data);
     }
 }
