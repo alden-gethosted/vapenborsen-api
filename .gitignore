@@ -4,7 +4,7 @@
 /storage/*.key
 /vendor
 /.idea
-.htaccess
+.unnecessary_htaccess
 .env
 .env.backup
 .phpunit.result.cache
