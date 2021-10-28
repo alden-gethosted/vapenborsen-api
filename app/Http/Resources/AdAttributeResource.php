@@ -15,10 +15,10 @@ class AdAttributeResource extends JsonResource
     public function toArray($request)
     {
         return [
-           'id'       => $this->id,
-           'name'     => $this->name,
-           'values'   => $this->values,
-           'ads_id'    => $this->ads_id,
+            'id' => $this->id,
+            'name' => $this->name,
+            'values' => $this->values,
+            'ads_id' => $this->ads_id,
         ];
     }
 }

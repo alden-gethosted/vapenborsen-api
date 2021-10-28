@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Advertisement;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Resources\AdPackageResource;
 use App\Models\AdsPackage;
 use App\Traits\UploadTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -16,9 +16,9 @@ class AdPackageController extends Controller
 
     public function index()
     {
-        try{
+        try {
             $table = AdsPackage::orderBy('id', 'DESC')->get();
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -29,27 +29,29 @@ class AdPackageController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'         => 'required|string|max:191|unique:ads_packages,name',
-            'types'        => 'required|in:Premium,Free',
-            'quantity'     => 'required|integer',
-            'price'        => 'required|numeric',
-            'expire_day'   => 'required|integer',
-            'status'       => 'required|boolean',
-            'banner'       => 'sometimes|nullable|image',
-            'description'  => 'sometimes|nullable|string',
+            'name' => 'required|string|max:191|unique:ads_packages,name',
+            'types' => 'required|in:Premium,Free',
+            'quantity' => 'required|integer',
+            'price' => 'required|numeric',
+            'expire_day' => 'required|integer',
+            'status' => 'required|boolean',
+            'banner' => 'sometimes|nullable|mimes:jpg,bmp,png',
+            'description' => 'sometimes|nullable|string',
         ]);
 
-        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), config('naz.validation'));
+        }
 
-        try{
+        try {
 
             $table = new AdsPackage();
-            $table->name        = $request->name;
-            $table->types       = $request->types;
-            $table->quantity    = $request->quantity;
-            $table->expire_day  = $request->expire_day;
-            $table->price       = $request->price;
-            $table->status      = $request->status;
+            $table->name = $request->name;
+            $table->types = $request->types;
+            $table->quantity = $request->quantity;
+            $table->expire_day = $request->expire_day;
+            $table->price = $request->price;
+            $table->status = $request->status;
             $table->description = $request->description;
 
             if ($request->has('banner')) {
@@ -71,23 +73,25 @@ class AdPackageController extends Controller
 
             $table->save();
 
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
+            dd($ex);
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new AdPackageResource($table);
     }
 
-
     public function show($id)
     {
-        try{
+        try {
 
             $table = AdsPackage::find($id);
 
-        if(!$table)
-            return response()->json(config('naz.n_found'), config('naz.not_found'));
-        }catch (\Exception $ex) {
+            if (!$table) {
+                return response()->json(config('naz.n_found'), config('naz.not_found'));
+            }
+
+        } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
@@ -97,27 +101,29 @@ class AdPackageController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'         => 'required|string|max:191|unique:ads_packages,name',
-            'types'        => 'required|in:Premium,Free',
-            'quantity'     => 'required|integer',
-            'price'        => 'required|numeric',
-            'expire_day'   => 'required|integer',
-            'status'       => 'required|boolean',
-            'banner'       => 'sometimes|nullable|image',
-            'description'  => 'sometimes|nullable|string',
+            'name' => 'required|string|max:191|unique:ads_packages,name',
+            'types' => 'required|in:Premium,Free',
+            'quantity' => 'required|integer',
+            'price' => 'required|numeric',
+            'expire_day' => 'required|integer',
+            'status' => 'required|boolean',
+            'banner' => 'sometimes|nullable|mimes:jpg,bmp,png',
+            'description' => 'sometimes|nullable|string',
         ]);
 
-        if ($validator->fails()) return response()->json($validator->errors(), config('naz.validation'));
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), config('naz.validation'));
+        }
 
-        try{
+        try {
 
             $table = AdsPackage::find($id);
-            $table->name        = $request->name;
-            $table->types       = $request->types;
-            $table->quantity    = $request->quantity;
-            $table->expire_day  = $request->expire_day;
-            $table->price       = $request->price;
-            $table->status      = $request->status;
+            $table->name = $request->name;
+            $table->types = $request->types;
+            $table->quantity = $request->quantity;
+            $table->expire_day = $request->expire_day;
+            $table->price = $request->price;
+            $table->status = $request->status;
             $table->description = $request->description;
 
             if ($request->has('banner')) {
@@ -135,25 +141,24 @@ class AdPackageController extends Controller
                     // Set user profile image path in database to filePath
                     $table->banner = $filePath;
                 }
-            }else{
+            } else {
                 $table->banner = null;
             }
 
             $table->save();
 
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 
         return new AdPackageResource($table);
     }
 
-
     public function destroy($id)
     {
-        try{
+        try {
             AdsPackage::destroy($id);
-        }catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json(config('naz.db'), config('naz.db_error'));
         }
 

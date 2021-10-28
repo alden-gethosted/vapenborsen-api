@@ -15,9 +15,9 @@ class AdFavouriteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'       => $this->id,
-            'ads'    =>  new AdsFavResource($this->ad),
-            'customer'  => new CustomerResource($this->user)
+            'id' => $this->id,
+            'ads_id' => $this->ads_id,
+            'users_id' => $this->users_id,
         ];
     }
 }

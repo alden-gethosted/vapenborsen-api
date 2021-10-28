@@ -15,11 +15,9 @@ class AdPhotosResource extends JsonResource
     public function toArray($request)
     {
         return [
-           'ads_id'    => $this->ads_id,
-           'id'     => $this->id,
-           'uid'     => '-'.$this->id,
-           'status'     => 'done',
-           'url'   => asset($this->name)
+            'id' => $this->id,
+            'name' => $this->name,
+            'ads_id' => $this->ads_id,
         ];
     }
 }

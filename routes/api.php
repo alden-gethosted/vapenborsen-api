@@ -1,36 +1,30 @@
 <?php
 
-use App\Http\Controllers\Advertisement\AdMessageController;
-use App\Http\Controllers\Advertisement\AdsGalleyController;
-use App\Http\Controllers\Advertisement\SearchSaveController;
+use App\Http\Controllers\Advertisement\AdController;
+use App\Http\Controllers\Advertisement\AdFavouriteController;
+use App\Http\Controllers\Advertisement\AdPackageController;
+use App\Http\Controllers\Advertisement\AdReviewController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\CustomerProfile;
 use App\Http\Controllers\Customer\SubscribeController;
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\Package\PackageController;
-use App\Http\Controllers\Package\PackagePurchaseController;
-use App\Http\Controllers\Product\CategoryController;
-use App\Http\Controllers\Product\TagController;
-use App\Http\Controllers\Product\TypesController;
-use App\Http\Controllers\Product\BrandController;
-use App\Http\Controllers\AreaController;
-use App\Http\Controllers\Advertisement\AdPackageController;
-use App\Http\Controllers\Advertisement\AdController;
-use App\Http\Controllers\Advertisement\AdReviewController;
-use App\Http\Controllers\Advertisement\AdFavouriteController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Product\AttributeController;
 use App\Http\Controllers\Product\AttributeSetController;
+use App\Http\Controllers\Product\BrandController;
+use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ProductController;
-use App\Http\Controllers\CouponController;
+use App\Http\Controllers\Product\TagController;
+use App\Http\Controllers\Product\TypesController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\UserController;
 //use App\Mail\TestMail;
 //use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +35,10 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+return $request->user();
 });*/
 
 Route::get('/', [AdController::class, 'searches']);
@@ -75,25 +69,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/product/category', CategoryController::class);
     Route::resource('/product/tag', TagController::class);
     Route::resource('/area', AreaController::class);
-
-   Route::resource('/ads/package', AdPackageController::class);
-    Route::get('/ads/message', [AdMessageController::class, 'index']);
-    Route::get('/ads/message/{ads_id}', [AdMessageController::class, 'message']);
-    Route::post('/ads/message', [AdMessageController::class, 'store']);
-    Route::delete('/ads/message/{id}', [AdMessageController::class, 'destroy']);
-
-    Route::resource('/ads/gallery', AdsGalleyController::class);
+    Route::resource('/ads/package', AdPackageController::class);
     Route::resource('/ads', AdController::class);
-    Route::post('/ads/status', [AdController::class, 'statusUpdate']);
-    Route::resource('/save-search', SearchSaveController::class);
-
-    Route::get('/package/purchase-history', [PackagePurchaseController::class, 'payment_history']);
-    Route::get('/package/my-purchase', [PackagePurchaseController::class, 'my_order']);
-    Route::resource('/package/purchase', PackagePurchaseController::class);
-    Route::resource('/package', PackageController::class);
-
     Route::resource('/ads.reviews', AdReviewController::class);
-
+    Route::resource('/ads.favourite', AdFavouriteController::class);
+    Route::resource('/users.companies', CompanyController::class);
     Route::resource('/product', ProductController::class);
     Route::resource('/coupons', CouponController::class);
 
@@ -104,8 +84,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('/customer/companies', CompanyController::class);
 
     Route::get('/customer/profile', [CustomerProfile::class, 'index']);
-    Route::get('/customer/subscriber', [CustomerProfile::class, 'subscriber']);//subscriber list
-    Route::get('/customer/my-subscribe', [CustomerProfile::class, 'my_subscription']);//subscribe by me
+    Route::get('/customer/subscriber', [CustomerProfile::class, 'subscriber']); //subscriber list
+    Route::get('/customer/my-subscribe', [CustomerProfile::class, 'my_subscription']); //subscribe by me
     Route::get('/customer/favorite-ads', [CustomerProfile::class, 'favorite_ads']);
     Route::get('/customer/send-message', [CustomerProfile::class, 'send_message']);
     Route::get('/customer/message', [CustomerProfile::class, 'message']);
@@ -152,17 +132,15 @@ Route::post('password/reset', [ForgotPasswordController::class, 'reset']);
  * /Email Verification
  */
 
-Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.resend')->middleware('auth:api','verified');
+Route::post('email/verification-notification', [VerificationController::class, 'sendVerificationEmail'])->name('verification.resend')->middleware('auth:api', 'verified');
 Route::get('verify-email/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 /**
  * /Email Verification
  */
 
-
 /*
-    get Active ADS
+get Active ADS
  */
-
 
 Route::get('getActiveAds', [AdController::class, 'getByActiveAds'])->name('activeads');
