@@ -4,7 +4,7 @@
     </IfModule>
 
     <IfModule mod_headers.c>
-#        Header set Access-Control-Allow-Origin *
+        Header add Access-Control-Allow-Origin: "*"
         Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
         SetEnvIf Origin "^http(s)?://(.+\.)?(1xyz\.com|2xyz\.com)$" REQUEST_ORIGIN=$0
         Header always set Access-Control-Allow-Origin %{REQUEST_ORIGIN}e env=REQUEST_ORIGIN
