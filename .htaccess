@@ -4,7 +4,7 @@
     </IfModule>
 
     <IfModule mod_headers.c>
-        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Origin "https://xn--vpenborsen-15a.no"
     </IfModule>
 
     RewriteEngine On
