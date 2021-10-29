@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\AttributeValue;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AttributeValueResource extends JsonResource
+class ProductAttributeResourceTwo extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +15,17 @@ class AttributeValueResource extends JsonResource
      */
     public function toArray($request)
     {
+        $values_json = json_decode($this->values);
+
+        $values = [];
+        foreach ($values_json as $attr_id){
+            $values[] = new AttributeValueResourceTwo(AttributeValue::find($attr_id));
+        }
+
         return [
             'id' => $this->id,
-            'values' => $this->name,
-            'product_categories' => AttributProductCategoryResource::collection($this->attribute->attributeLinks),
             'attributes_id' => $this->attributes_id,
-            'attribute' => $this->attribute->name ?? ''
+            'values' => $values
         ];
     }
 }

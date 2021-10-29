@@ -23,9 +23,9 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'photo' => isset($this->photo) ? asset($this->photo) : '',
             'category' => new ProductCategoriesResource($this->productCategory),
-            'types' => new ProductTypeResource($this->productType),
-            'brand' => new ProductBrandResource($this->productBrand),
-            'product_attribute' => ProductAttributeResource::collection($this->productAttributes()->get()),
+            'types' => new ProductTypeResourceTwo($this->productType),
+            'brand' => new ProductBrandResourceTwo($this->productBrand),
+            'product_attribute' => ProductAttributeResourceTwo::collection($this->productAttributes()->get()),
             'product_tags' => ProductTagResource::collection($this->productTags()->get())
         ];
     }
