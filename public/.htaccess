@@ -2,7 +2,10 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-
+    <IfModule mod_headers.c>
+        Header add Access-Control-Allow-Origin: "*"
+        Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+    </IfModule>
     RewriteEngine On
 
     # Handle Authorization Header
